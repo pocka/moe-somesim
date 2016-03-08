@@ -1,0 +1,110 @@
+@charset "UTF-8"
+
+//@import "tab/primer"
+//@import "accordion/style"
+
+$tab-align: center
+
+@import "hojicha/lib/primer"
+@import "./vars"
+@import "./mixins"
+
+@import "./title"
+@import "./canvas"
+@import "./control-panel"
+@import "./color-slider"
+@import "./equip-list"
+@import "./color-tip"
+@import "./splash"
+@import "./pallet"
+@import "./flower-slot"
+@import "./flower-list"
+@import "./float-panel"
+@import "./layer"
+
+#color_pallet_container
+  margin-top: 1em
+
+.hojicha--tab-nav--container
+  text-align: center
+  margin: 0
+  font-size: 0.8em
+
+.hojicha--tab-nav--item--label
+  margin-top: 0
+  color: #ccc
+
+.hojicha--tab--container
+  text-align: center
+
+.hojicha--tab--item--contents
+  text-align: center
+
+.app-container
+  text-align: center
+  user-select: none
+  background-color: #222
+  background-image: url("/resource/img/texture-transparent.png")
+
+.main-container
+  position: relative
+  display: flex
+  height: 100%
+  flex-direction: column
+  justify-content: space-between
+
+h4
+  background-color: $color-dark
+  color: #FFF
+  padding-left: 0.5em
+
+.color-preview--preview
+  margin:
+    bottom: 0.5em
+    top: 0.3em
+  padding:
+    bottom: 0.3em
+  background-color: transparent
+  display: inline-block
+  width: 3em
+  height: 0.8em
+  color: #FFF
+  vertical-align: middle
+  border: 1px $color-border solid
+
+.color-preview--value
+  display: inline-block
+  width: 10em
+
+#tabs_color
+  height: 50%
+
+#view
+  display: block
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  overflow: hidden
+  &>div
+    @extend #view
+
+
+#uri_output
+  width: 50%
+
+.stain
+  user-select: none
+  transition: background-color 0.2s
+  &,&>span,&>span>span
+    cursor: pointer
+
+  margin:
+    bottom: 0.5em
+
+  border:
+    bottom: 1px $color-border solid
+
+  &:active
+    background-color: $color-main

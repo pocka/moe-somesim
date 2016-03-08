@@ -1,0 +1,23 @@
+{
+  "name": "hojicha",
+  "description": "UI components for virtual dom library",
+  "main": "lib/index.js",
+  "authors": [
+    "pocka"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "ui",
+    "react",
+    "deku"
+  ],
+  "homepage": "https://github.com/pocka/Hojicha",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

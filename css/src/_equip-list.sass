@@ -1,0 +1,44 @@
+.equip-panel--container
+  overflow: hidden
+
+%equip-panel--row
+  margin: 0.1em
+  font-size: 0.9em
+  border-radius: 3px
+  &:hover
+    background-color: #aaa
+    color: #fff
+
+.equip-panel--gener
+  @extend %equip-panel--row
+  background-color: #fff
+  color: #333
+  border: 1px solid #ccc
+  padding: 3px
+  display: block
+  &::before
+    content: '+ '
+    font-size: 1em
+    font-weight: 600
+
+.equip-panel--item
+  @extend %equip-panel--row
+  cursor: pointer
+  height: 0
+  opacity: 0
+  margin: 0
+  padding: 0
+  transition: height 0.2s ease 0.2s, margin 0.2s ease 0.2s, padding 0.2s ease 0.2s, opacity 0.2s ease 0s
+
+.equip-panel--gener--checkbox
+  display: none
+  &:checked+.equip-panel--gener::before
+    content: '- '
+  &:checked~.equip-panel--gener--item--container>.equip-panel--item
+    transition: height 0.2s ease 0s, margin 0.2s ease 0s, padding 0.2s ease 0s, opacity 0.2s ease 0.2s
+    height: 1em
+    opacity: 1
+    margin: 0.1em
+    padding: 0.3em
+    padding:
+      bottom: 0.5em

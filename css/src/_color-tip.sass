@@ -1,0 +1,50 @@
+$color-tooltip: #493
+$width-tooltip: 20em
+
+.color--color-tip--container
+  display: inline-block
+  position: relative
+  cursor: pointer
+  &:hover>.color--color-tip--tip
+    display: inline-block
+
+.color--color-tip
+  display: inline-block
+  width: 1em
+  height: 1em
+  border: 1px solid #ccc
+  margin: 0.1em
+  cursor: pointer
+
+.color--color-tip--tip
+  display: none
+  margin:
+    top: -2em
+  border: none
+  bottom: 2.5em
+  background-color: $color-tooltip
+  color: #fff
+  &>span
+    color: #fff
+  position: absolute
+  z-index: 10
+  margin:
+    left: -1*($width-tooltip/2+0.5em)
+  font-size: 0.8em
+  width: $width-tooltip
+  pointer-events: none
+  border-radius: 3px
+  &:after
+    content: ""
+    position: absolute
+    left: 50%
+    bottom: -1em
+    display: block
+    border:
+      top: 1em solid $color-tooltip
+      left: 1em solid transparent
+      right: 1em solid transparent
+    margin:
+      left: -1.25em
+    padding:
+      top: 1px

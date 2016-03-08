@@ -1,0 +1,126 @@
+.hojicha--tab--container {
+  display: block;
+  text-align: left; }
+
+.hojicha--tab--item {
+  display: inline; }
+
+.hojicha--tab--item--label {
+  display: inline-block;
+  position: relative;
+  left: 1px;
+  margin-left: -1px;
+  vertical-align: bottom;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  background-color: #DDD;
+  color: #555;
+  padding: 0.1em 0.2em;
+  line-height: 1.2em;
+  margin-top: 1em;
+  border-radius: 2px 2px 0 0;
+  margin-bottom: 0;
+  font-weight: 300;
+  cursor: pointer; }
+
+.hojicha--tab--item--panel {
+  display: inline-block;
+  position: relative;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  text-align: left; }
+
+.hojicha--tab--item--contents {
+  text-align: default;
+  box-sizing: border-box;
+  display: block;
+  margin-top: -1px;
+  float: left;
+  width: 100%;
+  border: 1px solid #333;
+  padding: 1em;
+  background-color: #FFF;
+  margin-bottom: 1em;
+  border-radius: 0 0 2px 2px; }
+
+.hojicha--tab--item--radio {
+  position: fixed;
+  display: none; }
+  .hojicha--tab--item--radio:checked ~ .hojicha--tab--item--panel {
+    z-index: 3;
+    display: inline; }
+  .hojicha--tab--item--radio:checked + .hojicha--tab--item--label {
+    z-index: 5;
+    background-color: #FFF;
+    color: #111; }
+
+.hojicha--tab--item--contents {
+  border: 1px solid #CCC; }
+
+.hojicha--tab--item--label {
+  border-radius: 3px 3px 0 0;
+  background-color: transparent;
+  line-height: 1.5em;
+  padding: 0.5em;
+  color: #666; }
+
+.hojicha--tab--item--radio:checked ~ .hojicha--tab--item--label {
+  border: 1px solid #CCC;
+  border-bottom: 0;
+  color: #333;
+  border-color: #CCC; }
+
+.hojicha--tab-nav--container {
+  display: block;
+  text-align: left;
+  border-bottom: 1px solid #333; }
+
+.hojicha--tab-nav--item {
+  display: inline; }
+
+.hojicha--tab-nav--item--label {
+  display: inline-block;
+  position: relative;
+  left: 1px;
+  margin-left: -1px;
+  vertical-align: bottom;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #333;
+  background-color: #DDD;
+  color: #555;
+  padding: 0.1em 0.2em;
+  line-height: 1.2em;
+  margin-top: 1em;
+  border-radius: 2px 2px 0 0;
+  margin-bottom: 0;
+  font-weight: 300;
+  cursor: pointer;
+  margin-bottom: -1px; }
+
+.hojicha--tab-nav--item--radio {
+  position: fixed;
+  display: none; }
+  .hojicha--tab-nav--item--radio:checked + .hojicha--tab-nav--item--label {
+    z-index: 5;
+    background-color: #FFF;
+    color: #111;
+    margin-bottom: -1px;
+    border-bottom: 1px transparent solid; }
+
+.hojicha--tab-nav--container {
+  border-bottom: 1px solid #CCC; }
+
+.hojicha--tab-nav--item--label {
+  border-radius: 3px 3px 0 0;
+  background-color: transparent;
+  line-height: 1.5em;
+  padding: 0.5em;
+  color: #666;
+  border-bottom: 1px solid #CCC; }
+
+.hojicha--tab-nav--item--radio:checked ~ .hojicha--tab-nav--item--label {
+  border: 1px solid #CCC;
+  color: #333;
+  border-color: #CCC;
+  border-bottom: 1px solid transparent; }

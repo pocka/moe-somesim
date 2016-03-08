@@ -1,0 +1,70 @@
+@charset "UTF-8"
+
+$tab-height: 1.5em
+
+$tab-border-width: 1px
+$tab-border: $tab-border-width solid #333
+$tab-align: left
+$tab-active-bg: #FFF
+$tab-active-font: #111
+$tab-inactive-bg: #DDD
+$tab-inactive-font: #555
+$tab-radius: 2px
+$tab-panel-radius: 2px
+
+.hojicha--tab--container
+    display: block
+    text-align: $tab-align
+
+.hojicha--tab--item
+    display: inline
+
+.hojicha--tab--item--label
+    display: inline-block
+    position: relative
+    left: 1px
+    margin-left: -1px
+    vertical-align: bottom
+    border: 1px solid transparent
+    border-bottom: 0
+    background-color: $tab-inactive-bg
+    color: $tab-inactive-font
+    padding: 0.1em 0.2em
+    line-height: 1.2em
+    margin-top: 1em
+    border-radius: $tab-radius $tab-radius 0 0
+    margin-bottom: 0
+    font-weight: 300
+    cursor: pointer
+
+.hojicha--tab--item--panel
+    display: inline-block
+    position: relative
+    height: 0
+    width: 0
+    overflow: hidden
+    text-align: left
+
+.hojicha--tab--item--contents
+    text-align: default
+    box-sizing: border-box
+    display: block
+    margin-top: -$tab-border-width
+    float: left
+    width: 100%
+    border: $tab-border
+    padding: 1em
+    background-color: #FFF
+    margin-bottom: 1em
+    border-radius: 0 0 $tab-panel-radius $tab-panel-radius
+
+.hojicha--tab--item--radio
+    position: fixed
+    display: none
+    &:checked~.hojicha--tab--item--panel
+        z-index: 3
+        display: inline
+    &:checked+.hojicha--tab--item--label
+        z-index: 5
+        background-color: $tab-active-bg
+        color: $tab-active-font

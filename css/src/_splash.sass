@@ -1,0 +1,30 @@
+@import "./mixins"
+
+.somesim--splash
+  display: block
+  width: 100%
+  height: 100%
+  overflow: hidden
+  background-color: #333
+  transition: opacity 0.2s ease 0s
+  position: absolute
+  z-index: 100
+
+.somesim--splash--hidden
+  opacity: 0
+  pointer-events: none
+
+.somesim--splash--box
+  @include centering
+  text-align: center
+
+%text-base
+  color: #fff
+
+.somesim--splash--logo
+  @extend %text-base
+  font-weight: 600
+  font-size: 2em
+
+.somesim--splash--sub
+  @extend %text-base

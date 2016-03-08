@@ -1,0 +1,31 @@
+.canvas-container
+  position: relative
+  left: 0
+  height: 40%
+  max-height: 400px
+  min-height: 0px
+  text-align: center
+  margin:
+    bottom: 1em
+    top: 1em
+  &>.color-preview--container
+    position: absolute
+    bottom: 0
+    left: 50%
+    transform: translate(-50%,0)
+    padding-left: 0.5em
+    padding-right: 1em
+    background-color: rgba(0,0,0,0.3)
+    border: 1px solid #CCC
+    border-radius: 3px
+    font-size: 0.8em
+    &>.color-preview--value
+      color: #fff
+
+#canvas
+  margin: 0
+  border-radius: 10px
+  border: 1px solid #CCC
+  height: auto
+  width: auto
+  //box-shadow: (0 0 10px darken(#333,20))

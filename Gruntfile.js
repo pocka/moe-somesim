@@ -1,0 +1,79 @@
+module.exports=function(grunt){
+	grunt.initConfig({
+		browserify:{
+			options:{
+				browserifyOptions:{
+					fullPaths:false
+				},
+				transform:[
+					['babelify',{
+					}],
+					'brfs'
+				]
+			},
+			dist:{
+				files:{
+					'./js/dest/index.js':'./js/src/index.js'
+				}
+			}
+		},
+		sass:{
+			options:{
+				sourcemap:'none',
+				loadPath:[
+					'./bower_components'
+				]
+			},
+			dist:{
+				files:{
+					'./css/src/index.css':'./css/src/index.sass'
+				}
+			}
+		},
+		autoprefixer:{
+			dist:{
+				files:{
+					'./css/dest/index.css':'./css/src/index.css'
+				}
+			}
+		},
+		jade:{
+			options:{
+				data:function(dest,src){
+					return require('./package.json');
+				}
+			},
+			dist:{
+				files:{
+					'./html/dest/index.html':'./html/src/index.jade'
+				}
+			}
+		},
+		esteWatch:{
+			options:{
+				dirs:['js/src/**/','css/src/**/','html/src/**/'],
+				livereload:{
+					enable:false
+				},
+				ignoredFiles:['*4913','*.swp','*~','*.swx']
+			},
+			js:function(path){
+				return 'browserify';
+			},
+			sass:function(path){
+				return ['sass','autoprefixer'];
+			},
+			jade:function(path){
+				return 'jade';
+			}
+		}
+	});
+
+	grunt.loadNpmTasks('grunt-este-watch');
+	grunt.loadNpmTasks('grunt-browserify');
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-autoprefixer');
+	grunt.loadNpmTasks('grunt-contrib-jade');
+
+	grunt.registerTask('default',['esteWatch']);
+};

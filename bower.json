@@ -1,0 +1,22 @@
+{
+  "name": "somesim",
+  "description": "UI components for virtual dom library",
+  "main": "lib/index.js",
+  "authors": [
+    "pocka"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "hojicha": "*",
+    "primer-css": "^2.7.0"
+  }
+}

@@ -1,0 +1,81 @@
+@import "./mixins"
+
+%layer--enable
+  opacity: 1
+  pointer-events: auto
+  transition: opacity 0.2s ease 0s, z-index 0s ease 0s
+
+%layer--disable
+  opacity: 0
+  pointer-events: none
+  z-index: -1
+  transition: opacity 0.2s ease 0s, z-index 0s ease 0.2s
+
+.somesim--layer--checkbox
+  display: none
+  &:checked+.somesim--layer--layer
+    @extend %layer--enable
+    z-index: 50
+    &+.somesim--layer--panel--close
+      @extend %layer--enable
+      z-index: 52
+      &+.somesim--layer--panel
+        @extend %layer--enable
+        z-index: 51
+
+.somesim--layer--container
+  display: block
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  pointer-events: none
+
+.somesim--layer--layer
+  @extend %layer--disable
+  position: absolute
+  display: block
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background-color: rgba(0,0,0,0.5)
+
+.somesim--layer--panel
+  @extend %layer--disable
+  position: absolute
+  display: block
+  background-color: #fff
+  top: 10%
+  bottom: 10%
+  left: 10%
+  right: 10%
+  padding: 1em
+  border: 1px solid #ccc
+  cursor: initial
+  overflow-y: auto
+  overflow-wrap: break-word
+
+.somesim--layer--panel--close
+  @extend %layer--disable
+  position: absolute
+  margin:
+    right: -0.5em
+    top: -0.5em
+  top: 10%
+  right: 10%
+  width: 1.5em
+  height: 1.5em
+  font-weight: 900
+  border-radius: 50%
+  border: 0.4em solid #333
+  background-color: #fff
+  color: #333
+  font-size: 2em
+  overflow: hidden
+  text-align: center
+  display: inline-flex
+  justify-content: space-around
+  align-items: center
+  box-sizing: border-box
