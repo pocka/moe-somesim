@@ -13,19 +13,19 @@ export default ()=>{
 	req
 		.get(DIR_CONFIG+'/somesim.json?='+meta.version)
 		.end((err,res)=>{
-			dispatch(Action.RecieveEquipList(res.body));
+			dispatch(Action.RecieveEquipList(JSON.parse(res.text)));
 		});
 
 	req
 		.get(DIR_CONFIG+'/flower.json?='+meta.version)
 		.end((err,res)=>{
-			dispatch(Action.RecieveFlowerList(res.body));
+			dispatch(Action.RecieveFlowerList(JSON.parse(res.text)));
 		});
 
 	req
 		.get(DIR_CONFIG+'/pallet.json?='+meta.version)
 		.end((err,res)=>{
-			dispatch(Action.RecieveStainList(res.body));
+			dispatch(Action.RecieveStainList(JSON.parse(res.text)));
 		});
 
 	req
