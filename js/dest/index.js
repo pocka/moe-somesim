@@ -1399,15 +1399,15 @@ var DIR_CONFIG = '/resource/config/app/moe/somesim',
 
 exports.default = function () {
 	_superagent2.default.get(DIR_CONFIG + '/somesim.json?=' + _meta2.default.version).end(function (err, res) {
-		(0, _dispatcher.dispatch)(_actions.Action.RecieveEquipList(res.body));
+		(0, _dispatcher.dispatch)(_actions.Action.RecieveEquipList(JSON.parse(res.text)));
 	});
 
 	_superagent2.default.get(DIR_CONFIG + '/flower.json?=' + _meta2.default.version).end(function (err, res) {
-		(0, _dispatcher.dispatch)(_actions.Action.RecieveFlowerList(res.body));
+		(0, _dispatcher.dispatch)(_actions.Action.RecieveFlowerList(JSON.parse(res.text)));
 	});
 
 	_superagent2.default.get(DIR_CONFIG + '/pallet.json?=' + _meta2.default.version).end(function (err, res) {
-		(0, _dispatcher.dispatch)(_actions.Action.RecieveStainList(res.body));
+		(0, _dispatcher.dispatch)(_actions.Action.RecieveStainList(JSON.parse(res.text)));
 	});
 
 	_superagent2.default.get(DIR_DOC + '/readme.md?=' + _meta2.default.version).end(function (err, res) {
