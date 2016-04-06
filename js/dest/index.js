@@ -1477,7 +1477,7 @@ var render = function render(_ref) {
 	return (0, _deku.element)(
 		"span",
 		{ "class": "color-preview--container" },
-		(0, _deku.element)("span", { "class": "color-preview--preview", style: 'background-color:#' + props.color.to_hex() }),
+		(0, _deku.element)("span", { "class": "color-preview--preview", style: "background-color:#" + props.color.to_hex() + ";" }),
 		' ',
 		(0, _deku.element)(
 			"span",
@@ -1736,7 +1736,7 @@ exports.default = function (_ref) {
 
 	return (0, _deku.element)(
 		'div',
-		{ 'class': 'control-panel' + (props.visible ? '' : ' control-panel--hidden') },
+		{ 'class': 'control-panel ' + (!props.visible ? 'control-panel--hidden' : '') },
 		children
 	);
 };
@@ -1919,10 +1919,10 @@ exports.default = function (_ref) {
 			var is_selected = index === selected;
 			return (0, _rusted.match)(slot, {
 				None: function None() {
-					return (0, _deku.element)('span', { 'class': 'flower-slot--slot--nil' + (is_selected ? ' flower-slot--slot--selected' : ''), onClick: select });
+					return (0, _deku.element)('span', { 'class': 'flower-slot--slot--nil ' + (is_selected ? 'flower-slot--slot--selected' : ''), onClick: select });
 				},
 				Some: function Some(color) {
-					return (0, _deku.element)('span', { 'class': 'flower-slot--slot' + (is_selected ? ' flower-slot--slot--selected' : ''), style: 'background-color:#' + color.to_hex() + ';', onClick: is_selected ? clear : select });
+					return (0, _deku.element)('span', { 'class': 'flower-slot--slot ' + (is_selected ? 'flower-slot--slot--selected' : ''), style: 'background-color:#' + color.to_hex() + ';', onClick: is_selected ? clear : select });
 				}
 			});
 		}),
@@ -1979,7 +1979,7 @@ var Info = (0, _deku.element)(
 		return (0, _deku.element)(
 			'p',
 			null,
-			name + ':' + _meta2.default.dependencies[name]
+			name + ' : ' + _meta2.default.dependencies[name]
 		);
 	}),
 	(0, _deku.element)(
@@ -1991,7 +1991,7 @@ var Info = (0, _deku.element)(
 		return (0, _deku.element)(
 			'p',
 			null,
-			name + ':' + _meta2.default.devDependencies[name]
+			name + ' : ' + _meta2.default.devDependencies[name]
 		);
 	})
 );
@@ -1999,14 +1999,14 @@ var Info = (0, _deku.element)(
 exports.default = Info;
 
 },{"../meta":4,"deku":335}],33:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.Controller = exports.Layer = undefined;
 
-var _deku = require('deku');
+var _deku = require("deku");
 
 // prop list
 // ____________________________________
@@ -2020,20 +2020,20 @@ var Layer = exports.Layer = function Layer(_ref) {
 	var dispatch = _ref.dispatch;
 	var children = _ref.children;
 
-	var id = 'somesim--layer--checkbox--' + props.name;
+	var id = "somesim--layer--checkbox--" + props.name;
 	return (0, _deku.element)(
-		'div',
-		{ 'class': 'somesim--layer--container' },
-		(0, _deku.element)('input', { type: 'checkbox', id: id, 'class': 'somesim--layer--checkbox' }),
-		(0, _deku.element)('label', { 'for': id, 'class': 'somesim--layer--layer' }),
+		"div",
+		{ "class": "somesim--layer--container" },
+		(0, _deku.element)("input", { type: "checkbox", id: id, "class": "somesim--layer--checkbox" }),
+		(0, _deku.element)("label", { "for": id, "class": "somesim--layer--layer" }),
 		(0, _deku.element)(
-			'label',
-			{ 'class': 'somesim--layer--panel--close', 'for': id },
-			'X'
+			"label",
+			{ "class": "somesim--layer--panel--close", "for": id },
+			"X"
 		),
 		(0, _deku.element)(
-			'div',
-			{ 'class': 'somesim--layer--panel', onClick: function onClick(e) {
+			"div",
+			{ "class": "somesim--layer--panel", onClick: function onClick(e) {
 					e.stopPropagation();
 				} },
 			children
@@ -2053,10 +2053,11 @@ var Controller = exports.Controller = function Controller(_ref2) {
 	var dispatch = _ref2.dispatch;
 	var children = _ref2.children;
 
-	var id = 'somesim--layer--checkbox--' + props.name;
+	var id = "somesim--layer--checkbox--" + props.name;
+
 	return (0, _deku.element)(
-		'label',
-		{ 'class': 'somesim--layer--controller--container', 'for': id },
+		"label",
+		{ "class": "somesim--layer--controller--container", "for": id },
 		children
 	);
 };

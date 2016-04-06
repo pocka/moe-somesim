@@ -12,7 +12,9 @@ let Info=(
 		{
 			Object.keys(meta.dependencies).map(name=>{
 				return (
-					<p>{name+':'+meta.dependencies[name]}</p>
+					<p>{
+						`${name} : ${meta.dependencies[name]}`
+					}</p>
 				);
 			})
 		}
@@ -20,7 +22,9 @@ let Info=(
 		{
 			Object.keys(meta.devDependencies).map(name=>{
 				return (
-					<p>{name+':'+meta.devDependencies[name]}</p>
+					<p>{
+						`${name} : ${meta.devDependencies[name]}`
+					}</p>
 				);
 			})
 		}

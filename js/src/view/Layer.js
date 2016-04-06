@@ -8,7 +8,7 @@ import {element} from 'deku';
 // ------------------------------------
 //
 export let Layer=({props,dispatch,children})=>{
-	let id='somesim--layer--checkbox--'+props.name;
+	let id=`somesim--layer--checkbox--${props.name}`;
 	return (
 		<div class="somesim--layer--container">
 			<input type="checkbox" id={id} class="somesim--layer--checkbox"/>
@@ -30,7 +30,8 @@ export let Layer=({props,dispatch,children})=>{
 // ------------------------------------
 //
 export let Controller=({props,dispatch,children})=>{
-	let id='somesim--layer--checkbox--'+props.name;
+	let id=`somesim--layer--checkbox--${props.name}`;
+
 	return (
 		<label class="somesim--layer--controller--container" for={ id }>
 			{ children }

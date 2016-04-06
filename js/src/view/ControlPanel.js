@@ -9,7 +9,7 @@ import {element} from 'deku';
 //
 export default ({props,children})=>{
 	return (
-		<div class={'control-panel'+(props.visible?'':' control-panel--hidden')}>
+		<div class={ `control-panel ${ !props.visible ? `control-panel--hidden` : `` }` }>
 			{children}
 		</div>
 	);

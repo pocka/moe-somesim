@@ -11,7 +11,9 @@ import {element} from 'deku';
 let render=({props})=>{
 	return (
 		<span class="color-preview--container">
-			<span class="color-preview--preview" style={'background-color:#'+props.color.to_hex()}>
+			<span class="color-preview--preview" style={
+				`background-color:#${ props.color.to_hex() };`
+			}>
 			</span>
 			{' '}
 			<span class="color-preview--value">

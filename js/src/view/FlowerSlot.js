@@ -36,8 +36,7 @@ export default ({props,dispatch,children})=>{
 						None:()=>{
 							return (
 								<span class={
-									'flower-slot--slot--nil'+
-									(is_selected?' flower-slot--slot--selected':'')
+									`flower-slot--slot--nil ${ is_selected ? `flower-slot--slot--selected` : `` }`
 								} onClick={select}>
 								</span>
 							);
@@ -45,10 +44,9 @@ export default ({props,dispatch,children})=>{
 						Some:color=>{
 							return (
 								<span class={
-									'flower-slot--slot'+
-									(is_selected?' flower-slot--slot--selected':'')
+									`flower-slot--slot ${ is_selected ? `flower-slot--slot--selected` : `` }`
 								} style={
-									'background-color:#'+color.to_hex()+';'
+									`background-color:#${ color.to_hex() };`
 								} onClick={is_selected?clear:select}></span>
 							);
 						}
