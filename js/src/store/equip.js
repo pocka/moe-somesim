@@ -1,6 +1,6 @@
 import {impl,struct,mut,Enum,match,Option,None,Some} from 'rusted';
 
-import {Store,Event} from './store';
+import {Store} from './store';
 
 // ストア定義
 // @prop mut list: Option<object>
@@ -22,7 +22,7 @@ impl(EquipStore,{
 	load_list(self,list){
 		self.list=Some(list);
 		self.selected_uri=Some(list[Object.keys(list)[0]][0].uri);
-		self.emit(Event.Change);
+		self.emit();
 	}
 });
 
@@ -39,12 +39,12 @@ store.register(action=>{
 			match(store.selected_uri,{
 				None:()=>{
 					store.selected_uri=Some(uri);
-					store.emit(Event.Change);
+					store.emit();
 				},
 				Some:old=>{
 					if(old!==uri){
 						store.selected_uri=Some(uri);
-						store.emit(Event.Change);
+						store.emit();
 					}
 				}
 			});

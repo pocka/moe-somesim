@@ -29,25 +29,15 @@ load_resources();
 
 init_canvas();
 
-EquipStore.observe(action=>{
-	match(action,{
-		Change:()=>{
-			match(EquipStore.selected_uri,{
-				Some:uri=>{
-					load(uri);
-				},
-				None:null
-			});
+EquipStore.observe(store=>{
+	match(store.selected_uri,{
+		Some:uri=>{
+			load(uri);
 		},
-		_:null
+		None:null
 	});
 });
 
-ColorStore.observe(action=>{
-	match(action,{
-		Change:()=>{
-			blend(ColorStore.color);
-		},
-		_:null
-	});
+ColorStore.observe(store=>{
+	blend(store.color);
 });

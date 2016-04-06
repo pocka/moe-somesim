@@ -211,13 +211,8 @@ let render=()=>{
 	renderer(<App version={meta.version} state={getState()}/>);
 };
 
-let hook=action=>{
-	match(action,{
-		Change:()=>{
-			render();
-		},
-		_:null
-	});
+let hook=store=>{
+	render();
 };
 
 [ExternalDocStore,FlowerStore,ColorStore,ControlStore,EquipStore,StainStore].forEach(store=>{

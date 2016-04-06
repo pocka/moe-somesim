@@ -7,7 +7,7 @@ import {
 	Ok,Err,Some,None,Option
 } from 'rusted';
 
-import {Store,Event} from './store';
+import {Store} from './store';
 import Color from '../structs/color';
 import Stain from '../structs/stain';
 

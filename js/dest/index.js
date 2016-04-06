@@ -104,27 +104,17 @@ window.pjax.addEventListener('destruct', function () {
 
 (0, _canvas.initialize)();
 
-_equip2.default.observe(function (action) {
-	(0, _rusted.match)(action, {
-		Change: function Change() {
-			(0, _rusted.match)(_equip2.default.selected_uri, {
-				Some: function Some(uri) {
-					(0, _canvas.load)(uri);
-				},
-				None: null
-			});
+_equip2.default.observe(function (store) {
+	(0, _rusted.match)(store.selected_uri, {
+		Some: function Some(uri) {
+			(0, _canvas.load)(uri);
 		},
-		_: null
+		None: null
 	});
 });
 
-_color2.default.observe(function (action) {
-	(0, _rusted.match)(action, {
-		Change: function Change() {
-			(0, _canvas.blend)(_color2.default.color);
-		},
-		_: null
-	});
+_color2.default.observe(function (store) {
+	(0, _canvas.blend)(store.color);
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
@@ -176,7 +166,7 @@ var ColorStore = (0, _rusted.struct)({
 	// ストアに色をセットする
 	set: function set(self, r, g, b) {
 		self.color.set_rgb(r, g, b);
-		self.emit(_store.Event.Change);
+		self.emit();
 	},
 	set_hsv: function set_hsv(self, h, s, v) {
 		var _Color$from_hsv = _color2.default.from_hsv(h, s, v);
@@ -188,7 +178,7 @@ var ColorStore = (0, _rusted.struct)({
 		var b = _Color$from_hsv2[2];
 
 		self.color.set_rgb(r, g, b);
-		self.emit(_store.Event.Change);
+		self.emit();
 	}
 });
 
@@ -277,7 +267,7 @@ ControlStore.register(function (action) {
 	(0, _rusted.match)(action, {
 		ChangeControlMode: function ChangeControlMode(mode) {
 			ControlStore.mode = mode;
-			ControlStore.emit(_store.Event.Change);
+			ControlStore.emit();
 		},
 		_: null
 	});
@@ -314,7 +304,7 @@ var EquipStore = (0, _rusted.struct)({
 	load_list: function load_list(self, list) {
 		self.list = (0, _rusted.Some)(list);
 		self.selected_uri = (0, _rusted.Some)(list[Object.keys(list)[0]][0].uri);
-		self.emit(_store.Event.Change);
+		self.emit();
 	}
 });
 
@@ -331,12 +321,12 @@ store.register(function (action) {
 			(0, _rusted.match)(store.selected_uri, {
 				None: function None() {
 					store.selected_uri = (0, _rusted.Some)(uri);
-					store.emit(_store.Event.Change);
+					store.emit();
 				},
 				Some: function Some(old) {
 					if (old !== uri) {
 						store.selected_uri = (0, _rusted.Some)(uri);
-						store.emit(_store.Event.Change);
+						store.emit();
 					}
 				}
 			});
@@ -391,11 +381,11 @@ var ExternalDocStore = (0, _rusted.struct)({
 	},
 	load_readme: function load_readme(self, md) {
 		self.readme = (0, _rusted.Some)((0, _convertLink2.default)((0, _marked2.default)(md)));
-		self.emit(_store.Event.Change);
+		self.emit();
 	},
 	load_update: function load_update(self, md) {
 		self.update = (0, _rusted.Some)((0, _convertLink2.default)((0, _marked2.default)(md)));
-		self.emit(_store.Event.Change);
+		self.emit();
 	}
 });
 
@@ -489,7 +479,7 @@ var FlowerStore = (0, _rusted.struct)({
 		return (0, _rusted.match)(self.selected_slot, {
 			Some: function Some(slot) {
 				self.slot[slot] = (0, _rusted.Some)(color);
-				self.emit(_store.Event.Change);
+				self.emit();
 				return (0, _rusted.Ok)();
 			},
 			None: function None() {
@@ -505,7 +495,7 @@ var FlowerStore = (0, _rusted.struct)({
 		self.slot[1] = (0, _rusted.Some)(color);
 		self.slot[2] = (0, _rusted.Some)(color);
 		self.slot[3] = (0, _rusted.Some)(color);
-		self.emit(_store.Event.Change);
+		self.emit();
 	},
 
 	// ストアの花びらスロットを空にする
@@ -516,7 +506,7 @@ var FlowerStore = (0, _rusted.struct)({
 			},
 			None: null
 		});
-		self.emit(_store.Event.Change);
+		self.emit();
 	},
 
 	// ストアのすべての花びらスロットをクリアする
@@ -525,7 +515,7 @@ var FlowerStore = (0, _rusted.struct)({
 		self.slot[1] = _rusted.None;
 		self.slot[2] = _rusted.None;
 		self.slot[3] = _rusted.None;
-		self.emit(_store.Event.Change);
+		self.emit();
 	},
 
 	// スロットを選択、または解除する
@@ -537,7 +527,7 @@ var FlowerStore = (0, _rusted.struct)({
 			self.selected_slot = _rusted.None;
 		} else {
 			self.selected_slot = (0, _rusted.Some)(index);
-			self.emit(_store.Event.Change);
+			self.emit();
 		}
 	},
 
@@ -572,21 +562,14 @@ var FlowerStore = (0, _rusted.struct)({
 
 var store = FlowerStore.new();
 
-store.observe(function (action) {
-	(0, _rusted.match)(action, {
-		Change: function Change(x) {
-			var _blend = (0, _blendFlower2.default)(store.slot);
+store.observe(function (store) {
+	var _blend = (0, _blendFlower2.default)(store.slot);
 
-			var r = _blend.r;
-			var g = _blend.g;
-			var b = _blend.b;
+	var r = _blend.r;
+	var g = _blend.g;
+	var b = _blend.b;
 
-			_color4.default.set(r, g, b);
-		},
-		_: function _() {
-			return null;
-		}
-	});
+	_color4.default.set(r, g, b);
 });
 
 store.register(function (action) {
@@ -599,7 +582,7 @@ store.register(function (action) {
 				return _flowerGener2.default.new(gener, list);
 			});
 			store.list = (0, _rusted.Some)(geners);
-			store.emit(_store.Event.Change);
+			store.emit(Event.Change);
 		},
 		SelectFlowerSlot: function SelectFlowerSlot(index) {
 			store.select_slot(index);
@@ -702,34 +685,32 @@ exports.default = store;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.Event = exports.Store = undefined;
+exports.Store = undefined;
 
 var _dispatcher = require('../dispatcher');
 
 var _rusted = require('rusted');
 
 var Store = exports.Store = (0, _rusted.trait)({
-	emit: function emit(self, action) {
+	emit: function emit(self) {
 		if (!self.__observers) {
 			self.__observers = [];
 		}
+
 		self.__observers.forEach(function (observer) {
-			observer(action);
+			observer(self);
 		});
 	},
 	observe: function observe(self, callback) {
 		if (!self.__observers) {
 			self.__observers = [];
 		}
+
 		self.__observers.push(callback);
 	},
 	register: function register(self, callback) {
 		(0, _dispatcher.register)(callback);
 	}
-});
-
-var Event = exports.Event = (0, _rusted.Enum)({
-	Change: null
 });
 
 },{"../dispatcher":2,"rusted":361}],12:[function(require,module,exports){
@@ -2501,13 +2482,8 @@ var render = function render() {
 	renderer((0, _deku.element)(App, { version: _meta2.default.version, state: getState() }));
 };
 
-var hook = function hook(action) {
-	(0, _rusted.match)(action, {
-		Change: function Change() {
-			render();
-		},
-		_: null
-	});
+var hook = function hook(store) {
+	render();
 };
 
 [_externalDoc2.default, _flower2.default, _color2.default, _controlMode.ControlStore, _equip2.default, _stain2.default].forEach(function (store) {

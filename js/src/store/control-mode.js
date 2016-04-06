@@ -1,6 +1,6 @@
 import {impl,struct,mut,Enum,match} from 'rusted';
 
-import {Store,Event} from './store';
+import {Store} from './store';
 
 export let ControlMode=Enum({
 	Color:null,
@@ -29,7 +29,7 @@ ControlStore.register(action=>{
 	match(action,{
 		ChangeControlMode:mode=>{
 			ControlStore.mode=mode;
-			ControlStore.emit(Event.Change);
+			ControlStore.emit();
 		},
 		_:null
 	});

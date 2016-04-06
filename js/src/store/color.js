@@ -1,7 +1,7 @@
 import {impl,struct,mut,Enum,match} from 'rusted';
 
 import Color from '../structs/color';
-import {Store,Event} from './store';
+import {Store} from './store';
 
 // ストア定義
 let ColorStore=struct({
@@ -17,12 +17,12 @@ impl(ColorStore,{
 	// ストアに色をセットする
 	set(self,r,g,b){
 		self.color.set_rgb(r,g,b);
-		self.emit(Event.Change);
+		self.emit();
 	},
 	set_hsv(self,h,s,v){
 		let [r,g,b]=Color.from_hsv(h,s,v);
 		self.color.set_rgb(r,g,b);
-		self.emit(Event.Change);
+		self.emit();
 	}
 });
 

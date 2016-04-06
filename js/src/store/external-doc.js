@@ -11,7 +11,7 @@ import markdown from 'marked';
 
 import convert_link from '../util/convert-link';
 
-import {Store,Event} from './store';
+import {Store} from './store';
 
 // ストア定義
 let ExternalDocStore=struct({
@@ -32,11 +32,11 @@ impl(ExternalDocStore,{
 	},
 	load_readme(self,md){
 		self.readme=Some(convert_link(markdown(md)));
-		self.emit(Event.Change);
+		self.emit();
 	},
 	load_update(self,md){
 		self.update=Some(convert_link(markdown(md)));
-		self.emit(Event.Change);
+		self.emit();
 	}
 });
 

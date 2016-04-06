@@ -3,7 +3,7 @@ import {
 	Ok,Err,Some,None,Option
 } from 'rusted';
 
-import {Store,Event} from './store';
+import {Store} from './store';
 import Color from '../structs/color';
 import FlowerInfo from '../structs/flower';
 import FlowerGener from '../structs/flower-gener';
@@ -47,7 +47,7 @@ impl(FlowerStore,{
 		return match(self.selected_slot,{
 			Some:slot=>{
 				self.slot[slot]=Some(color);
-				self.emit(Event.Change);
+				self.emit();
 				return Ok();
 			},
 			None:()=>{
@@ -62,7 +62,7 @@ impl(FlowerStore,{
 		self.slot[1]=Some(color);
 		self.slot[2]=Some(color);
 		self.slot[3]=Some(color);
-		self.emit(Event.Change);
+		self.emit();
 	},
 	// ストアの花びらスロットを空にする
 	clear(self){
@@ -72,7 +72,7 @@ impl(FlowerStore,{
 			},
 			None:null
 		});
-		self.emit(Event.Change);
+		self.emit();
 	},
 	// ストアのすべての花びらスロットをクリアする
 	clear_all(self){
@@ -80,7 +80,7 @@ impl(FlowerStore,{
 		self.slot[1]=None;
 		self.slot[2]=None;
 		self.slot[3]=None;
-		self.emit(Event.Change);
+		self.emit();
 	},
 	// スロットを選択、または解除する
 	// @param index:number
@@ -91,7 +91,7 @@ impl(FlowerStore,{
 			self.selected_slot=None;
 		}else{
 			self.selected_slot=Some(index);
-			self.emit(Event.Change);
+			self.emit();
 		}
 	},
 	// 指定されたIDを持つ花びらを検索する
@@ -121,16 +121,9 @@ impl(Store,FlowerStore);
 
 let store=FlowerStore.new();
 
-store.observe(action=>{
-	match(action,{
-		Change:x=>{
-			let {r,g,b}=blend(store.slot);
-			color_store.set(r,g,b);
-		},
-		_:()=>{
-			return null;
-		}
-	});
+store.observe(store=>{
+	let {r,g,b}=blend(store.slot);
+	color_store.set(r,g,b);
 });
 
 store.register(action=>{
