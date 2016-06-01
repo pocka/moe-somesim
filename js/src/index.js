@@ -19,10 +19,11 @@ window.setTimeout(()=>{
 	splash.classList.add('somesim--splash--hidden');
 },1000);
 
-window.pjax.addEventListener('destruct',()=>{
+window.addEventListener('pjax:loadstart',function destructor(){
 	destroy();
 	destroy_canvas();
-	window.pjax.clearEventListener();
+
+	window.removeEventListener('pjax:loadstart',destructor);
 });
 
 load_resources();
