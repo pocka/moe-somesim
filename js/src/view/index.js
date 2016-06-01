@@ -212,7 +212,9 @@ let render=()=>{
 };
 
 let hook=store=>{
-	render();
+	if (render) {
+		render();
+	}
 };
 
 [ExternalDocStore,FlowerStore,ColorStore,ControlStore,EquipStore,StainStore].forEach(store=>{
