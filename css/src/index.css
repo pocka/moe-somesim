@@ -219,6 +219,10 @@
   padding: 0.5em;
   margin: 0.2em; }
 
+.color-slider--slider {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em; }
+
 .color-slider--value {
   display: inline-block;
   width: 9em; }
@@ -259,7 +263,7 @@
     content: "- "; }
   .equip-panel--gener--checkbox:checked ~ .equip-panel--gener--item--container > .equip-panel--item {
     transition: height 0.2s ease 0s, margin 0.2s ease 0s, padding 0.2s ease 0s, opacity 0.2s ease 0.2s;
-    height: 1em;
+    height: 1.2em;
     opacity: 1;
     margin: 0.1em;
     padding: 0.3em;
@@ -268,7 +272,8 @@
 .color--color-tip--container {
   display: inline-block;
   position: relative;
-  cursor: pointer; }
+  cursor: pointer;
+  margin: 0.3em; }
   .color--color-tip--container:hover > .color--color-tip--tip {
     display: inline-block; }
 
@@ -277,7 +282,6 @@
   width: 1em;
   height: 1em;
   border: 1px solid #ccc;
-  margin: 0.1em;
   cursor: pointer; }
 
 .color--color-tip--tip {
@@ -351,9 +355,9 @@
   cursor: pointer;
   border: 1px solid #ccc;
   display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin-right: 0.5em;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 1em;
   position: relative; }
   .flower-slot--slot:last-child, .flower-slot--slot--nil:last-child, .flower-slot--slot--clear:last-child {
     margin-right: 0; }
