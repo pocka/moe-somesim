@@ -1,6 +1,6 @@
 {
   "name": "somesim",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "MoE用染色シミュレータ",
   "main": "lib/index.js",
   "scripts": {
