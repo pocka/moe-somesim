@@ -2,6 +2,18 @@ import {impl,struct,mut,Enum,match,Option,None,Some} from 'rusted';
 
 import {Store} from './store';
 
+const filterEquipList = list => {
+    let tmp = {};
+
+    Object.keys(list).forEach(key => {
+        if (list[key].length){
+            tmp[key] = list[key]
+        }
+    });
+
+    return tmp
+};
+
 // ストア定義
 // @prop mut list: Option<object>
 // 		リスト実体。読み込まれるまではNone
@@ -20,7 +32,7 @@ impl(EquipStore,{
 		});
 	},
 	load_list(self,list){
-		self.list=Some(list);
+		self.list=Some(filterEquipList(list));
 		self.selected_uri=Some(list[Object.keys(list)[0]][0].uri);
 		self.emit();
 	}

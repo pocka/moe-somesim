@@ -285,6 +285,18 @@ var _rusted = require('rusted');
 
 var _store = require('./store');
 
+var filterEquipList = function filterEquipList(list) {
+	var tmp = {};
+
+	Object.keys(list).forEach(function (key) {
+		if (list[key].length) {
+			tmp[key] = list[key];
+		}
+	});
+
+	return tmp;
+};
+
 // ストア定義
 // @prop mut list: Option<object>
 // 		リスト実体。読み込まれるまではNone
@@ -303,7 +315,7 @@ var EquipStore = (0, _rusted.struct)({
 		});
 	},
 	load_list: function load_list(self, list) {
-		self.list = (0, _rusted.Some)(list);
+		self.list = (0, _rusted.Some)(filterEquipList(list));
 		self.selected_uri = (0, _rusted.Some)(list[Object.keys(list)[0]][0].uri);
 		self.emit();
 	}
