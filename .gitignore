@@ -2,8 +2,10 @@
 
 node_modules
 
-.sass-cache
-
-bower_components
-
 *.swp
+
+tmp
+
+util/bin
+
+dist
