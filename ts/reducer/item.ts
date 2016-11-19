@@ -8,8 +8,8 @@ const defaultState: State = {
 	list: [],
 	selected: {
 		name: 'dummy',
-		baseUri: 'dummy.png',
-		maskUri: 'dummy.png',
+		baseUri: '/resource/img/somesim/Dummy/base.png',
+		maskUri: '/resource/img/somesim/Dummy/mask.png',
 	}
 }
 
