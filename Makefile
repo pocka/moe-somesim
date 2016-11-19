@@ -2,6 +2,8 @@
 
 .SUFFIXES: .js .ts .pug .html .sass
 
+JSBUILDER = export NODE_ENV=production; node util/scripts/build.js
+
 .PHONY: default
 default: dist
 
@@ -21,8 +23,8 @@ util/bin/sassc:
 	git clone https://github.com/sass/libsass.git tmp/libsass
 	git clone https://github.com/sass/sass-spec.git tmp/sass-spec
 	export SASS_LIBSASS_PATH=$(shell pwd)/tmp/libsass; \
-	export SASS_SPEC_PATH=$(shell pwd)/tmp/sass-spec; \
-	cd tmp/sassc; make
+		export SASS_SPEC_PATH=$(shell pwd)/tmp/sass-spec; \
+		cd tmp/sassc; make
 	mv tmp/sassc/bin/sassc util/bin/sassc
 	rm -rf tmp/*
 
@@ -44,19 +46,19 @@ watch:
 	modd
 
 # Sass / CSS
-#
+
 .PHONY: css
 css: dist/index.css
 
-dist/index.css: sass/*.sass
-	util/bin/sassc sass/index.sass > $@
+dist/index.css: $(shell find sass -name *.sass)
+	util/bin/sassc sass/index.sass | node node_modules/.bin/postcss --config postcss.json > $@
 
 # Pug / Html
 
 .PHONY: html
 html: dist/index.html
 
-dist/index.html: pug/*.pug
+dist/index.html: $(shell find pug -name *.pug)
 	node node_modules/.bin/pug -O package.json pug/index.pug -o $(dir $@)
 
 # TypeScript / Javascript
@@ -64,9 +66,9 @@ dist/index.html: pug/*.pug
 .PHONY: js
 js: dist/index.js
 
-dist/index.js: ts/*.ts
-	node node_modules/.bin/browserify -p [tsify] ts/index.ts > dist/index.js
+dist/index.js: $(shell find ts -name *.ts -or -name *.tsx)
+	$(JSBUILDER) -c ts/index.ts > dist/index.js
 
 # dist/
 
-dist: dist/index.css dist/index.html
+dist: dist/index.css dist/index.html dist/index.js

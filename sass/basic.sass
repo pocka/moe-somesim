@@ -1,0 +1,95 @@
+@import "./vars"
+
+.block
+  display: block
+
+.fulfill
+  display: block
+  width: 100%
+  margin: 0
+
+.section
+  display: block
+  margin: 0.5em
+  padding: 0.5em
+  background-color: #fafafa
+  border: 1px solid $border-color
+  border-radius: 3px
+
+$button-radius: 100%
+
+$icon-button-size: 22px
+
+.icon-button
+  display: inline-block
+  margin: 0 3px
+  border: 1px solid $border-color
+  border-radius: $button-radius
+  cursor: pointer
+  transition: color 0.1s ease 0s, border-color 0.1s ease 0s
+  width: $icon-button-size
+  height: $icon-button-size
+  text-align: center
+  vertical-align: middle
+  padding: 3px
+  &:hover
+    color: $color-theme
+    border-color: $color-theme
+  &:focus
+    border-color: $color-theme
+    color: $font-color
+
+.button
+  color: $font-color
+  background-color: lighten($font-color, 80%)
+  border: 1px solid $border-color
+  vertical-align: middle
+  border-radius: $button-radius
+  &:hover
+    color: $color-theme
+    border-color: $color-theme
+    background-color: lighten($font-color, 80%)
+  &:focus
+    border-color: $color-theme
+    color: $font-color
+
+.input
+  box-sizing: border-box
+  border-radius: 3px
+  padding: 1px 0.5em
+  vertical-align: middle
+
+.caption
+  box-sizing: border-box
+  display: inline-block
+  background-color: $border-color
+  color: #666
+  border: 1px solid #777
+  border-radius: 3px
+  padding: 0px 3px
+  font-size: 0.8em
+  vertical-align: bottom
+  margin:
+    top: 5px
+    right: 2px
+    bottom: 0px
+    left: 0px
+  &.block
+    margin:
+      bottom: 2px
+      right: 0px
+
+.note-text
+  box-sizing: border-box
+  border: 1px solid $border-color
+  border-radius: 5px
+  padding: 0.3em 0.5em
+  margin:
+    top: 1em
+    right: 1em
+    bottom: 1em
+    left: 1em
+  background-color: #eaeaea
+  color: #999
+  font-style: italic
+  font-size: 0.8em

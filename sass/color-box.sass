@@ -1,0 +1,29 @@
+@import "./vars"
+
+$color-radius: 20px
+
+.color
+  border: 1px solid $font-color
+  border-radius: 100%
+  display: block
+  width: $color-radius
+  height: $color-radius
+
+.color-box
+  box-sizing: border-box
+  display: flex
+
+.color-box-color
+  box-sizing: border-box
+  position: relative
+  width: $color-radius + 10px
+  & > .color
+    box-sizing: border-box
+    position: absolute
+    top: 0
+    bottom: 0
+    margin: auto
+
+.color-box-contents
+  padding: 5px
+  flex-grow: 2

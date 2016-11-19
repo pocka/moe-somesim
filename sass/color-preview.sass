@@ -1,0 +1,49 @@
+@import "./vars"
+
+$color-radius: 50px
+
+.color-preview
+  & > .color-box-color
+    width: $color-radius + 10px
+    & > .color
+      height: $color-radius
+      width: $color-radius
+  & > .color-box-contents
+    & > .color-text
+      padding:
+        left: 1em
+      display: block
+      font-size: 1.1em
+
+.color-sliders
+  display: block
+  box-sizing: border-box
+
+.slider-group
+  display: inline-block
+  box-sizing: border-box
+  padding: 3px
+  margin:
+    top: 5px
+    bottom: 5px
+  width: 100%
+  max-width: 300px
+  & > .slider-row
+    display: flex
+    box-sizing: border-box
+    margin:
+      top: 3px
+    &:first-child
+      margin:
+        top: 0
+
+.color-tag
+  box-sizing: border-box
+  width: 1.5em
+  vertical-align: middle
+  font-size: 0.9em
+  text-align: center
+
+.color-value
+  @extend .color-tag
+  width: 3em

@@ -1,0 +1,64 @@
+@import "./vars"
+
+$tab-height: 2em
+
+.tab-container
+  display: block
+  width: auto
+  margin: 0.5em
+  height: 100%
+  position: relative
+
+.tab-item
+  display: inline
+  &:first-child
+    & > .tab-title
+      margin-left: 0
+
+.tab-title
+  position: relative
+  vertical-align: bottom
+  display: inline-block
+  border: 1px solid $border-color
+  border:
+    bottom-color: #dadada
+  margin: 0
+  margin:
+    left: -1px
+  background-color: #dadada
+  color: lighten($font-color, 30%)
+  z-index: 1
+  font-size: 0.9em
+  padding: 5px
+  border-radius: 3px 3px 0 0
+
+.tab-contents
+  text-align: default
+  box-sizing: border-box
+  display: none
+  margin:
+    top: -1px
+  float: left
+  width: 100%
+  border: 1px solid $border-color
+  background-color: #fafafa
+  margin-bottom: 1em
+  border-radius: 0 0 3px 3px
+
+.tab-state
+  position: fixed
+  display: none
+  &:checked
+    & + .tab-title
+      background-color: #fafafa
+      color: $font-color
+      z-index: 5
+      border-bottom-color: #fafafa
+    & ~ .tab-contents
+      display: block
+      z-index: 3
+      height: auto
+      position: absolute
+      top: $tab-height
+      bottom: 0
+      overflow-y: auto
