@@ -1,5 +1,7 @@
 import './polyfill'
 
+import 'whatwg-fetch'
+
 // Redux and it's middlewares
 import { createStore } from 'redux'
 
