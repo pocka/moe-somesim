@@ -10,6 +10,8 @@ import FlowerSlotManager from './flower-slot-manager'
 
 import CanvasCreator from './canvas'
 
+const pkg = require('../../package.json')
+
 const Canvas = CanvasCreator()
 
 
@@ -31,6 +33,11 @@ export default ({ props }) => {
 				<ItemList items={ props.item.list } selected={ props.item.selected }/>
 			</Panel>
 			<Panel class="panel-main">
+				<h2 class="somesim-title">
+					MoEそめしむ v{ pkg.version }
+					<a class="icon icon-question" title="ヘルプ" href="https://github.com/pocka/moe-somesim#%E4%BD%BF%E3%81%84%E6%96%B9" target="_blank"></a>
+					<a class="icon icon-book" title="更新履歴" href="https://github.com/pocka/moe-somesim/blob/master/UPDATE.md" target="_blank"></a>
+				</h2>
 				{
 					h(Canvas, {
 						item: props.item.selected,
