@@ -51,7 +51,8 @@
 
 
 ## アプリ本体について
-copyright © 2015-2016 pocka.
+
+License: MIT (See `LICENSE`)
 
 
 ## プロジェクト構成
