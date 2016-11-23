@@ -1,4 +1,4 @@
-import { ItemGroup } from '../types/item'
+import { ItemGroup, ItemData } from '../types/item'
 
 import { Accordion, AccordionItem } from './accordion'
 import Item from './item'
@@ -6,10 +6,11 @@ import Item from './item'
 
 interface Props {
 	items: ItemGroup[]
+	selected: ItemData
 }
 
 export default ({ props }) => {
-	const { items } = props as Props
+	const { items, selected } = props as Props
 
 	return (
 		<Accordion>
@@ -19,7 +20,7 @@ export default ({ props }) => {
 						<AccordionItem name={ `${ group.name } (${ group.items.length })` } group="item">
 							{
 								group.items.map(item => (
-									<Item item={ item } />
+									<Item item={ item } selected={ selected } />
 								))
 							}
 						</AccordionItem>

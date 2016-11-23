@@ -1,3 +1,5 @@
+import Actions from '../actions'
+
 import { ItemData } from '../types/item'
 
 import { Rgb } from '../types/color'
@@ -5,6 +7,7 @@ import { Rgb } from '../types/color'
 interface Props {
 	item: ItemData
 	color: Rgb
+	loading: [boolean, boolean]
 }
 
 function getCanvasContext(id: string): CanvasRenderingContext2D {
@@ -53,10 +56,10 @@ const CanvasCreator = () => {
 	}
 
 	return {
-		render({ props }): deku.VirtualElement {
-			const { item, color } = props as Props
+		render({ props, dispatch }): deku.VirtualElement {
+			const { item, color, loading } = props as Props
 
-			const updateCanvas = canvasType => () => {
+			const updateCanvas = canvasType => {
 				const ctx = getCanvasContext(`${ canvasType }-canvas`)
 
 				ctx.drawImage(document.getElementById(`${ canvasType }-img`) as HTMLImageElement, 0, 0, 400, 400)
@@ -67,15 +70,31 @@ const CanvasCreator = () => {
 				blend(color)
 			}
 
+			const onBaseLoad = ev => {
+				updateCanvas('base')
+
+				dispatch(Actions.Load.BaseComplete())
+			}
+
+			const onMaskLoad = ev => {
+				updateCanvas('mask')
+
+				dispatch(Actions.Load.MaskComplete())
+			}
+
+			const isLoading = loading[0] || loading[1]
+
+			const mainCanvasClass = `canvas-main ${ isLoading ? 'loading' : '' }`
 			return (
 				<div class="canvas-wrapper">
-					<img id="base-img" class="canvas-source" src={ item.baseUri } onLoad={ updateCanvas('base') } />
+					<img id="base-img" class="canvas-source" src={ item.baseUri } onLoad={ onBaseLoad } />
 					<br/>
-					<img id="mask-img" class="canvas-source" src={ item.maskUri } onLoad={ updateCanvas('mask') } />
+					<img id="mask-img" class="canvas-source" src={ item.maskUri } onLoad={ onMaskLoad } />
 					<br/>
 					<canvas id="base-canvas" class="canvas-hidden" width="400" height="400"></canvas>
 					<canvas id="mask-canvas" class="canvas-hidden" width="400" height="400"></canvas>
-					<canvas id="view-canvas" class="canvas-main" width="400" height="400"></canvas>
+					<canvas id="view-canvas" class={ mainCanvasClass } width="400" height="400"></canvas>
+					<canvas class="canvas-loading-indicator" width="400" height="400"></canvas>
 				</div>
 			)
 		},

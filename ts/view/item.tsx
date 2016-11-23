@@ -1,14 +1,15 @@
 import Actions from '../actions'
 
-import { Item } from '../types/item'
+import { Item, ItemData } from '../types/item'
 
 
 interface Props {
 	item: Item
+	selected: ItemData
 }
 
 export default ({ props, dispatch }) => {
-	const { item } = props as Props
+	const { item, selected } = props as Props
 
 	return (
 		<ul class="item">
@@ -18,7 +19,9 @@ export default ({ props, dispatch }) => {
 			{
 				item.data.map(data => {
 					const onClick = () => {
-						dispatch(Actions.Item.Select(dispatch, data))
+						if (data != selected){
+							dispatch(Actions.Item.Select(dispatch, data))
+						}
 					}
 
 					return (

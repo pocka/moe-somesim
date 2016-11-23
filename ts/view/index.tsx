@@ -28,13 +28,14 @@ export default ({ props }) => {
 			<label class="panel-state-controller panel-state-controller-item" for="panel-state-item" title="装備選択画面を表示"></label>
 
 			<Panel class="panel-item panel-side">
-				<ItemList items={ props.item.list } />
+				<ItemList items={ props.item.list } selected={ props.item.selected }/>
 			</Panel>
 			<Panel class="panel-main">
 				{
 					h(Canvas, {
 						item: props.item.selected,
-						color: props.stain.rgb
+						color: props.stain.rgb,
+						loading: props.isLoading
 					})
 				}
 			</Panel>

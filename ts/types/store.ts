@@ -21,6 +21,8 @@ namespace Store {
 	export type Pallets = Pallet[]
 
 	export type FlowerList = FlowerGroup[]
+
+	export type IsLoading = [boolean, boolean]
 }
 
 export default Store
