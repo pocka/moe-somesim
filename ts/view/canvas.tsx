@@ -30,7 +30,7 @@ const CanvasCreator = () => {
 	function blend(stainColor: Rgb): void {
 		const dist = getCanvasContext('view-canvas')
 
-		const distImage = new ImageData(400, 400)
+		const distImage = dist.createImageData(400, 400)
 
 		for (let i = 0, l = maskPixels.length; i < l; i += 4){
 			const red = i
