@@ -1,13 +1,1 @@
-*.log
-
 node_modules
-
-*.swp
-
-tmp
-
-util/bin
-
-dist
-
-resources

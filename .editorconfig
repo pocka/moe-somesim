@@ -1,17 +1,7 @@
 [*]
 end_of_line = lf
 charset = utf-8
-insert_finel_newline = true
-trim_trailing_whitespace = true
 
-[*.{pug,sass,css,html}]
+[*.{js,jsx,ts,tsx,html}]
+indent_size = 2
 indent_style = space
-indent_size = 2
-
-[*.{ts,js}]
-indent_style = tab
-indent_size = 4
-
-[{Makefile,modd.conf,*.json}]
-indent_style = tab
-indent_size = 2
