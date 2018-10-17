@@ -21,7 +21,10 @@ export class VideoPicker extends React.PureComponent<Props> {
         onDrop={this.pick}
       >
         <UploadIcon />
-        <p>動画ファイルをドロップするか、クリックして選んでください</p>
+        <p>
+          {this.props.children ||
+            '動画ファイルをドロップするか、クリックして選んでください'}
+        </p>
       </Container>
     )
   }

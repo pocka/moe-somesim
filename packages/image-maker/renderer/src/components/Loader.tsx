@@ -14,6 +14,7 @@ export class Loader extends React.PureComponent<Props> {
   }
 
   private invisibleStyle: React.CSSProperties = {
+    pointerEvents: 'none',
     opacity: 0
   }
 
