@@ -4,6 +4,8 @@
     "paths": {
       "~renderer/*": ["./renderer/src/*"]
     },
+    "jsx": "react",
+    "strict": true,
     "sourceMap": true
   }
 }

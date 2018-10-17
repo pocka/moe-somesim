@@ -7,7 +7,7 @@ module.exports = {
   context: __dirname,
   target: 'electron-renderer',
   devtool: 'inline-source-map',
-  entry: './src/index.ts',
+  entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, './dest'),
     filename: 'main.js'
@@ -19,8 +19,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx$/,
-        loader: 'tsloader',
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
         options: {
           transpileOnly: true
         }
