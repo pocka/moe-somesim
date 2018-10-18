@@ -5,43 +5,89 @@ import styled from 'styled-components'
 import { FramePicker } from '~renderer/components/FramePicker'
 import { VideoPicker } from '~renderer/components/VideoPicker'
 
+type Scene = {
+  label: string
+  render(): React.ReactNode
+} & ThisType<App>
+
 interface State {
   prev?: File
   next?: File
   prevFrame?: string
+  sceneIndex: number
 }
 
 export class App extends React.Component<{}, State> {
-  public state: State = {}
+  public state: State = {
+    sceneIndex: 0
+  }
+
+  private scenes: Scene[] = [
+    {
+      label: '動画の選択(1回目)',
+      render() {
+        return (
+          <VideoPicker onPick={this.pickPrev}>
+            先に染色した動画ファイルをドロップするか、クリックして選んでください
+          </VideoPicker>
+        )
+      }
+    },
+    {
+      label: 'フレームの選択',
+      render() {
+        if (!this.state.prev) {
+          this.goto(0)
+          return <div />
+        }
+
+        return <FramePicker video={this.state.prev} onPick={this.pickFrame} />
+      }
+    },
+    {
+      label: '動画の選択(2回目)',
+      render() {
+        return (
+          <VideoPicker onPick={this.pickNext}>
+            後に染色した動画ファイルをドロップするか、クリックして選んでください
+          </VideoPicker>
+        )
+      }
+    }
+  ]
 
   public render() {
-    const content = !this.state.prev ? (
-      <VideoPicker onPick={this.pickPrev}>
-        先に染色した動画ファイルをドロップするか、クリックして選んでください
-      </VideoPicker>
-    ) : !this.state.next ? (
-      <VideoPicker onPick={this.pickNext}>
-        後に染色した動画ファイルをドロップするか、クリックして選んでください
-      </VideoPicker>
-    ) : !this.state.prevFrame ? (
-      <FramePicker video={this.state.prev} onPick={this.pickFrame} />
-    ) : (
-      <img src={this.state.prevFrame} />
-    )
+    const scene = this.scenes[this.state.sceneIndex]
 
-    return <Container>{content}</Container>
+    return <Container>{scene.render.apply(this)}</Container>
+  }
+
+  private goto = (sceneIndex: number) => {
+    this.setState({ sceneIndex })
+  }
+
+  private gotoNext = () => {
+    this.setState(state => ({
+      sceneIndex: Math.min(state.sceneIndex + 1, this.scenes.length - 1)
+    }))
   }
 
   private pickPrev = (file: File) => {
     this.setState({ prev: file })
+
+    this.gotoNext()
   }
 
   private pickNext = (file: File) => {
     this.setState({ next: file })
+
+    this.gotoNext()
   }
 
   private pickFrame = (frame: string) => {
     this.setState({ prevFrame: frame })
+
+    this.gotoNext()
   }
 }
 
