@@ -132,6 +132,10 @@ const Container = styled.div`
   left: 0;
 
   background: #fefefe;
+
+  & > :not(:last-child) {
+    flex-shrink: 0;
+  }
 `
 
 const Content = styled.div`
