@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu } = require('electron')
 
 let win
 
@@ -6,6 +6,8 @@ const createWindow = () => {
   win = new BrowserWindow({ width: 800, height: 600 })
 
   win.loadFile('renderer/index.html')
+
+  Menu.setApplicationMenu(null)
 
   win.on('closed', () => {
     win = null
