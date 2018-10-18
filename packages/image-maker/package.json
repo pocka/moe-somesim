@@ -13,6 +13,7 @@
     "@material-ui/core": "^3.2.2",
     "@material-ui/icons": "^3.0.1",
     "electron": "^3.0.4",
+    "polished": "^2.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-dropzone": "^6.2.4",
