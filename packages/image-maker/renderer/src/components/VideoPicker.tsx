@@ -2,8 +2,9 @@ import * as React from 'react'
 
 import styled from 'styled-components'
 
+import NoteAddIcon from '@material-ui/icons/NoteAdd'
+
 import Dropzone from 'react-dropzone'
-import { FaFileUpload } from 'react-icons/fa'
 
 export interface Props {
   onPick?(video: File): any
@@ -45,13 +46,13 @@ const Container = styled(Dropzone)`
   align-items: center;
 
   color: #222;
-  background: #dedede;
 
   cursor: pointer;
 `
 
-const UploadIcon = styled(FaFileUpload)`
-  display: block;
-  font-size: 3em;
-  margin-bottom: 10px;
+const UploadIcon = styled(NoteAddIcon)`
+  &&& {
+    font-size: 3em;
+    margin-bottom: 10px;
+  }
 `

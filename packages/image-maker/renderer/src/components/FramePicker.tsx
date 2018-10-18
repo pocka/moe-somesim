@@ -2,6 +2,9 @@ import * as React from 'react'
 
 import styled from 'styled-components'
 
+import Button from '@material-ui/core/Button'
+import DoneIcon from '@material-ui/icons/Done'
+
 import { Loader } from '~renderer/components/Loader'
 
 export interface Props {
@@ -25,7 +28,9 @@ export class FramePicker extends React.Component<Props, State> {
     return (
       <Container>
         <Loader visible={this.state.loading} />
-        <PickButton onClick={this.pickFrame}>このフレームを切り出す</PickButton>
+        <PickButton variant="fab" color="primary" onClick={this.pickFrame}>
+          <DoneIcon />
+        </PickButton>
         <Video
           ref={this.video}
           autoPlay={false}
@@ -74,16 +79,21 @@ export default FramePicker
 const Container = styled.div`
   position: relative;
   display: flex;
-  flex-direction: column;
-
-  background: #333;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 `
 
 const Video = styled.video`
   width: 90%;
+  max-width: 1080px;
+  max-height: 90%;
 `
 
-const PickButton = styled.button`
-  margin: 10px 0;
-  padding: 5px 1.5em;
+const PickButton = styled(Button)`
+  &&& {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+  }
 `

@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
-import { FaSpinner } from 'react-icons/fa'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 export interface Props {
   visible?: boolean
@@ -23,7 +23,7 @@ export class Loader extends React.PureComponent<Props> {
       <Container
         style={this.props.visible ? this.visibleStyle : this.invisibleStyle}
       >
-        <Spinner />
+        <CircularProgress />
       </Container>
     )
   }
@@ -31,35 +31,15 @@ export class Loader extends React.PureComponent<Props> {
 
 const Container = styled.div`
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 
-  background-color: #555;
-  color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
 
   transition: opacity 0.3s ease;
-`
-
-const spin = keyframes`
-  from {
-    transform: rotate(-45deg);
-  }
-
-  to {
-    transform: rotate(315deg);
-  }
-`
-
-const Spinner = styled(FaSpinner)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  font-size: 20px;
-
-  animation: 1.5s ease 0s infinite ${spin};
 `

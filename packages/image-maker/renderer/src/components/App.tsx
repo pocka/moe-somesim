@@ -2,6 +2,13 @@ import * as React from 'react'
 
 import styled from 'styled-components'
 
+import AppBar from '@material-ui/core/AppBar'
+import Step from '@material-ui/core/Step'
+import Stepper from '@material-ui/core/Stepper'
+import StepLabel from '@material-ui/core/StepLabel'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+
 import { FramePicker } from '~renderer/components/FramePicker'
 import { VideoPicker } from '~renderer/components/VideoPicker'
 
@@ -59,7 +66,29 @@ export class App extends React.Component<{}, State> {
   public render() {
     const scene = this.scenes[this.state.sceneIndex]
 
-    return <Container>{scene.render.apply(this)}</Container>
+    return (
+      <Container>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" color="inherit">
+              {scene.label}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Stepper activeStep={this.state.sceneIndex} alternativeLabel={true}>
+          {this.scenes.map((scene, i) => {
+            const completed = i < this.state.sceneIndex
+
+            return (
+              <Step key={i} completed={completed}>
+                <StepLabel>{scene.label}</StepLabel>
+              </Step>
+            )
+          })}
+        </Stepper>
+        <Content>{scene.render.apply(this)}</Content>
+      </Container>
+    )
   }
 
   private goto = (sceneIndex: number) => {
@@ -96,12 +125,18 @@ export default App
 const Container = styled.div`
   position: absolute;
   display: flex;
+  flex-direction: column;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 
   background: #fefefe;
+`
+
+const Content = styled.div`
+  display: flex;
+  flex-grow: 1;
 
   & > * {
     flex-grow: 1;
