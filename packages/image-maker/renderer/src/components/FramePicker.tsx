@@ -5,35 +5,23 @@ import styled from 'styled-components'
 import Button from '@material-ui/core/Button'
 import DoneIcon from '@material-ui/icons/Done'
 
-import { Loader } from '~renderer/components/Loader'
-import { Video } from '~renderer/components/Video'
-
 export interface Props {
   video: File
   onPick?(base64Image: string): any
 }
 
-interface State {
-  loading: boolean
-}
-
-export class FramePicker extends React.Component<Props, State> {
-  public state: State = {
-    loading: true
-  }
-
+export class FramePicker extends React.Component<Props> {
   private video = React.createRef<HTMLVideoElement>()
   private videoURI = URL.createObjectURL(this.props.video)
 
   public render() {
     return (
       <Container>
-        <Loader visible={this.state.loading} />
         <PickButton variant="fab" color="primary" onClick={this.pickFrame}>
           <DoneIcon />
         </PickButton>
         <StyledVideo
-          videoRef={this.video}
+          ref={this.video as React.Ref<any>}
           autoPlay={false}
           muted={true}
           controls={true}
@@ -41,10 +29,6 @@ export class FramePicker extends React.Component<Props, State> {
         />
       </Container>
     )
-  }
-
-  private endLoading = () => {
-    this.setState({ loading: false })
   }
 
   private pickFrame = () => {
@@ -84,12 +68,16 @@ const Container = styled.div`
   overflow: hidden;
 `
 
-const StyledVideo = styled(Video)`
+const StyledVideo = styled.video`
   position: relative;
   width: 90%;
   height: 90%;
   max-width: 1080px;
   max-height: 800px;
+
+  border-radius: 4px;
+  background: #222;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 `
 
 const PickButton = styled(Button)`
