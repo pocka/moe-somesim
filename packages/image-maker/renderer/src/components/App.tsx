@@ -10,6 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 
 import { FramePicker } from '~renderer/components/FramePicker'
+import { NearFrameDetector } from '~renderer/components/NearFrameDetector'
 import { VideoPicker } from '~renderer/components/VideoPicker'
 
 type Scene = {
@@ -21,6 +22,7 @@ interface State {
   prev?: File
   next?: File
   prevFrame?: string
+  nextFrame?: string
   sceneIndex: number
 }
 
@@ -58,6 +60,29 @@ export class App extends React.Component<{}, State> {
           <VideoPicker onPick={this.pickNext}>
             後に染色した動画ファイルをドロップするか、クリックして選んでください
           </VideoPicker>
+        )
+      }
+    },
+    {
+      label: '近似フレームの抽出',
+      render() {
+        return (
+          <NearFrameDetector
+            frame={this.state.prevFrame!}
+            video={this.state.next!}
+            onDetect={this.onDetectFrame}
+          />
+        )
+      }
+    },
+    {
+      label: '結果',
+      render() {
+        return (
+          <div>
+            <img style={{ height: '40%' }} src={this.state.prevFrame} />
+            <img style={{ height: '40%' }} src={this.state.nextFrame} />
+          </div>
         )
       }
     }
@@ -115,6 +140,12 @@ export class App extends React.Component<{}, State> {
 
   private pickFrame = (frame: string) => {
     this.setState({ prevFrame: frame })
+
+    this.gotoNext()
+  }
+
+  private onDetectFrame = (frame: string) => {
+    this.setState({ nextFrame: frame })
 
     this.gotoNext()
   }
