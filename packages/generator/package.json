@@ -1,0 +1,78 @@
+{
+  "name": "@somesim/generator",
+  "version": "5.0.0-rc.0",
+  "scripts": {
+    "dev": "webpack-dev-server --mode development",
+    "build": "webpack --mode production",
+    "test": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.2.0",
+    "cssnano": "^4.1.10",
+    "dotenv": "^8.1.0",
+    "git-revision-webpack-plugin": "^3.0.3",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "postcss": "^7.0.18",
+    "postcss-loader": "^3.0.0",
+    "postcss-normalize": "^8.0.1",
+    "postcss-preset-env": "^6.7.0",
+    "script-ext-html-webpack-plugin": "^2.1.4",
+    "style-ext-html-webpack-plugin": "^4.1.2",
+    "style-loader": "^1.0.0",
+    "svg-react-loader": "^0.4.6",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "typescript": "^3.6.2",
+    "url-loader": "^2.1.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.0"
+  },
+  "dependencies": {
+    "core-js": "^3.2.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "modules": false,
+          "useBuiltIns": "usage",
+          "corejs": 3
+        }
+      ],
+      "@babel/preset-typescript"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-object-rest-spread",
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-transform-react-jsx"
+    ]
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Edge versions",
+    "last 2 Safari versions",
+    "last 1 iOS versions"
+  ],
+  "postcss": {
+    "plugins": {
+      "postcss-preset-env": {},
+      "postcss-normalize": {},
+      "cssnano": {}
+    }
+  }
+}

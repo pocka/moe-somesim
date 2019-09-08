@@ -3,17 +3,17 @@
   "version": "5.0.0-rc.0",
   "description": "MoE用染色シミュレータ",
   "private": true,
-  "scripts": {
-    "test": "echo no test"
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "author": "pocka",
   "license": "MIT",
   "devDependencies": {
-    "husky": "^1.1.2",
-    "lerna": "^3.4.3",
-    "lint-staged": "^7.3.0",
-    "prettier": "^1.14.3",
-    "yarn": "^1.10.1"
+    "husky": "^3.0.5",
+    "lerna": "^3.16.4",
+    "lint-staged": "^9.2.5",
+    "prettier": "^1.18.2",
+    "yarn": "^1.17.3"
   },
   "prettier": {
     "semi": false,

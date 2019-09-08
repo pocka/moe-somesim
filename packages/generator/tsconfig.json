@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    },
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
+    "jsx": "react",
+    "moduleResolution": "node",
+    "strict": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}
