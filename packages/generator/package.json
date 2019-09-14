@@ -13,6 +13,8 @@
     "@babel/plugin-transform-react-jsx": "^7.3.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-typescript": "^7.6.0",
+    "@react-comfy/props": "^0.2.0",
+    "@types/classnames": "^2.2.9",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
     "babel-loader": "^8.0.6",
@@ -39,6 +41,9 @@
     "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
+    "@react-comfy/hooks": "^0.2.0",
+    "antd": "^3.23.2",
+    "classnames": "^2.2.6",
     "core-js": "^3.2.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"

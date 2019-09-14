@@ -59,10 +59,7 @@ module.exports = (env, { mode }) => ({
                       hmr: mode === 'development'
                     }
                   },
-                  {
-                    loader: 'css-loader',
-                    options: { importLoaders: 1 }
-                  },
+                  'css-loader',
                   'postcss-loader'
                 ]
               },
@@ -85,11 +82,15 @@ module.exports = (env, { mode }) => ({
               {
                 use: [
                   'style-loader',
+                  'css-loader',
                   {
-                    loader: 'css-loader',
-                    options: { importLoaders: 1 }
-                  },
-                  'postcss-loader'
+                    loader: 'postcss-loader',
+                    options: {
+                      config: {
+                        path: __dirname
+                      }
+                    }
+                  }
                 ]
               }
             ]

@@ -1,5 +1,14 @@
 @import 'sanitize.css';
 
+:root {
+  --color-bg: #fff;
+  --color-fg: #333;
+  --color-disabled: #aaa;
+}
+
 body {
   margin: 0;
+
+  background-color: var(--color-bg);
+  color: var(--color-fg);
 }
