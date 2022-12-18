@@ -1,13 +1,9 @@
+# Common
 *.log
+.tmp
+.tmp.*
+.cache
+.cache.*
 
+# Node.js / JavaScript
 node_modules
-
-*.swp
-
-tmp
-
-util/bin
-
-dist
-
-resources
