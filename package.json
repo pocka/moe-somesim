@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "name": "moe-somesim",
+  "version": "5.0.0",
+  "devDependencies": {
+    "prettier": "^2.8.1",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.2"
+  },
+  "scripts": {
+    "dev": "vite"
+  }
+}
