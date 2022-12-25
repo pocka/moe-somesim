@@ -12,6 +12,8 @@ jobs:
 
       - name: "📦 Node.jsのセットアップ"
         uses: actions/setup-node@v3
+        with:
+          node-version: "18.6.0"
 
       - name: "📦 npmパッケージのインストール"
         run: npm ci
