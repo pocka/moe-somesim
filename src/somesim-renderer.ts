@@ -220,9 +220,9 @@ export class SomesimRenderer extends HTMLElement {
     const stainLoc = gl.getUniformLocation(shaderProgram, "uStain")!;
 
     const color = this.#color;
-    const r = color & 0xff;
+    const r = (color >> 16) & 0xff;
     const g = (color >> 8) & 0xff;
-    const b = (color >> 16) & 0xff;
+    const b = color & 0xff;
 
     gl.uniform3fv(stainLoc, [r / 255, g / 255, b / 255]);
 
