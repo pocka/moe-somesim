@@ -1,7 +1,7 @@
-module Somesim.Flower exposing (Definition, blendFlowerColors, decoder, definitionDecoder, Flower, flowerColorToHex, zero, black, FlowerColor)
+module Somesim.Flower exposing (Definition, Flower, FlowerColor, black, blendFlowerColors, decoder, definitionDecoder, flowerColorToHex, zero)
 
-import Json.Decode as Decode
 import Hex
+import Json.Decode as Decode
 
 
 {-| MoE上で表示される色の割合 (%) と実際のRGB値 (0~255) のペア。
@@ -58,9 +58,11 @@ predefinedValues =
 type alias FlowerColor =
     { r : PercentageColor, g : PercentageColor, b : PercentageColor }
 
+
 black : FlowerColor
 black =
     FlowerColor zero zero zero
+
 
 findValueByIndex : Int -> List PercentageColor -> Maybe PercentageColor
 findValueByIndex i list =
@@ -184,6 +186,7 @@ decoder =
         (Decode.field "name" Decode.string)
         (Decode.field "color" (Decode.map3 FlowerColor (Decode.index 0 colorPercentageDecoder) (Decode.index 1 colorPercentageDecoder) (Decode.index 2 colorPercentageDecoder)))
 
+
 {-| 整数を 0x00 ~ 0xff の範囲に収めた上で2桁16進数文字列に変換する。
 -}
 toFF : Int -> String
@@ -196,8 +199,9 @@ toFF n =
 
 
 flowerColorToHex : FlowerColor -> String
-flowerColorToHex  color  =
+flowerColorToHex color =
     toFF color.r.rgb ++ toFF color.g.rgb ++ toFF color.b.rgb
+
 
 type GroupId
     = GroupId String

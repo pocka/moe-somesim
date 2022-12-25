@@ -107,7 +107,6 @@ groupDecoder baseUrl =
         (Decode.field "children" (Decode.list (Decode.lazy (\_ -> decoder baseUrl))))
 
 
-
 itemDecoder : Url -> Decode.Decoder Index
 itemDecoder baseUrl =
     Decode.map2

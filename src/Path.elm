@@ -36,7 +36,7 @@ resolveInternal cwdStack path =
         ( _, [] ) ->
             cwdStack
 
-        ( _, "." :: xs) ->
+        ( _, "." :: xs ) ->
             resolveInternal cwdStack xs
 
         ( [], ".." :: xs ) ->
