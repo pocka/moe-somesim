@@ -1,0 +1,32 @@
+name: コード検証
+
+on: [push]
+
+jobs:
+  check:
+    name: コード検証
+    runs-on: ubuntu-latest
+    steps:
+      - name: "📦 チェックアウト"
+        uses: actions/checkout@v3
+
+      - name: "📦 Node.jsのセットアップ"
+        uses: actions/setup-node@v3
+
+      - name: "📦 npmパッケージのインストール"
+        run: npm ci
+
+      - name: "📦 Elmのセットアップ"
+        uses: jorelali/setup-elm@v3
+
+      - name: "🔍 Elmコードがフォーマットされているかチェック"
+        run: npx elm-format --validate .
+
+      - name: "🔍 その他のファイルがPrettierでフォーマットされているかチェック"
+        run: npx prettier --check .
+
+      - name: "🔍 Elmコードのテスト"
+        run: npm test
+
+      - name: "🔍 TypeScriptファイルの型検査"
+        run: npx tsc

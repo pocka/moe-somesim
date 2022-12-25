@@ -1,43 +1,21 @@
 {
-  "name": "somesim",
-  "version": "4.0.7",
-  "description": "MoE用染色シミュレータ",
-  "main": "lib/index.js",
-  "scripts": {
-    "test": "echo no test"
-  },
-  "repository": {
-    "type": "git"
-  },
-  "author": "pocka",
-  "license": "MIT",
+  "private": true,
+  "name": "moe-somesim",
+  "version": "5.0.0",
   "devDependencies": {
-    "autoprefixer": "^6.5.3",
-    "babel-plugin-transform-react-jsx": "^6.8.0",
-    "babelify": "^7.3.0",
-    "browserify": "^13.1.1",
-    "bundle-collapser": "^1.2.1",
-    "commander": "^2.9.0",
-    "cssnano": "^3.8.0",
-    "postcss-cli": "^2.6.0",
-    "pug-cli": "^1.0.0-alpha6",
-    "through": "^2.3.8",
-    "tsify": "^2.0.2",
-    "typescript": "^2.0.7",
-    "uglify-js": "^2.7.4"
+    "elm-format": "^0.8.5",
+    "elm-test": "^0.19.1-revision10",
+    "prettier": "^2.8.1",
+    "typescript": "^4.9.4",
+    "vite": "^3.2.5",
+    "vite-plugin-elm": "^2.7.2"
   },
-  "homepage": "http://pocka.onl/app/moe/somesim/",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "elm-test"
+  },
   "dependencies": {
-    "@types/deku": "^2.0.0",
-    "@types/localforage": "0.0.32",
-    "@types/redux": "^3.6.31",
-    "@types/whatwg-fetch": "0.0.32",
-    "babel-polyfill": "^6.16.0",
-    "deku": "^2.0.0-rc16",
-    "deku-raf": "^1.0.1",
-    "localforage": "^1.4.3",
-    "redux": "^3.6.0",
-    "redux-persist": "^4.0.0-alpha7",
-    "whatwg-fetch": "^2.0.1"
+    "@fontsource/ibm-plex-sans-jp": "^4.5.0"
   }
 }

@@ -1,0 +1,33 @@
+name: デプロイ
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deloy-ghpages:
+    name: GitHub Pages へデプロイ
+    runs-on: ubuntu-latest
+    steps:
+      - name: "📦 チェックアウト"
+        uses: actions/checkout@v3
+
+      - name: "📦 Node.jsのセットアップ"
+        uses: actions/setup-node@v3
+
+      - name: "📦 npmパッケージのインストール"
+        run: npm ci
+
+      - name: "📦 Elmのセットアップ"
+        uses: jorelali/setup-elm@v3
+
+      - name: "🛠️ アプリケーションのビルド"
+        # NOTE: リポジトリ名を変えた際は `--base=` の値を変える必要がある
+        run: npm run build -- --base=/moe-somesim/
+
+      - name: "🚀 GitHub Pages へデプロイ"
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

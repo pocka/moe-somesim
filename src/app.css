@@ -1,0 +1,17 @@
+app-layout {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.renderer-wrapper {
+  max-width: 100%;
+}
+
+somesim-renderer {
+  max-width: 100%;
+  border-radius: 2px;
+  overflow: hidden;
+}

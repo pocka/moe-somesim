@@ -1,0 +1,22 @@
+{
+  "version": "2",
+  "remote": {
+    "https://deno.land/std@0.168.0/_util/asserts.ts": "d0844e9b62510f89ce1f9878b046f6a57bf88f208a10304aab50efcb48365272",
+    "https://deno.land/std@0.168.0/bytes/copy.ts": "d14a58f188a997ee0d2ba696d0c82a42f4fb4b6705e90a4238b77d7644dae24c",
+    "https://deno.land/std@0.168.0/flags/mod.ts": "4f50ec6383c02684db35de38b3ffb2cd5b9fcfcc0b1147055d1980c49e82521c",
+    "https://deno.land/std@0.168.0/fmt/colors.ts": "03ad95e543d2808bc43c17a3dd29d25b43d0f16287fe562a0be89bf632454a12",
+    "https://deno.land/std@0.168.0/fs/exists.ts": "6a447912e49eb79cc640adacfbf4b0baf8e17ede6d5bed057062ce33c4fa0d68",
+    "https://deno.land/std@0.168.0/io/buf_writer.ts": "b1ee5325cec3386596c67b1c7510bfc7e42b2f505060fe2e9d6536cdefdbb30c",
+    "https://deno.land/std@0.168.0/io/types.d.ts": "790d3a3fa6b7f298d4cfbcf8bfd9d4be595c1b1acaa3eebb3009177df98bf93c",
+    "https://deno.land/std@0.168.0/log/handlers.ts": "b79b5eaf8681b17c507d9d0c2de22853507e30d35fe336e306b36498506977b3",
+    "https://deno.land/std@0.168.0/log/levels.ts": "3043c0bf69b1de718488feb6e0ded2d64f6aef362fe73f762b506f32b1029ea2",
+    "https://deno.land/std@0.168.0/log/logger.ts": "83fb231064a38736fbfd078fe6624e21ed2537733de7baa1cdd749b8c3c9d991",
+    "https://deno.land/std@0.168.0/log/mod.ts": "6ff372a706ecef125a9fd455931ae00741d6408562c84cf2fbdc35a2c2a840af",
+    "https://deno.land/x/lz4@v0.1.2/mod.ts": "4decfc1a3569d03fd1813bd39128b71c8f082850fe98ecfdde20025772916582",
+    "https://deno.land/x/lz4@v0.1.2/wasm.js": "b9c65605327ba273f0c76a6dc596ec534d4cda0f0225d7a94ebc606782319e46",
+    "https://deno.land/x/outdent@v0.8.0/mod.ts": "72630e680dcc36d5ae556fbff6900b12706c81a6fd592345fc98bcc0878fb3ca",
+    "https://deno.land/x/outdent@v0.8.0/src/index.ts": "6dc3df4108d5d6fedcdb974844d321037ca81eaaa16be6073235ff3268841a22",
+    "https://deno.land/x/pngs@0.1.1/mod.ts": "9dc8a7daed1497b94a77b68c954164a9f0b2a6f40866481bdfdbbaf015b5f764",
+    "https://deno.land/x/pngs@0.1.1/wasm.js": "e3d4a8f293b267c9859a2164ca7b4603869bc92fe0d5ad4f109925858bce0c4c"
+  }
+}

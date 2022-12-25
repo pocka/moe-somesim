@@ -1,13 +1,15 @@
+# Common
 *.log
+.tmp
+.tmp.*
+.cache
+.cache.*
 
+# Node.js / JavaScript
 node_modules
 
-*.swp
+# Vite
+/dist
 
-tmp
-
-util/bin
-
-dist
-
-resources
+# Elm
+elm-stuff
