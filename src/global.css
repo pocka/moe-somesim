@@ -1,0 +1,16 @@
+html {
+  font-size: 62.5%;
+  font-family: "IBM Plex Sans JP", sans-serif;
+}
+
+body {
+  font-size: 1.6rem;
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

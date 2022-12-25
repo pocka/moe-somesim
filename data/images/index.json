@@ -1,38 +1,55 @@
-[
-  {
-    "name": "生産装備セット",
-    "children": []
-  },
-  {
-    "name": "課金グラフィック装備 61~70",
-    "children": [
-      {
-        "name": "アビスリンカー装備セット",
-        "children": [
-          {
-            "name": "ニューター女",
-            "image": "gacha-7/AbyssLinker_NF.png"
-          },
-          {
-            "name": "ニューター男",
-            "image": "gacha-7/AbyssLinker_NM.png"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "課金グラフィック装備 81~90",
-    "children": [
-      {
-        "name": "鬼乱装備セット",
-        "children": [
-          {
-            "name": "ニューター女",
-            "image": "gacha-9/Kiran_NF.png"
-          }
-        ]
-      }
-    ]
-  }
-]
+{
+  "id": "g_root",
+  "name": "そめしむデフォルト",
+  "children": [
+    {
+      "id": "g_seisan",
+      "name": "生産装備セット",
+      "children": []
+    },
+    {
+      "id": "g_kakin_set_7",
+      "name": "課金グラフィック装備 61~70",
+      "children": [
+        {
+          "id": "g_abysslinker",
+          "name": "アビスリンカー装備セット",
+          "children": [
+            {
+              "id": "i_abysslinker_nf",
+              "name": "ニューター女",
+              "image": "gacha-7/AbyssLinker_NF.png"
+            },
+            {
+              "id": "i_abysslinker_nm",
+              "name": "ニューター男",
+              "image": "gacha-7/AbyssLinker_NM.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g_kakin_set_9",
+      "name": "課金グラフィック装備 81~90",
+      "children": [
+        {
+          "id": "g_kiran",
+          "name": "鬼乱装備セット",
+          "children": [
+            {
+              "id": "i_kiran_nf",
+              "name": "ニューター女",
+              "image": "gacha-9/Kiran_NF.png"
+            },
+            {
+              "id": "i_kiran_nm",
+              "name": "ニューター男",
+              "image": "gacha-9/Kiran_NM.png"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
