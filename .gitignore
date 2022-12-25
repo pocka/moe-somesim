@@ -8,5 +8,8 @@
 # Node.js / JavaScript
 node_modules
 
+# Vite
+/dist
+
 # Elm
 elm-stuff
