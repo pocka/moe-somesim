@@ -8,6 +8,28 @@
       "children": []
     },
     {
+      "id": "g_kakin_set_6",
+      "name": "課金グラフィック装備 51~60",
+      "children": [
+        {
+          "id": "g_darkspider",
+          "name": "ダークスパイダー装備",
+          "children": [
+            {
+              "id": "i_darkspider_nf",
+              "name": "ニューター女",
+              "image": "gacha-6/DarkSpider_NF.png"
+            },
+            {
+              "id": "i_darkspider_nm",
+              "name": "ニューター男",
+              "image": "gacha-6/DarkSpider_NM.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "g_kakin_set_7",
       "name": "課金グラフィック装備 61~70",
       "children": [
@@ -30,9 +52,52 @@
       ]
     },
     {
+      "id": "g_kakin_set_8",
+      "name": "課金グラフィック装備 71~80",
+      "children": [
+        {
+          "id": "g_masquerade",
+          "name": "マスカレード装備",
+          "children": [
+            {
+              "id": "i_masquerade_nf",
+              "name": "ニューター女",
+              "image": "gacha-8/Masquerade_NF.png"
+            },
+            {
+              "id": "i_masquerade_nm",
+              "name": "ニューター男",
+              "image": "gacha-8/Masquerade_NM.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "g_kakin_set_9",
       "name": "課金グラフィック装備 81~90",
       "children": [
+        {
+          "id": "g_fox-spirit",
+          "name": "妖狐装備",
+          "children": [
+            {
+              "id": "i_fox-spirit_nf",
+              "name": "ニューター女",
+              "image": "gacha-9/FoxSpirit_NF.png"
+            },
+            {
+              "id": "i_fox-spirit_nm",
+              "name": "ニューター男",
+              "image": "gacha-9/FoxSpirit_NM.png"
+            },
+            {
+              "id": "i_fox-spirit_nfnm_notail",
+              "name": "ニューター男女尻尾なし",
+              "image": "gacha-9/FoxSpirit_NFNM_notail.png"
+            }
+          ]
+        },
         {
           "id": "g_kiran",
           "name": "鬼乱装備セット",
@@ -46,6 +111,88 @@
               "id": "i_kiran_nm",
               "name": "ニューター男",
               "image": "gacha-9/Kiran_NM.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g_collaboration",
+      "name": "コラボレーション",
+      "children": [
+        {
+          "id": "g_mahoiku",
+          "name": "魔法少女育成計画",
+          "children": [
+            {
+              "id": "g_mahoiku_snowwhite",
+              "name": "スノーホワイトなりきり装備",
+              "children": [
+                {
+                  "id": "i_mahoiku_snowwhite_nf",
+                  "name": "ニューター女",
+                  "image": "collaboration/mahoiku/SnowWhite_NF.png"
+                },
+                {
+                  "id": "i_mahoiku_snowwhite_nm",
+                  "name": "ニューター男",
+                  "image": "collaboration/mahoiku/SnowWhite_NM.png"
+                }
+              ]
+            },
+            {
+              "id": "g_mahoiku_lapucelle",
+              "name": "ラ・ピュセルなりきり装備",
+              "children": [
+                {
+                  "id": "i_mahoiku_lapucelle_nf",
+                  "name": "ニューター女",
+                  "image": "collaboration/mahoiku/LaPucelle_NF.png"
+                },
+                {
+                  "id": "i_mahoiku_lapucelle_nm",
+                  "name": "ニューター男",
+                  "image": "collaboration/mahoiku/LaPucelle_NM.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "g_prisma-illya",
+          "name": "プリズマ☆イリヤ ツヴァイ ヘルツ！",
+          "children": [
+            {
+              "id": "g_prisma-illya_miyu",
+              "name": "美遊なりきり装備",
+              "children": [
+                {
+                  "id": "i_prisma-illya_miyu_nf",
+                  "name": "ニューター女",
+                  "image": "collaboration/prisma-illya/Miyu_NF.png"
+                },
+                {
+                  "id": "i_prisma-illya_miyu_nm",
+                  "name": "ニューター男",
+                  "image": "collaboration/prisma-illya/Miyu_NM.png"
+                }
+              ]
+            },
+            {
+              "id": "g_prisma-illya_cloe",
+              "name": "クロエなりきり装備",
+              "children": [
+                {
+                  "id": "i_prisma-illya_cloe_nf",
+                  "name": "ニューター女",
+                  "image": "collaboration/prisma-illya/Cloe_NF.png"
+                },
+                {
+                  "id": "i_prisma-illya_cloe_nm",
+                  "name": "ニューター男",
+                  "image": "collaboration/prisma-illya/Cloe_NM.png"
+                }
+              ]
             }
           ]
         }
