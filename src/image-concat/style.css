@@ -1,0 +1,89 @@
+body {
+  padding: 3.2rem 2.4rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2.4rem;
+  margin-bottom: 2.4rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.8rem 2.4rem;
+  border: 1px solid hsl(0 0% 15% / 0.8);
+  font-size: 1.6rem;
+  line-height: 1.2;
+
+  background-image: linear-gradient(
+    to bottom,
+    hsl(80 80% 30%),
+    hsl(90 85% 25%)
+  );
+  border-radius: 2px;
+  color: hsl(0 100% 100%);
+  cursor: pointer;
+}
+.button:disabled {
+  background-image: none;
+  background-color: hsl(80 0% 50%);
+  cursor: not-allowed;
+}
+
+.button[data-size="small"] {
+  padding: 0.4rem 1.6rem;
+  font-size: 1.2rem;
+}
+
+.button > input[type="file"] {
+  display: none;
+}
+
+.drop-zone {
+  display: block;
+  padding: 3rem;
+  border: 1px dashed hsl(0 0% 30%);
+
+  border-radius: 4px;
+  text-align: center;
+}
+.drop-zone[data-hover="true"] {
+  border-color: hsl(20 70% 40%);
+}
+
+.error {
+  padding: 1.6rem 2.4rem;
+  border: 1px solid hsl(0 0% 15% / 0.8);
+
+  background-color: hsl(350 60% 80%);
+  border-radius: 4px;
+  color: hsl(340 60% 16%);
+}
+
+.files {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 0;
+  margin: 3.2rem 0;
+}
+
+.files-item {
+  display: flex;
+  gap: 1.6rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+}
+.files-item + .files-item {
+  border-top: 1px solid hsl(0 0% 15% / 0.4);
+}
+
+.canvas {
+  max-width: 100%;
+  object-fit: contain;
+  box-shadow: 0 0 8px hsl(0 0% 5% / 0.2);
+}
