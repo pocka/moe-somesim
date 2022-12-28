@@ -4,8 +4,129 @@
   "children": [
     {
       "id": "g_seisan",
-      "name": "生産装備セット",
-      "children": []
+      "name": "生産装備",
+      "children": [
+        {
+          "id": "g_seisan_armor",
+          "name": "防具",
+          "children": [
+            {
+              "id": "g_seisan_armor_sewing",
+              "name": "裁縫",
+              "children": [
+                {
+                  "id": "g_huuhn",
+                  "name": "風雲装備",
+                  "children": [
+                    {
+                      "id": "i_huuhn_nf",
+                      "name": "ニューター女",
+                      "image": "seisan/armor/Huuhn_NF.png"
+                    },
+                    {
+                      "id": "i_huuhn_nm",
+                      "name": "ニューター男",
+                      "image": "seisan/armor/Huuhn_NM.png"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g_renkin",
+      "name": "錬金産装備セット",
+      "children": [
+        {
+          "id": "g_aladdin",
+          "name": "アラジン装備セット",
+          "children": [
+            {
+              "id": "i_aladdin_nf",
+              "name": "ニューター女",
+              "image": "renkin/Aladdin_NF.png"
+            },
+            {
+              "id": "i_aladdin_nm",
+              "name": "ニューター男",
+              "image": "renkin/Aladdin_NM.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g_kakin_set_3",
+      "name": "課金グラフィック装備 21~30",
+      "children": [
+        {
+          "id": "g_emuette",
+          "name": "エミュエット装備セット",
+          "children": [
+            {
+              "id": "i_emuette_nf",
+              "name": "ニューター女",
+              "image": "gacha-3/Emuette_NF.png"
+            },
+            {
+              "id": "i_emuette_nm",
+              "name": "ニューター男",
+              "image": "gacha-3/Emuette_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_noah_unit",
+          "name": "ノアユニット装備セット",
+          "children": [
+            {
+              "id": "i_noah_unit_nf",
+              "name": "ニューター女",
+              "image": "gacha-3/NoahUnit_NF.png"
+            },
+            {
+              "id": "i_noah_unit_nm",
+              "name": "ニューター男",
+              "image": "gacha-3/NoahUnit_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_anima_b",
+          "name": "アニマ装備セットTypeB",
+          "children": [
+            {
+              "id": "i_anima_b_nf",
+              "name": "ニューター女",
+              "image": "gacha-3/AnimaB_NF.png"
+            },
+            {
+              "id": "i_anima_b_nm",
+              "name": "ニューター男",
+              "image": "gacha-3/AnimaB_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_parlour_maid",
+          "name": "パーラーメイド装備セット",
+          "children": [
+            {
+              "id": "i_parlour_maid_nf",
+              "name": "ニューター女",
+              "image": "gacha-3/ParlourMaid_NF.png"
+            },
+            {
+              "id": "i_parlour_maid_nm",
+              "name": "ニューター男",
+              "image": "gacha-3/ParlourMaid_NM.png"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "g_kakin_set_6",
@@ -34,6 +155,27 @@
       "name": "課金グラフィック装備 61~70",
       "children": [
         {
+          "id": "g_wahr_glanz",
+          "name": "ヴァールグランツ装備セット",
+          "children": [
+            {
+              "id": "i_wahr_glanz_nf",
+              "name": "ニューター女",
+              "image": "gacha-7/WahrGlanz_NF.png"
+            },
+            {
+              "id": "i_wahr_glanz_nm",
+              "name": "ニューター男",
+              "image": "gacha-7/WahrGlanz_NM.png"
+            },
+            {
+              "id": "i_wahr_glanz_nfnm_nomant",
+              "name": "ニューター男女マントなし",
+              "image": "gacha-7/WahrGlanz_NFNM_nomant.png"
+            }
+          ]
+        },
+        {
           "id": "g_abysslinker",
           "name": "アビスリンカー装備セット",
           "children": [
@@ -48,6 +190,22 @@
               "image": "gacha-7/AbyssLinker_NM.png"
             }
           ]
+        },
+        {
+          "id": "g_knight_lilly",
+          "name": "ナイトリリィ装備セット",
+          "children": [
+            {
+              "id": "i_knight_lilly_nf",
+              "name": "ニューター女",
+              "image": "gacha-7/KnightLilly_NF.png"
+            },
+            {
+              "id": "i_knight_lilly_nm",
+              "name": "ニューター男",
+              "image": "gacha-7/KnightLilly_NM.png"
+            }
+          ]
         }
       ]
     },
@@ -55,6 +213,22 @@
       "id": "g_kakin_set_8",
       "name": "課金グラフィック装備 71~80",
       "children": [
+        {
+          "id": "g_abyssinian",
+          "name": "あびにゃん装備セット",
+          "children": [
+            {
+              "id": "i_abyssinian_nf",
+              "name": "ニューター女",
+              "image": "gacha-8/Abyssinian_NF.png"
+            },
+            {
+              "id": "i_abyssinian_nm",
+              "name": "ニューター男",
+              "image": "gacha-8/Abyssinian_NM.png"
+            }
+          ]
+        },
         {
           "id": "g_masquerade",
           "name": "マスカレード装備",
@@ -99,6 +273,70 @@
           ]
         },
         {
+          "id": "g_archangel",
+          "name": "アークエンジェル装備セット",
+          "children": [
+            {
+              "id": "i_archangel_nf",
+              "name": "ニューター女",
+              "image": "gacha-9/Archangel_NF.png"
+            },
+            {
+              "id": "i_archangel_nm",
+              "name": "ニューター男",
+              "image": "gacha-9/Archangel_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_pirate_captain",
+          "name": "パイレーツキャプテン装備セット",
+          "children": [
+            {
+              "id": "i_pirate_captain_nf",
+              "name": "ニューター女",
+              "image": "gacha-9/PirateCaptain_NF.png"
+            },
+            {
+              "id": "i_pirate_captain_nm",
+              "name": "ニューター男",
+              "image": "gacha-9/PirateCaptain_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_haikara",
+          "name": "ハイカラ装備セット",
+          "children": [
+            {
+              "id": "i_haikara_nf",
+              "name": "ニューター女",
+              "image": "gacha-9/Haikara_NF.png"
+            },
+            {
+              "id": "i_haikara_nm",
+              "name": "ニューター男",
+              "image": "gacha-9/Haikara_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_bastet",
+          "name": "バステト装備セット",
+          "children": [
+            {
+              "id": "i_bastet_nf",
+              "name": "ニューター女",
+              "image": "gacha-9/Bastet_NF.png"
+            },
+            {
+              "id": "i_bastet_nm",
+              "name": "ニューター男",
+              "image": "gacha-9/Bastet_NM.png"
+            }
+          ]
+        },
+        {
           "id": "g_kiran",
           "name": "鬼乱装備セット",
           "children": [
@@ -120,44 +358,6 @@
       "id": "g_collaboration",
       "name": "コラボレーション",
       "children": [
-        {
-          "id": "g_mahoiku",
-          "name": "魔法少女育成計画",
-          "children": [
-            {
-              "id": "g_mahoiku_snowwhite",
-              "name": "スノーホワイトなりきり装備",
-              "children": [
-                {
-                  "id": "i_mahoiku_snowwhite_nf",
-                  "name": "ニューター女",
-                  "image": "collaboration/mahoiku/SnowWhite_NF.png"
-                },
-                {
-                  "id": "i_mahoiku_snowwhite_nm",
-                  "name": "ニューター男",
-                  "image": "collaboration/mahoiku/SnowWhite_NM.png"
-                }
-              ]
-            },
-            {
-              "id": "g_mahoiku_lapucelle",
-              "name": "ラ・ピュセルなりきり装備",
-              "children": [
-                {
-                  "id": "i_mahoiku_lapucelle_nf",
-                  "name": "ニューター女",
-                  "image": "collaboration/mahoiku/LaPucelle_NF.png"
-                },
-                {
-                  "id": "i_mahoiku_lapucelle_nm",
-                  "name": "ニューター男",
-                  "image": "collaboration/mahoiku/LaPucelle_NM.png"
-                }
-              ]
-            }
-          ]
-        },
         {
           "id": "g_prisma-illya",
           "name": "プリズマ☆イリヤ ツヴァイ ヘルツ！",
@@ -191,6 +391,66 @@
                   "id": "i_prisma-illya_cloe_nm",
                   "name": "ニューター男",
                   "image": "collaboration/prisma-illya/Cloe_NM.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "g_grimgar",
+          "name": "灰と幻想のグリムガル",
+          "children": [
+            {
+              "id": "g_grimgar_shihoru",
+              "name": "シホルなりきり装備セット",
+              "children": [
+                {
+                  "id": "i_grimgar_shihoru_nf",
+                  "name": "ニューター女",
+                  "image": "collaboration/grimgar/Shihoru_NF.png"
+                },
+                {
+                  "id": "i_grimgar_shihoru_nm",
+                  "name": "ニューター女",
+                  "image": "collaboration/grimgar/Shihoru_NM.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "g_mahoiku",
+          "name": "魔法少女育成計画",
+          "children": [
+            {
+              "id": "g_mahoiku_snowwhite",
+              "name": "スノーホワイトなりきり装備",
+              "children": [
+                {
+                  "id": "i_mahoiku_snowwhite_nf",
+                  "name": "ニューター女",
+                  "image": "collaboration/mahoiku/SnowWhite_NF.png"
+                },
+                {
+                  "id": "i_mahoiku_snowwhite_nm",
+                  "name": "ニューター男",
+                  "image": "collaboration/mahoiku/SnowWhite_NM.png"
+                }
+              ]
+            },
+            {
+              "id": "g_mahoiku_lapucelle",
+              "name": "ラ・ピュセルなりきり装備",
+              "children": [
+                {
+                  "id": "i_mahoiku_lapucelle_nf",
+                  "name": "ニューター女",
+                  "image": "collaboration/mahoiku/LaPucelle_NF.png"
+                },
+                {
+                  "id": "i_mahoiku_lapucelle_nm",
+                  "name": "ニューター男",
+                  "image": "collaboration/mahoiku/LaPucelle_NM.png"
                 }
               ]
             }
