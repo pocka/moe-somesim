@@ -29,8 +29,94 @@
                       "image": "seisan/armor/Huuhn_NM.png"
                     }
                   ]
+                },
+                {
+                  "id": "g_stylishleather",
+                  "name": "スタイリッシュレザー装備",
+                  "children": [
+                    {
+                      "id": "i_stylishleather_nf",
+                      "name": "ニューター女",
+                      "image": "seisan/armor/StylishLeather_NF.png"
+                    },
+                    {
+                      "id": "i_stylishleather_nm",
+                      "name": "ニューター男",
+                      "image": "seisan/armor/StylishLeather_NM.png"
+                    }
+                  ]
+                },
+                {
+                  "id": "g_stylishcloth",
+                  "name": "スタイリッシュクロース装備",
+                  "children": [
+                    {
+                      "id": "i_stylishcloth_nf",
+                      "name": "ニューター女",
+                      "image": "seisan/armor/StylishCloth_NF.png"
+                    },
+                    {
+                      "id": "i_stylishcloth_nm",
+                      "name": "ニューター男",
+                      "image": "seisan/armor/StylishCloth_NM.png"
+                    }
+                  ]
+                },
+                {
+                  "id": "g_waistsidecloth",
+                  "name": "ウエストサイドクロース",
+                  "children": [
+                    {
+                      "id": "i_waistsidecloth_nf",
+                      "name": "ニューター女",
+                      "image": "seisan/armor/WaistSideCloth_NF.png"
+                    },
+                    {
+                      "id": "i_waistsidecloth_nm",
+                      "name": "ニューター男",
+                      "image": "seisan/armor/WaistSideCloth_NM.png"
+                    }
+                  ]
                 }
               ]
+            },
+            {
+              "id": "g_seisan_armor_smith",
+              "name": "鍛冶",
+              "children": [
+                {
+                  "id": "g_thor",
+                  "name": "トール装備",
+                  "children": [
+                    {
+                      "id": "i_thor_nf",
+                      "name": "ニューター女",
+                      "image": "seisan/armor/Thor_NF.png"
+                    },
+                    {
+                      "id": "i_thor_nm",
+                      "name": "ニューター男",
+                      "image": "seisan/armor/Thor_NM.png"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "g_seisan_weapon",
+          "name": "武器",
+          "children": [
+            {
+              "id": "g_swordofgauntlet",
+              "name": "ソードオブガントレット",
+              "image": "seisan/weapon/SwordOfGauntlet.png"
+            },
+            {
+              "id": "g_psylliumblade",
+              "name": "サイリウムブレイド",
+              "image": "seisan/weapon/PsylliumBlade.png"
             }
           ]
         }
@@ -147,6 +233,22 @@
               "image": "gacha-6/DarkSpider_NM.png"
             }
           ]
+        },
+        {
+          "id": "g_schwarzefuhrer",
+          "name": "シュヴェルツェフューラー装備",
+          "children": [
+            {
+              "id": "i_schwarzefuhrer_nf",
+              "name": "ニューター女",
+              "image": "gacha-6/Schwarzefuhrer_NF.png"
+            },
+            {
+              "id": "i_schwarzefuhrer_nm",
+              "name": "ニューター男",
+              "image": "gacha-6/Schwarzefuhrer_NM.png"
+            }
+          ]
         }
       ]
     },
@@ -230,6 +332,59 @@
           ]
         },
         {
+          "id": "g_shadowstalker",
+          "name": "シャドウストーカー装備セット",
+          "children": [
+            {
+              "id": "i_shadowstalker_nf",
+              "name": "ニューター女",
+              "image": "gacha-8/ShadowStalker_NF.png"
+            },
+            {
+              "id": "i_shadowstalker_nm",
+              "name": "ニューター男",
+              "image": "gacha-8/ShadowStalker_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_skypriest",
+          "name": "天空司祭装備",
+          "children": [
+            {
+              "id": "i_skypriest_nf",
+              "name": "ニューター女",
+              "image": "gacha-8/SkyPriest_NF.png"
+            },
+            {
+              "id": "i_skypriest_nm",
+              "name": "ニューター男",
+              "image": "gacha-8/SkyPriest_NM.png"
+            },
+            {
+              "id": "i_skypriest_weapon",
+              "name": "天空司祭ロッド",
+              "image": "gacha-8/SkyPriest_Weapon.png"
+            }
+          ]
+        },
+        {
+          "id": "g_wildviking",
+          "name": "ワイルドバイキング装備",
+          "children": [
+            {
+              "id": "i_wildviking_nf",
+              "name": "ニューター女",
+              "image": "gacha-8/WildViking_NF.png"
+            },
+            {
+              "id": "i_wildviking_nm",
+              "name": "ニューター男",
+              "image": "gacha-8/WildViking_NM.png"
+            }
+          ]
+        },
+        {
           "id": "g_masquerade",
           "name": "マスカレード装備",
           "children": [
@@ -273,6 +428,38 @@
           ]
         },
         {
+          "id": "g_theoremseeker",
+          "name": "セオレムシーカー装備",
+          "children": [
+            {
+              "id": "i_theoremseeker_nf",
+              "name": "ニューター女",
+              "image": "gacha-9/TheoremSeeker_NF.png"
+            },
+            {
+              "id": "i_theoremseeker_nm",
+              "name": "ニューター男",
+              "image": "gacha-9/TheoremSeeker_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_dressmail",
+          "name": "ドレスメイル装備",
+          "children": [
+            {
+              "id": "i_dressmail_nf",
+              "name": "ニューター女",
+              "image": "gacha-9/DressMail_NF.png"
+            },
+            {
+              "id": "i_dressmail_nm",
+              "name": "ニューター男",
+              "image": "gacha-9/DressMail_NM.png"
+            }
+          ]
+        },
+        {
           "id": "g_archangel",
           "name": "アークエンジェル装備セット",
           "children": [
@@ -285,6 +472,22 @@
               "id": "i_archangel_nm",
               "name": "ニューター男",
               "image": "gacha-9/Archangel_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_futuristic",
+          "name": "フューチャリスティック装備セット",
+          "children": [
+            {
+              "id": "i_futuristic_nf",
+              "name": "ニューター女",
+              "image": "gacha-9/Futuristic_NF.png"
+            },
+            {
+              "id": "i_futuristic_nm",
+              "name": "ニューター男",
+              "image": "gacha-9/Futuristic_NM.png"
             }
           ]
         },
@@ -355,6 +558,127 @@
       ]
     },
     {
+      "id": "g_campaign",
+      "name": "課金キャンペーン品",
+      "children": [
+        {
+          "id": "g_campaign_set",
+          "name": "装備セット",
+          "children": [
+            {
+              "id": "g_halloweenwitch",
+              "name": "ハロウィンウィッチ装備",
+              "children": [
+                {
+                  "id": "i_halloweenwitch_nf",
+                  "name": "ニューター女",
+                  "image": "campaign/set/HalloweenWitch_NF.png"
+                },
+                {
+                  "id": "i_halloweenwitch_nm",
+                  "name": "ニューター男",
+                  "image": "campaign/set/HalloweenWitch_NM.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "g_campaign_accessory",
+          "name": "装飾品",
+          "children": [
+            {
+              "id": "i_roseeyepatch",
+              "name": "薔薇の眼帯",
+              "image": "campaign/accessory/RoseEyepatch.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g_gacha",
+      "name": "ガチャ産アイテム",
+      "children": [
+        {
+          "id": "g_gacha_set",
+          "name": "装備セット",
+          "children": [
+            {
+              "id": "g_noble_obina",
+              "name": "男雛装備",
+              "children": [
+                {
+                  "id": "i_noble_obina_nf",
+                  "name": "ニューター女",
+                  "image": "gacha/set/Noble_NF.png"
+                },
+                {
+                  "id": "i_noble_obina_nm",
+                  "name": "ニューター男",
+                  "image": "gacha/set/Noble_NM.png"
+                }
+              ]
+            },
+            {
+              "id": "g_stagecostume",
+              "name": "ステージコスチューム装備",
+              "children": [
+                {
+                  "id": "i_stagecostume_nf",
+                  "name": "ニューター女",
+                  "image": "gacha/set/StageCostume_NF.png"
+                },
+                {
+                  "id": "i_stagecostume_nm",
+                  "name": "ニューター男",
+                  "image": "gacha/set/StageCostume_NM.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "g_gacha_armor",
+          "name": "防具",
+          "children": [
+            {
+              "id": "g_plluonepiece",
+              "name": "プルルームワンピース",
+              "children": [
+                {
+                  "id": "i_plluonepiece_nf",
+                  "name": "ニューター女",
+                  "image": "gacha/armor/PlluOnepiece_NF.png"
+                },
+                {
+                  "id": "i_plluonepiece_nm",
+                  "name": "ニューター男",
+                  "image": "gacha/armor/PlluOnepiece_NM.png"
+                }
+              ]
+            },
+            {
+              "id": "g_simenawa",
+              "name": "注連縄",
+              "children": [
+                {
+                  "id": "i_simenawa_nf",
+                  "name": "ニューター女",
+                  "image": "gacha/armor/Simenawa_NF.png"
+                },
+                {
+                  "id": "i_simenawa_nm",
+                  "name": "ニューター男",
+                  "image": "gacha/armor/Simenawa_NM.png"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "g_collaboration",
       "name": "コラボレーション",
       "children": [
@@ -362,6 +686,22 @@
           "id": "g_prisma-illya",
           "name": "プリズマ☆イリヤ ツヴァイ ヘルツ！",
           "children": [
+            {
+              "id": "g_prisma-illya_illya",
+              "name": "イリヤなりきり装備",
+              "children": [
+                {
+                  "id": "i_prisma-illya_illya_nf",
+                  "name": "ニューター女",
+                  "image": "collaboration/prisma-illya/Illya_NF.png"
+                },
+                {
+                  "id": "i_prisma-illya_illya_nm",
+                  "name": "ニューター男",
+                  "image": "collaboration/prisma-illya/Illya_NM.png"
+                }
+              ]
+            },
             {
               "id": "g_prisma-illya_miyu",
               "name": "美遊なりきり装備",
@@ -393,6 +733,38 @@
                   "image": "collaboration/prisma-illya/Cloe_NM.png"
                 }
               ]
+            },
+            {
+              "id": "g_prisma-illya_zwei_form_illya",
+              "name": "ツヴァイフォームイリヤなりきり装備",
+              "children": [
+                {
+                  "id": "i_prisma-illya_zwei_form_illya_nf",
+                  "name": "ニューター女",
+                  "image": "collaboration/prisma-illya/ZweiFormIllya_NF.png"
+                },
+                {
+                  "id": "i_prisma-illya_zwei_form_illya_nm",
+                  "name": "ニューター男",
+                  "image": "collaboration/prisma-illya/ZweiFormIllya_NM.png"
+                }
+              ]
+            },
+            {
+              "id": "g_prisma-illya_homurabara",
+              "name": "穂群原学園制服装備",
+              "children": [
+                {
+                  "id": "i_prisma-illya_homurabara_nf",
+                  "name": "ニューター女",
+                  "image": "collaboration/prisma-illya/Homurabara_NF.png"
+                },
+                {
+                  "id": "i_prisma-illya_homurabara_nm",
+                  "name": "ニューター男",
+                  "image": "collaboration/prisma-illya/Homurabara_NM.png"
+                }
+              ]
             }
           ]
         },
@@ -400,6 +772,38 @@
           "id": "g_grimgar",
           "name": "灰と幻想のグリムガル",
           "children": [
+            {
+              "id": "g_grimgar_haruhiro",
+              "name": "ハルヒロなりきり装備",
+              "children": [
+                {
+                  "id": "i_grimgar_haruhiro_nf",
+                  "name": "ニューター女",
+                  "image": "collaboration/grimgar/Haruhiro_NF.png"
+                },
+                {
+                  "id": "i_grimgar_haruhiro_nm",
+                  "name": "ニューター女",
+                  "image": "collaboration/grimgar/Haruhiro_NM.png"
+                }
+              ]
+            },
+            {
+              "id": "g_grimgar_merry",
+              "name": "メリィなりきり装備",
+              "children": [
+                {
+                  "id": "i_grimgar_merry_nf",
+                  "name": "ニューター女",
+                  "image": "collaboration/grimgar/Merry_NF.png"
+                },
+                {
+                  "id": "i_grimgar_merry_nm",
+                  "name": "ニューター女",
+                  "image": "collaboration/grimgar/Merry_NM.png"
+                }
+              ]
+            },
             {
               "id": "g_grimgar_shihoru",
               "name": "シホルなりきり装備セット",
