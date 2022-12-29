@@ -38,6 +38,7 @@ export class AppFlowerColor extends HTMLElement {
         border: 1px solid hsl(0 0% 50%);
         padding: 0;
         margin: 0;
+        aspect-ratio: 1 / 1;
 
         background-color: transparent;
         border-radius: 2px;
