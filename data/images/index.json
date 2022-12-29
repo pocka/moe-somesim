@@ -15,6 +15,22 @@
               "name": "裁縫",
               "children": [
                 {
+                  "id": "g_highcaster",
+                  "name": "ハイキャスター装備",
+                  "children": [
+                    {
+                      "id": "i_highcaster_nf",
+                      "name": "ニューター女",
+                      "image": "seisan/armor/HighCaster_NF.png"
+                    },
+                    {
+                      "id": "i_highcaster_nm",
+                      "name": "ニューター男",
+                      "image": "seisan/armor/HighCaster_NM.png"
+                    }
+                  ]
+                },
+                {
                   "id": "g_huuhn",
                   "name": "風雲装備",
                   "children": [
@@ -27,6 +43,27 @@
                       "id": "i_huuhn_nm",
                       "name": "ニューター男",
                       "image": "seisan/armor/Huuhn_NM.png"
+                    }
+                  ]
+                },
+                {
+                  "id": "g_finesilk",
+                  "name": "ファインシルク装備",
+                  "children": [
+                    {
+                      "id": "i_finesilk_nf",
+                      "name": "ニューター女",
+                      "image": "seisan/armor/FineSilk_NF.png"
+                    },
+                    {
+                      "id": "i_finesilk_nm",
+                      "name": "ニューター男",
+                      "image": "seisan/armor/FineSilk_NM.png"
+                    },
+                    {
+                      "id": "i_finesilk_boots",
+                      "name": "ファインシルク ブーツ",
+                      "image": "seisan/armor/FineSilk_Boots.png"
                     }
                   ]
                 },
@@ -63,6 +100,38 @@
                   ]
                 },
                 {
+                  "id": "g_cutecloth",
+                  "name": "キュートクロース装備",
+                  "children": [
+                    {
+                      "id": "i_cutecloth_nf",
+                      "name": "ニューター女",
+                      "image": "seisan/armor/CuteCloth_NF.png"
+                    },
+                    {
+                      "id": "i_cutecloth_nm",
+                      "name": "ニューター男",
+                      "image": "seisan/armor/CuteCloth_NM.png"
+                    }
+                  ]
+                },
+                {
+                  "id": "g_dragonscale",
+                  "name": "ドラゴンスケール装備",
+                  "children": [
+                    {
+                      "id": "i_dragonscale_nf",
+                      "name": "ニューター女",
+                      "image": "seisan/armor/DragonScale_NF.png"
+                    },
+                    {
+                      "id": "i_dragonscale_nm",
+                      "name": "ニューター男",
+                      "image": "seisan/armor/DragonScale_NM.png"
+                    }
+                  ]
+                },
+                {
                   "id": "g_waistsidecloth",
                   "name": "ウエストサイドクロース",
                   "children": [
@@ -85,8 +154,24 @@
               "name": "鍛冶",
               "children": [
                 {
+                  "id": "g_plate",
+                  "name": "カラープレート装備",
+                  "children": [
+                    {
+                      "id": "i_plate_nf",
+                      "name": "ニューター女",
+                      "image": "seisan/armor/Plate_NF.png"
+                    },
+                    {
+                      "id": "i_plate_nm",
+                      "name": "ニューター男",
+                      "image": "seisan/armor/Plate_NM.png"
+                    }
+                  ]
+                },
+                {
                   "id": "g_thor",
-                  "name": "トール装備",
+                  "name": "カラートール装備",
                   "children": [
                     {
                       "id": "i_thor_nf",
@@ -101,6 +186,28 @@
                   ]
                 }
               ]
+            },
+            {
+              "id": "g_seisan_armor_mokkosu",
+              "name": "木工",
+              "children": [
+                {
+                  "id": "g_cedro",
+                  "name": "カラーセードロ装備",
+                  "children": [
+                    {
+                      "id": "i_cedro_nf",
+                      "name": "ニューター女",
+                      "image": "seisan/armor/Cedro_NF.png"
+                    },
+                    {
+                      "id": "i_cedro_nm",
+                      "name": "ニューター男",
+                      "image": "seisan/armor/Cedro_NM.png"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -109,14 +216,29 @@
           "name": "武器",
           "children": [
             {
-              "id": "g_swordofgauntlet",
+              "id": "i_houtengageki",
+              "name": "方天画戟",
+              "image": "seisan/weapon/HoutenGageki.png"
+            },
+            {
+              "id": "i_monimoniallance",
+              "name": "セレモニアルランス",
+              "image": "seisan/weapon/CeremonialLance.png"
+            },
+            {
+              "id": "i_swordofgauntlet",
               "name": "ソードオブガントレット",
               "image": "seisan/weapon/SwordOfGauntlet.png"
             },
             {
-              "id": "g_psylliumblade",
+              "id": "i_psylliumblade",
               "name": "サイリウムブレイド",
               "image": "seisan/weapon/PsylliumBlade.png"
+            },
+            {
+              "id": "i_mechanicalnoahrod",
+              "name": "メカニカルノアロッド",
+              "image": "seisan/weapon/MechanicalNoahRod.png"
             }
           ]
         }
@@ -139,6 +261,50 @@
               "id": "i_aladdin_nm",
               "name": "ニューター男",
               "image": "renkin/Aladdin_NM.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g_kakin_set_1",
+      "name": "課金グラフィック装備 1~10",
+      "children": [
+        {
+          "id": "g_darkknight",
+          "name": "ダークナイト装備",
+          "children": [
+            {
+              "id": "i_darkknight_nf",
+              "name": "ニューター女",
+              "image": "gacha-1/DarkKnight_NF.png"
+            },
+            {
+              "id": "i_darkknight_nm",
+              "name": "ニューター男",
+              "image": "gacha-1/DarkKnight_NM.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g_kakin_set_2",
+      "name": "課金グラフィック装備 11~20",
+      "children": [
+        {
+          "id": "g_ichcyon",
+          "name": "いっちょん装備",
+          "children": [
+            {
+              "id": "i_ichcyon_nf",
+              "name": "ニューター女",
+              "image": "gacha-2/Ichcyon_NF.png"
+            },
+            {
+              "id": "i_ichcyon_nm",
+              "name": "ニューター男",
+              "image": "gacha-2/Ichcyon_NM.png"
             }
           ]
         }
@@ -215,6 +381,82 @@
       ]
     },
     {
+      "id": "g_kakin_set_4",
+      "name": "課金グラフィック装備 31~40",
+      "children": [
+        {
+          "id": "g_order",
+          "name": "オーダーズ装備",
+          "children": [
+            {
+              "id": "i_order_nf",
+              "name": "ニューター女",
+              "image": "gacha-4/Order_NF.png"
+            },
+            {
+              "id": "i_order_nm",
+              "name": "ニューター男",
+              "image": "gacha-4/Order_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_halloweenparty",
+          "name": "ハロウィンパーティー装備",
+          "children": [
+            {
+              "id": "i_halloweenparty_nf",
+              "name": "ニューター女",
+              "image": "gacha-4/HalloweenParty_NF.png"
+            },
+            {
+              "id": "i_halloweenparty_nm",
+              "name": "ニューター男",
+              "image": "gacha-4/HalloweenParty_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_beasttamer",
+          "name": "ビーストテイマー装備",
+          "children": [
+            {
+              "id": "i_beasttamer_nf",
+              "name": "ニューター女",
+              "image": "gacha-4/BeastTamer_NF.png"
+            },
+            {
+              "id": "i_beasttamer_nm",
+              "name": "ニューター男",
+              "image": "gacha-4/BeastTamer_NM.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g_kakin_set_5",
+      "name": "課金グラフィック装備 41~50",
+      "children": [
+        {
+          "id": "g_hexefinyu",
+          "name": "魔法少女フィニュ装備",
+          "children": [
+            {
+              "id": "i_hexefinyu_nf",
+              "name": "ニューター女",
+              "image": "gacha-5/HexeFinyu_NF.png"
+            },
+            {
+              "id": "i_hexefinyu_nm",
+              "name": "ニューター男",
+              "image": "gacha-5/HexeFinyu_NM.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "g_kakin_set_6",
       "name": "課金グラフィック装備 51~60",
       "children": [
@@ -231,6 +473,27 @@
               "id": "i_darkspider_nm",
               "name": "ニューター男",
               "image": "gacha-6/DarkSpider_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_beautyofnature",
+          "name": "花鳥風月装備",
+          "children": [
+            {
+              "id": "i_beautyofnature_nf",
+              "name": "ニューター女",
+              "image": "gacha-6/BeautyOfNature_NF.png"
+            },
+            {
+              "id": "i_beautyofnature_nm",
+              "name": "ニューター男",
+              "image": "gacha-6/BeautyOfNature_NM.png"
+            },
+            {
+              "id": "i_beautyofnature_weapon",
+              "name": "花鳥風月 扇子",
+              "image": "gacha-6/BeautyOfNature_Weapon.png"
             }
           ]
         },
@@ -308,6 +571,22 @@
               "image": "gacha-7/KnightLilly_NM.png"
             }
           ]
+        },
+        {
+          "id": "g_holyrequel",
+          "name": "ホーリーレクィエル装備セット",
+          "children": [
+            {
+              "id": "i_holyrequel_nf",
+              "name": "ニューター女",
+              "image": "gacha-7/HolyRequel_NF.png"
+            },
+            {
+              "id": "i_holyrequel_nm",
+              "name": "ニューター男",
+              "image": "gacha-7/HolyRequel_NM.png"
+            }
+          ]
         }
       ]
     },
@@ -348,6 +627,59 @@
           ]
         },
         {
+          "id": "g_wildviking",
+          "name": "ワイルドバイキング装備",
+          "children": [
+            {
+              "id": "i_wildviking_nf",
+              "name": "ニューター女",
+              "image": "gacha-8/WildViking_NF.png"
+            },
+            {
+              "id": "i_wildviking_nm",
+              "name": "ニューター男",
+              "image": "gacha-8/WildViking_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_magister",
+          "name": "マギステル装備",
+          "children": [
+            {
+              "id": "i_magister_nf",
+              "name": "ニューター女",
+              "image": "gacha-8/Magister_NF.png"
+            },
+            {
+              "id": "i_magister_nm",
+              "name": "ニューター男",
+              "image": "gacha-8/Magister_NM.png"
+            },
+            {
+              "id": "i_magister_weapon",
+              "name": "マギステルスタッフ",
+              "image": "gacha-8/Magister_Weapon.png"
+            }
+          ]
+        },
+        {
+          "id": "g_darkhero",
+          "name": "ツヴェート装備",
+          "children": [
+            {
+              "id": "i_darkhero_nf",
+              "name": "ニューター女",
+              "image": "gacha-8/DarkHero_NF.png"
+            },
+            {
+              "id": "i_darkhero_nm",
+              "name": "ニューター男",
+              "image": "gacha-8/DarkHero_NM.png"
+            }
+          ]
+        },
+        {
           "id": "g_skypriest",
           "name": "天空司祭装備",
           "children": [
@@ -369,22 +701,6 @@
           ]
         },
         {
-          "id": "g_wildviking",
-          "name": "ワイルドバイキング装備",
-          "children": [
-            {
-              "id": "i_wildviking_nf",
-              "name": "ニューター女",
-              "image": "gacha-8/WildViking_NF.png"
-            },
-            {
-              "id": "i_wildviking_nm",
-              "name": "ニューター男",
-              "image": "gacha-8/WildViking_NM.png"
-            }
-          ]
-        },
-        {
           "id": "g_masquerade",
           "name": "マスカレード装備",
           "children": [
@@ -399,6 +715,38 @@
               "image": "gacha-8/Masquerade_NM.png"
             }
           ]
+        },
+        {
+          "id": "g_karan",
+          "name": "華爛装備",
+          "children": [
+            {
+              "id": "i_karan_nf",
+              "name": "ニューター女",
+              "image": "gacha-8/Karan_NF.png"
+            },
+            {
+              "id": "i_karan_nm",
+              "name": "ニューター男",
+              "image": "gacha-8/Karan_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_fruhling",
+          "name": "フリューリンク装備",
+          "children": [
+            {
+              "id": "i_fruhling_nf",
+              "name": "ニューター女",
+              "image": "gacha-8/Fruhling_NF.png"
+            },
+            {
+              "id": "i_fruhling_nm",
+              "name": "ニューター男",
+              "image": "gacha-8/Fruhling_NM.png"
+            }
+          ]
         }
       ]
     },
@@ -406,6 +754,22 @@
       "id": "g_kakin_set_9",
       "name": "課金グラフィック装備 81~90",
       "children": [
+        {
+          "id": "g_hellkaiser",
+          "name": "ヘルカイザー装備",
+          "children": [
+            {
+              "id": "i_hellkaiser_nf",
+              "name": "ニューター女",
+              "image": "gacha-9/HellKaiser_NF.png"
+            },
+            {
+              "id": "i_hellkaiser_nm",
+              "name": "ニューター男",
+              "image": "gacha-9/HellKaiser_NM.png"
+            }
+          ]
+        },
         {
           "id": "g_fox-spirit",
           "name": "妖狐装備",
@@ -558,6 +922,44 @@
       ]
     },
     {
+      "id": "g_kakin_set_other",
+      "name": "課金グラフィック装備 その他",
+      "children": [
+        {
+          "id": "g_panther",
+          "name": "ヒョウの着ぐるみ装備",
+          "children": [
+            {
+              "id": "i_panther_nf",
+              "name": "ニューター女",
+              "image": "gacha-other/Panther_NF.png"
+            },
+            {
+              "id": "i_panther_nm",
+              "name": "ニューター男",
+              "image": "gacha-other/Panther_NM.png"
+            }
+          ]
+        },
+        {
+          "id": "g_noahforce",
+          "name": "ノアフォース装備",
+          "children": [
+            {
+              "id": "i_noahforce_nf",
+              "name": "ニューター女",
+              "image": "gacha-other/NoahForce_NF.png"
+            },
+            {
+              "id": "i_noahforce_nm",
+              "name": "ニューター男",
+              "image": "gacha-other/NoahForce_NM.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "g_campaign",
       "name": "課金キャンペーン品",
       "children": [
@@ -605,22 +1007,6 @@
           "name": "装備セット",
           "children": [
             {
-              "id": "g_noble_obina",
-              "name": "男雛装備",
-              "children": [
-                {
-                  "id": "i_noble_obina_nf",
-                  "name": "ニューター女",
-                  "image": "gacha/set/Noble_NF.png"
-                },
-                {
-                  "id": "i_noble_obina_nm",
-                  "name": "ニューター男",
-                  "image": "gacha/set/Noble_NM.png"
-                }
-              ]
-            },
-            {
               "id": "g_stagecostume",
               "name": "ステージコスチューム装備",
               "children": [
@@ -633,6 +1019,38 @@
                   "id": "i_stagecostume_nm",
                   "name": "ニューター男",
                   "image": "gacha/set/StageCostume_NM.png"
+                }
+              ]
+            },
+            {
+              "id": "g_jiangshi",
+              "name": "キョンシー装備",
+              "children": [
+                {
+                  "id": "i_jiangshi_nf",
+                  "name": "ニューター女",
+                  "image": "gacha/set/Jiangshi_NF.png"
+                },
+                {
+                  "id": "i_jiangshi_nm",
+                  "name": "ニューター男",
+                  "image": "gacha/set/Jiangshi_NM.png"
+                }
+              ]
+            },
+            {
+              "id": "g_noble_obina",
+              "name": "男雛装備",
+              "children": [
+                {
+                  "id": "i_noble_obina_nf",
+                  "name": "ニューター女",
+                  "image": "gacha/set/Noble_NF.png"
+                },
+                {
+                  "id": "i_noble_obina_nm",
+                  "name": "ニューター男",
+                  "image": "gacha/set/Noble_NM.png"
                 }
               ]
             }
@@ -673,6 +1091,55 @@
                   "image": "gacha/armor/Simenawa_NM.png"
                 }
               ]
+            },
+            {
+              "id": "g_noblevampire",
+              "name": "ノーブルヴァンパイアコード&パンツ",
+              "children": [
+                {
+                  "id": "i_noblevampire_nf",
+                  "name": "ニューター女",
+                  "image": "gacha/armor/NobleVampire_NF.png"
+                },
+                {
+                  "id": "i_noblevampire_nm",
+                  "name": "ニューター男",
+                  "image": "gacha/armor/NobleVampire_NM.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "g_gacha_accessory",
+          "name": "装飾品",
+          "children": [
+            {
+              "id": "i_icewing",
+              "name": "氷の翼",
+              "image": "gacha/accessory/IceWing.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g_event",
+      "name": "イベント品",
+      "children": [
+        {
+          "id": "g_9thshirt",
+          "name": "九周年Tシャツ",
+          "children": [
+            {
+              "id": "i_9thshirt_nf",
+              "name": "ニューター女",
+              "image": "event/armor/9thShirt_NF.png"
+            },
+            {
+              "id": "i_9thshirt_nm",
+              "name": "ニューター男",
+              "image": "event/armor/9thShirt_NM.png"
             }
           ]
         }
