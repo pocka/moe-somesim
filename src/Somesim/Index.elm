@@ -42,10 +42,17 @@ type alias IndexMeta =
     }
 
 
+type alias GroupMeta =
+    { id : Id
+    , name : String
+    , defaultExpanded : Bool
+    }
+
+
 {-| 装備画像とそのグルーピングを管理するインデックス。
 -}
 type Index
-    = Group IndexMeta (List Index)
+    = Group GroupMeta (List Index)
     | Item IndexMeta Url
 
 
@@ -99,11 +106,20 @@ indexMetaDecoder =
         (Decode.field "name" Decode.string)
 
 
+groupMetaDecoder : Decode.Decoder GroupMeta
+groupMetaDecoder =
+    Decode.map3
+        GroupMeta
+        (Decode.field "id" Decode.string |> Decode.map Id)
+        (Decode.field "name" Decode.string)
+        (Decode.maybe (Decode.field "expanded" Decode.bool) |> Decode.map (Maybe.withDefault False))
+
+
 groupDecoder : Url -> Decode.Decoder Index
 groupDecoder baseUrl =
     Decode.map2
         Group
-        indexMetaDecoder
+        groupMetaDecoder
         (Decode.field "children" (Decode.list (Decode.lazy (\_ -> decoder baseUrl))))
 
 

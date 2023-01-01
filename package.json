@@ -16,6 +16,7 @@
     "test": "elm-test"
   },
   "dependencies": {
-    "@fontsource/ibm-plex-sans-jp": "^4.5.0"
+    "@fontsource/inter": "^4.5.14",
+    "@fontsource/zen-kaku-gothic-new": "^4.5.16"
   }
 }

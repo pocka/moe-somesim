@@ -7,8 +7,12 @@ export class AppFlowerGroup extends HTMLElement {
     shadowRoot.innerHTML = `
       <style>
       .title {
-        font-size: 1.4rem;
-        font-weight: bold;
+        font: var(--app-font-body);
+        margin-bottom: 0.8rem;
+
+        color: hsl(var(--app-color-foreground-dimmed));
+        -webkit-user-select: none;
+        user-select: none;
       }
 
       .grid {

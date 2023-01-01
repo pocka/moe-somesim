@@ -1,10 +1,12 @@
 {
   "id": "g_root",
   "name": "そめしむデフォルト",
+  "expanded": true,
   "children": [
     {
       "id": "g_seisan",
       "name": "生産装備",
+      "expanded": true,
       "children": [
         {
           "id": "g_seisan_armor",

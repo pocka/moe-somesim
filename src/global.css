@@ -1,12 +1,39 @@
+:root {
+  --app-color-background-level0: 0 0% 8%;
+  --app-color-background-level1: 0 0% 12%;
+  --app-color-background-level2: 0 0% 16%;
+  --app-color-background-level3: 0 0% 20%;
+  --app-color-foreground-normal: 0 0% 100%;
+  --app-color-foreground-dimmed: 0 0% 76%;
+  --app-color-foreground-disabled: 0 0% 56%;
+  --app-color-border-level0: 0 0% 80% / 10%;
+  --app-color-action-hover: 0 0% 100% / 15%;
+  --app-color-action-active: 0 0% 100% / 10%;
+
+  --app-radii-panel: 2px;
+  --app-radii-control: 4px;
+
+  --app-shadow-level0: 0px 1px 7px hsl(0 0% 0% / 35%);
+  --app-shadow-level1: 0px 1px 5px hsl(0 0% 0% / 15%);
+  --app-shadow-level2: 0px 1px 3px hsl(0 0% 0% / 10%);
+
+  --app-font-body: 1.2rem/1.35 "InterVariable", "Zen Kaku Gothic New",
+    sans-serif;
+  --app-font-small: 1rem/1.35 "InterVariable", "Zen Kaku Gothic New", sans-serif;
+}
+
 html {
   font-size: 62.5%;
-  font-family: "IBM Plex Sans JP", sans-serif;
+  font-family: sans-serif;
 }
 
 body {
-  font-size: 1.6rem;
+  font: var(--app-font-body);
   margin: 0;
   padding: 0;
+
+  background-color: hsl(var(--app-color-background-level0));
+  color: hsl(var(--app-color-foreground-normal));
 }
 
 *,

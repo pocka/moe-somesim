@@ -2,13 +2,16 @@ module Somesim.App exposing (main)
 
 import Browser
 import Html exposing (..)
-import Html.Attributes exposing (attribute, class, style)
-import Html.Events exposing (onClick)
+import Html.Attributes exposing (attribute, class, property)
+import Html.Events exposing (on, onClick)
 import Http
 import Json.Decode as Decode
+import Json.Encode as Encode
 import Path
+import Process
 import Somesim.Flower as Flower
 import Somesim.Index as Index
+import Task
 import Url
 
 
@@ -141,6 +144,8 @@ type Msg
     | GotFlowerDefinition (Result Http.Error Flower.Definition)
     | FocusFlowerSlot FlowerSlotFocus
     | SetFlowerToSlot Flower.Flower FlowerSlotFocus
+    | SleepThen Float Msg
+    | RemoveFlowerFromSlot FlowerSlotFocus
 
 
 blendFlowerSlots : FlowerSlots -> Maybe Flower.FlowerColor
@@ -238,6 +243,30 @@ update msg model =
                     in
                     ( Booted { okModel | flowerSlots = newSlots, stain = blendFlowerSlots newSlots }, Cmd.none )
 
+                SleepThen ms next ->
+                    ( model, Task.perform (\_ -> next) (Process.sleep ms) )
+
+                RemoveFlowerFromSlot slot ->
+                    let
+                        { flowerSlots } =
+                            okModel
+
+                        newSlots =
+                            case slot of
+                                Slot1 ->
+                                    { flowerSlots | slot1 = Nothing }
+
+                                Slot2 ->
+                                    { flowerSlots | slot2 = Nothing }
+
+                                Slot3 ->
+                                    { flowerSlots | slot3 = Nothing }
+
+                                Slot4 ->
+                                    { flowerSlots | slot4 = Nothing }
+                    in
+                    ( Booted { okModel | flowerSlots = newSlots, stain = blendFlowerSlots newSlots }, Cmd.none )
+
 
 
 -- VIEW
@@ -262,40 +291,10 @@ httpErrorToHtml err =
             text ("レスポンス異常: " ++ reason)
 
 
-indexToString : Index.Index -> String
-indexToString index =
-    case index of
-        Index.Group { name } _ ->
-            name
-
-        Index.Item { name } _ ->
-            name
-
-
-itemPath : Index.Index -> Maybe Index.Index -> Html msg
-itemPath item root =
-    let
-        current =
-            span [] [ text (indexToString item) ]
-
-        ancestors =
-            case Maybe.map (Index.getAncestors item) root |> Maybe.withDefault Nothing of
-                Just list ->
-                    list
-                        |> List.map indexToString
-                        |> List.map text
-                        |> List.map (\t -> li [] [ t ])
-
-                Nothing ->
-                    []
-    in
-    node "app-breadcrumbs" [] (ancestors ++ [ current ])
-
-
 preview : BootedModel -> Html Msg
 preview model =
     node "app-preview"
-        [ attribute "slot" "preview" ]
+        []
         ((case model.selectedItem of
             Just selectedItem ->
                 case selectedItem of
@@ -314,16 +313,6 @@ preview model =
                                     ]
                                     []
                                 ]
-                            , div [ attribute "slot" "status" ]
-                                [ itemPath selectedItem
-                                    (case model.index of
-                                        Fetched index ->
-                                            Just index
-
-                                        _ ->
-                                            Nothing
-                                    )
-                                ]
                             ]
 
                     _ ->
@@ -340,87 +329,139 @@ indexTree : Maybe Index.Index -> Index.Index -> Html Msg
 indexTree selected index =
     case index of
         Index.Group meta children ->
-            node "app-item-list-group"
-                []
-                [ span [ attribute "slot" "title" ] [ text meta.name ]
-                , ul [] (List.map (indexTree selected) children)
+            node "app-tree-group"
+                [ if meta.defaultExpanded then
+                    attribute "expanded" ""
+
+                  else
+                    class ""
                 ]
+                (span [ attribute "slot" "label" ] [ text meta.name ]
+                    :: List.map (indexTree selected) children
+                )
 
         Index.Item meta _ ->
-            node "app-item-list-item"
-                [ attribute "aria-current"
+            node "app-tree-item"
+                [ property "selected"
                     (case selected of
                         Just s ->
-                            if s == index then
-                                "true"
-
-                            else
-                                "false"
+                            Encode.bool (s == index)
 
                         Nothing ->
-                            "false"
+                            Encode.bool False
                     )
-                , onClick (SelectIndex index)
+                , on "select" (Decode.succeed (SelectIndex index))
                 ]
                 [ text meta.name ]
 
 
 indexPane : BootedModel -> Html Msg
 indexPane model =
-    div [ attribute "slot" "index" ]
-        (case model.index of
-            Fetched index ->
-                [ node "app-item-list" [] [ indexTree model.selectedItem index ] ]
+    case model.index of
+        Fetched index ->
+            node "app-tree"
+                [ attribute "label" "染色装備" ]
+                [ indexTree model.selectedItem index ]
 
-            FailedToFetch err ->
-                [ httpErrorToHtml err ]
+        FailedToFetch err ->
+            httpErrorToHtml err
 
-            _ ->
-                [ span [] [ text "読込中..." ] ]
+        _ ->
+            span [] [ text "読込中..." ]
+
+
+flowerSlotUi : Maybe Flower.Flower -> FlowerSlotFocus -> FlowerSlotFocus -> Html Msg
+flowerSlotUi slot focus currentFocus =
+    let
+        htmlSlot =
+            case focus of
+                Slot1 ->
+                    "slot1"
+
+                Slot2 ->
+                    "slot2"
+
+                Slot3 ->
+                    "slot3"
+
+                Slot4 ->
+                    "slot4"
+    in
+    node "app-color-swatch"
+        ([ attribute "slot" htmlSlot
+         , attribute "interactive" ""
+         , onClick
+            (if focus == currentFocus then
+                RemoveFlowerFromSlot focus
+
+             else
+                FocusFlowerSlot focus
+            )
+         ]
+            ++ (case slot of
+                    Just flower ->
+                        [ attribute "title" flower.name
+                        , attribute "value" ("#" ++ Flower.flowerColorToHex flower.color)
+                        ]
+
+                    Nothing ->
+                        [ attribute "title" "花びら未設定" ]
+               )
         )
+        []
 
 
-flowerSlotUi : Maybe Flower.Flower -> msg -> Html msg
-flowerSlotUi slot msg =
-    node "app-flower-color"
-        (case slot of
-            Just flower ->
-                [ attribute "flower-name" flower.name
-                , attribute "color" ("#" ++ Flower.flowerColorToHex flower.color)
-                , onClick msg
-                ]
-
-            Nothing ->
-                [ onClick msg ]
-        )
+selectableFlower : Msg -> Flower.Flower -> Html Msg
+selectableFlower onSelect flower =
+    node
+        "app-color-swatch"
+        [ attribute "interactive" ""
+        , attribute "title" flower.name
+        , attribute "value" ("#" ++ Flower.flowerColorToHex flower.color)
+        , onClick onSelect
+        ]
         []
 
 
 flowersPane : BootedModel -> Html Msg
 flowersPane model =
-    div [ attribute "slot" "controls" ]
-        [ node "app-stain"
-            []
-            [ div
-                [ attribute "slot" "blended"
-                , style "background-color"
-                    (case model.stain of
-                        Just color ->
-                            "#" ++ Flower.flowerColorToHex color
+    div [ class "flower-pane" ]
+        [ div [ class "stain" ]
+            [ node "app-stain"
+                [ attribute "selected"
+                    (case model.focus of
+                        Slot1 ->
+                            "slot1"
 
-                        Nothing ->
-                            "transparent"
+                        Slot2 ->
+                            "slot2"
+
+                        Slot3 ->
+                            "slot3"
+
+                        Slot4 ->
+                            "slot4"
                     )
                 ]
-                []
-            , flowerSlotUi model.flowerSlots.slot1 (FocusFlowerSlot Slot1)
-            , flowerSlotUi model.flowerSlots.slot2 (FocusFlowerSlot Slot2)
-            , flowerSlotUi model.flowerSlots.slot3 (FocusFlowerSlot Slot3)
-            , flowerSlotUi model.flowerSlots.slot4 (FocusFlowerSlot Slot4)
+                [ node "app-color-swatch"
+                    [ attribute "slot" "blended"
+                    , case model.stain of
+                        Just color ->
+                            attribute "value" ("#" ++ Flower.flowerColorToHex color)
+
+                        Nothing ->
+                            class ""
+                    ]
+                    []
+                , flowerSlotUi model.flowerSlots.slot1 Slot1 model.focus
+                , flowerSlotUi model.flowerSlots.slot2 Slot2 model.focus
+                , flowerSlotUi model.flowerSlots.slot3 Slot3 model.focus
+                , flowerSlotUi model.flowerSlots.slot4 Slot4 model.focus
+                ]
             ]
         , case model.flowers of
             Fetched defs ->
-                div [ attribute "role" "list" ]
+                div [ class "flowers", attribute "role" "list" ]
                     (List.map
                         (\def ->
                             div [ attribute "role" "listitem" ]
@@ -429,13 +470,9 @@ flowersPane model =
                                     (span [ attribute "slot" "title" ] [ text def.name ]
                                         :: List.map
                                             (\flower ->
-                                                node
-                                                    "app-flower-color"
-                                                    [ attribute "flower-name" flower.name
-                                                    , attribute "color" ("#" ++ Flower.flowerColorToHex flower.color)
-                                                    , onClick (SetFlowerToSlot flower model.focus)
-                                                    ]
-                                                    []
+                                                div
+                                                    [ attribute "role" "listitem" ]
+                                                    [ selectableFlower (SetFlowerToSlot flower model.focus) flower ]
                                             )
                                             def.children
                                     )
@@ -455,13 +492,21 @@ flowersPane model =
         ]
 
 
+appMenu : BootedModel -> Html Msg
+appMenu _ =
+    div [ attribute "slot" "menu" ]
+        [ button [] [ text "装備" ]
+        ]
+
+
 bootedView : BootedModel -> Html Msg
 bootedView model =
     node "app-layout"
         []
-        [ indexPane model
+        [ appMenu model
+        , div [ attribute "slot" "item" ] [ indexPane model ]
         , preview model
-        , flowersPane model
+        , div [ class "color-panel", attribute "slot" "color" ] [ flowersPane model ]
         ]
 
 

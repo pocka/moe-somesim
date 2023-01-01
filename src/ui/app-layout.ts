@@ -1,66 +1,144 @@
+import css from "./app-layout.css?raw";
+
 export class AppLayout extends HTMLElement {
   constructor() {
     super();
 
     const shadowRoot = this.attachShadow({ mode: "open" });
 
-    shadowRoot.innerHTML = `
-      <style>
-        :host {
-          width: 100%;
-          height: 100%;
-          display: grid;
-          grid-template-columns: min(300px, 30vw) minmax(0, 1fr) 300px;
-          grid-template-rows: 100%;
+    // CSS
+    const style = document.createElement("style");
 
-          background-color: hsl(0 0% 15%);
-          color: hsl(0 0% 100%);
-        }
+    style.textContent = css;
 
-        .index {
-          position: relative;
-          padding: 8px;
-        }
-        .index::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          right: 0;
-          left: 0;
-          height: 12px;
+    shadowRoot.appendChild(style);
 
-          background-color: hsl(0 0% 15%);
-          pointer-events: none;
-          z-index: 999;
-        }
+    // プレビュー
+    const mainSlot = document.createElement("slot");
 
-        ::slotted([slot="index"]) {
-          width: 100%;
-          height: 100%;
+    shadowRoot.appendChild(mainSlot);
 
-          overflow-y: auto;
-        }
+    const isWideEnoughtToOpenBothPanel = window.matchMedia(
+      "(min-width: 1200px)"
+    );
 
-        .preview {
-          background-color: hsl(0 0% 5%);
-        }
-        ::slotted([slot="preview"]) {
-          width: 100%;
-          height: 100%;
-        }
-      </style>
+    // 装備パネル
+    shadowRoot.appendChild(
+      createPanel({
+        slotName: "item",
+        additionalClassNames: ["item-panel"],
+        defaultOpened: true,
+        icon() {
+          const icon = document.createElement("app-icon-shirt");
 
-      <div class="index">
-        <slot name="index"></slot>
-      </div>
+          icon.setAttribute("label", "装備");
 
-      <div class="preview">
-        <slot name="preview"></slot>
-      </div>
+          return icon;
+        },
+      })
+    );
 
-      <div class="controls">
-        <slot name="controls"></slot>
-      </div>
-    `;
+    // 色パネル
+    shadowRoot.appendChild(
+      createPanel({
+        slotName: "color",
+        additionalClassNames: ["color-panel"],
+        defaultOpened: isWideEnoughtToOpenBothPanel.matches,
+        icon() {
+          const icon = document.createElement("app-icon-frasco");
+
+          icon.setAttribute("label", "染色液");
+
+          return icon;
+        },
+      })
+    );
   }
+}
+
+interface CreatePanelParams {
+  slotName: string;
+
+  additionalClassNames?: readonly string[];
+
+  defaultOpened?: boolean;
+
+  icon(): HTMLElement;
+}
+
+function createPanel({
+  slotName,
+  icon,
+  defaultOpened = false,
+  additionalClassNames = [],
+}: CreatePanelParams): HTMLDivElement {
+  const panel = document.createElement("div");
+  panel.classList.add("panel");
+
+  for (const c of additionalClassNames) {
+    panel.classList.add(c);
+  }
+
+  const header = document.createElement("button");
+  header.classList.add("panel--header");
+
+  const attrObserver = new MutationObserver((mutationList) => {
+    for (const record of mutationList) {
+      if (record.attributeName !== "data-opened") {
+        continue;
+      }
+
+      if (panel.hasAttribute("data-opened")) {
+        header.title = "パネルを閉じる";
+      } else {
+        header.title = "パネルを開く";
+      }
+    }
+  });
+
+  attrObserver.observe(panel, {
+    attributes: true,
+    attributeFilter: ["data-opened"],
+  });
+
+  // オブザーバで監視開始してから初期値を指定することでタイトル設定の二度手間を防いでいる
+  if (defaultOpened) {
+    panel.setAttribute("data-opened", "");
+  }
+
+  header.addEventListener("click", () => {
+    if (panel.hasAttribute("data-opened")) {
+      panel.removeAttribute("data-opened");
+    } else {
+      panel.setAttribute("data-opened", "");
+    }
+  });
+
+  panel.appendChild(header);
+
+  const arrowContainer = document.createElement("div");
+  arrowContainer.classList.add("panel--header--arrow");
+
+  const arrow = document.createElement("app-icon-collapse");
+
+  arrowContainer.appendChild(arrow);
+  header.appendChild(arrowContainer);
+
+  const iconContainer = document.createElement("div");
+  iconContainer.classList.add("panel--header--icon");
+
+  iconContainer.appendChild(icon());
+  header.appendChild(iconContainer);
+
+  const body = document.createElement("div");
+  body.classList.add("panel--body");
+
+  panel.appendChild(body);
+
+  const slot = document.createElement("slot");
+  slot.name = slotName;
+
+  body.appendChild(slot);
+
+  return panel;
 }
