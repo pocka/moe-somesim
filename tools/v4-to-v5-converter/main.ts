@@ -1,8 +1,9 @@
-import * as flags from "https://deno.land/std@0.168.0/flags/mod.ts";
 import { decode, encode } from "https://deno.land/x/pngs@0.1.1/mod.ts";
-import { outdent } from "https://deno.land/x/outdent@v0.8.0/mod.ts";
 
-import { logger, verboseLogger } from "./log.ts";
+import * as flags from "../deps/flags.ts";
+import { outdent } from "../deps/outdent.ts";
+
+import { logger, verboseLogger } from "../log.ts";
 
 /**
  * マスク画像をベース画像のアルファチャンネルに移行する
