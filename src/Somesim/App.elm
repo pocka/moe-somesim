@@ -2,9 +2,10 @@ module Somesim.App exposing (main)
 
 import Browser
 import Browser.Navigation as Navigation
+import Helpers.ImageConcat exposing (Msg(..))
 import Html exposing (..)
-import Html.Attributes exposing (attribute, class, property, selected)
-import Html.Events exposing (on, onClick)
+import Html.Attributes exposing (attribute, class, draggable, property, selected)
+import Html.Events exposing (on, onClick, preventDefaultOn)
 import Http
 import Json.Decode as Decode
 import Json.Encode as Encode
@@ -86,6 +87,10 @@ type FlowerSlotFocus
     | Slot4
 
 
+type DraggableItem
+    = Flower Flower.Flower
+
+
 type alias BootedModel =
     { index : RemoteResource Http.Error Index.Index
     , baseUrl : Url.Url
@@ -104,6 +109,7 @@ type alias BootedModel =
 
     -- 現在のURL
     , url : Url.Url
+    , dragging : Maybe DraggableItem
     }
 
 
@@ -132,6 +138,7 @@ init flags url key =
                 , stain = Nothing
                 , url = url
                 , key = key
+                , dragging = Nothing
                 }
                 |> update FetchIndex
                 |> chainUpdate FetchFlowerDefinition
@@ -156,6 +163,10 @@ type Msg
     | PersistSelectionToUrl
     | LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
+    | DragStart DraggableItem
+    | DragEnd
+    | DropFlower FlowerSlotFocus
+    | NoOp
 
 
 blendFlowerSlots : FlowerSlots -> Maybe Flower.FlowerColor
@@ -369,6 +380,49 @@ update msg model =
                 UrlChanged url ->
                     ( Booted { okModel | url = url }, Cmd.none )
 
+                DragStart item ->
+                    ( Booted { okModel | dragging = Just item }, Cmd.none )
+
+                DragEnd ->
+                    ( Booted { okModel | dragging = Nothing }, Cmd.none )
+
+                DropFlower slot ->
+                    case okModel.dragging of
+                        Just (Flower flower) ->
+                            let
+                                { flowerSlots } =
+                                    okModel
+
+                                newSlots =
+                                    case slot of
+                                        Slot1 ->
+                                            { flowerSlots | slot1 = Just flower }
+
+                                        Slot2 ->
+                                            { flowerSlots | slot2 = Just flower }
+
+                                        Slot3 ->
+                                            { flowerSlots | slot3 = Just flower }
+
+                                        Slot4 ->
+                                            { flowerSlots | slot4 = Just flower }
+                            in
+                            ( Booted
+                                { okModel
+                                    | flowerSlots = newSlots
+                                    , stain = blendFlowerSlots newSlots
+                                    , dragging = Nothing
+                                }
+                            , Cmd.none
+                            )
+                                |> chain PersistSelectionToUrl
+
+                        _ ->
+                            ( Booted { okModel | dragging = Nothing }, Cmd.none )
+
+                NoOp ->
+                    ( model, Cmd.none )
+
 
 
 -- VIEW
@@ -472,8 +526,8 @@ indexPane model =
             span [] [ text "読込中..." ]
 
 
-flowerSlotUi : Maybe Flower.Flower -> FlowerSlotFocus -> FlowerSlotFocus -> Html Msg
-flowerSlotUi slot focus currentFocus =
+flowerSlotUi : BootedModel -> Maybe Flower.Flower -> FlowerSlotFocus -> Html Msg
+flowerSlotUi model slot focus =
     let
         htmlSlot =
             case focus of
@@ -492,8 +546,16 @@ flowerSlotUi slot focus currentFocus =
     node "app-color-swatch"
         ([ attribute "slot" htmlSlot
          , attribute "interactive" ""
+         , case model.dragging of
+            Just _ ->
+                class "dnd-above-overlay"
+
+            Nothing ->
+                class ""
+         , preventDefaultOn "dragover" (Decode.succeed ( NoOp, True ))
+         , Html.Events.custom "drop" (Decode.succeed { message = DropFlower focus, preventDefault = True, stopPropagation = True })
          , onClick
-            (if focus == currentFocus then
+            (if focus == model.focus then
                 RemoveFlowerFromSlot focus
 
              else
@@ -520,6 +582,8 @@ selectableFlower onSelect flower =
         [ attribute "interactive" ""
         , attribute "title" flower.name
         , attribute "value" ("#" ++ Flower.flowerColorToHex flower.color)
+        , draggable "true"
+        , on "dragstart" (Decode.succeed (DragStart (Flower flower)))
         , onClick onSelect
         ]
         []
@@ -555,10 +619,10 @@ flowersPane model =
                             class ""
                     ]
                     []
-                , flowerSlotUi model.flowerSlots.slot1 Slot1 model.focus
-                , flowerSlotUi model.flowerSlots.slot2 Slot2 model.focus
-                , flowerSlotUi model.flowerSlots.slot3 Slot3 model.focus
-                , flowerSlotUi model.flowerSlots.slot4 Slot4 model.focus
+                , flowerSlotUi model model.flowerSlots.slot1 Slot1
+                , flowerSlotUi model model.flowerSlots.slot2 Slot2
+                , flowerSlotUi model model.flowerSlots.slot3 Slot3
+                , flowerSlotUi model model.flowerSlots.slot4 Slot4
                 ]
             ]
         , case model.flowers of
@@ -604,11 +668,22 @@ appMenu _ =
 bootedView : BootedModel -> Html Msg
 bootedView model =
     node "app-layout"
-        []
+        [ on "dragend" (Decode.succeed DragEnd) ]
         [ appMenu model
         , div [ attribute "slot" "item" ] [ indexPane model ]
         , preview model
         , div [ class "color-panel", attribute "slot" "color" ] [ flowersPane model ]
+        , div
+            [ class "dnd-overlay"
+            , case model.dragging of
+                Just _ ->
+                    attribute "data-active" ""
+
+                Nothing ->
+                    class ""
+            , on "drop" (Decode.succeed DragEnd)
+            ]
+            []
         ]
 
 

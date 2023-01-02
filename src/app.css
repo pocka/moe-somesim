@@ -1,3 +1,7 @@
+:root {
+  --app-dnd-overlay-zindex: 100;
+}
+
 app-layout {
   position: absolute;
   top: 0;
@@ -49,4 +53,30 @@ somesim-renderer {
   align-items: center;
   padding: 0 8px;
   border-bottom: 1px solid hsl(var(--app-color-border-level0));
+}
+
+.dnd-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: hsl(var(--app-color-background-level0) / 0.5);
+  z-index: var(--app-dnd-overlay-zindex);
+}
+.dnd-overlay[data-active] {
+  display: block;
+}
+
+.dnd-above-overlay {
+  position: relative;
+
+  box-shadow: 0 0 0.8rem hsl(var(--app-color-foreground-normal) / 0.8);
+  cursor: copy;
+
+  transition: transform 0.15s ease-out;
+  transform: scale(1.2);
+  z-index: calc(var(--app-dnd-overlay-zindex) + 1);
 }

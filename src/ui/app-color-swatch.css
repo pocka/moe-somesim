@@ -2,6 +2,7 @@
   --_size: var(--app-color-swatch--size, 24px);
   --_radius: var(--app-radii-panel);
 
+  position: relative;
   display: block;
 
   border-radius: var(--_radius);
@@ -55,4 +56,15 @@
 }
 :host([value]) .border {
   border: 1px solid hsl(var(--app-color-border-level0));
+}
+
+.drag-ghost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+
+  z-index: -100;
 }

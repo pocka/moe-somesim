@@ -126,7 +126,7 @@
   transform: translateX(var(--_panel-body-size));
 }
 .color-panel[data-opened] {
-  transform: translateX(0px);
+  transform: none;
 }
 .color-panel > .panel--header {
   border-right: 1px solid hsl(var(--app-color-border-level0));

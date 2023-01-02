@@ -32,6 +32,7 @@ export class AppColorSwatch extends HTMLElement {
   #container: HTMLDivElement = document.createElement("div");
   #fillLayer: HTMLDivElement = document.createElement("div");
   #borderLayer: HTMLDivElement = document.createElement("div");
+  #dragGhost: HTMLDivElement = document.createElement("div");
 
   #prevValue: string | null = null;
   #value: string | null = null;
@@ -75,6 +76,8 @@ export class AppColorSwatch extends HTMLElement {
 
     shadow.appendChild(style);
 
+    this.#dragGhost.classList.add("drag-ghost");
+
     this.#container.classList.add("container");
     this.#fillLayer.classList.add("fill");
     this.#borderLayer.classList.add("border");
@@ -83,6 +86,7 @@ export class AppColorSwatch extends HTMLElement {
     this.#container.appendChild(this.#borderLayer);
 
     shadow.appendChild(this.#container);
+    shadow.appendChild(this.#dragGhost);
 
     this.addEventListener("keypress", (ev) => {
       if (!this.#interactive) {
@@ -100,6 +104,20 @@ export class AppColorSwatch extends HTMLElement {
           return;
         }
       }
+    });
+
+    // Safari 以外のブラウザが `setDragImage` をちゃんと実装していないため、
+    // ゴースト用の要素を用意している。
+    // - Firefox は CustomElements だとゴーストが表示されない
+    // - Chrome は `overflow: hidden` でもはみ出した子要素の部分をビューポート計算に含める
+    this.addEventListener("dragstart", (ev) => {
+      if (!this.draggable || !ev.dataTransfer) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        return;
+      }
+
+      ev.dataTransfer.setDragImage(this.#dragGhost, 0, 0);
     });
   }
 
@@ -157,6 +175,7 @@ export class AppColorSwatch extends HTMLElement {
         this.#animationQueue = null;
       }
 
+      this.#dragGhost.style.backgroundColor = "transparent";
       this.#container.style.backgroundColor = "transparent";
       this.#fillLayer.style.backgroundColor = "transparent";
       return;
@@ -169,13 +188,19 @@ export class AppColorSwatch extends HTMLElement {
       this.#container.style.backgroundColor = prevValue || "transparent";
       this.#fillLayer.style.backgroundColor = value || "transparent";
 
-      return this.#fillLayer.animate(
+      const anim = this.#fillLayer.animate(
         [{ transform: "scale(0)" }, { transform: "scale(1)" }],
         {
           duration: 300,
           easing: "ease-in",
         }
       );
+
+      anim.addEventListener("finish", () => {
+        this.#dragGhost.style.backgroundColor = value || "transparent";
+      });
+
+      return anim;
     });
   }
 
