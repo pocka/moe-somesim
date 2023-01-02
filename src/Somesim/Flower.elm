@@ -1,4 +1,4 @@
-module Somesim.Flower exposing (Definition, Flower, FlowerColor, black, blendFlowerColors, decoder, definitionDecoder, flowerColorToHex, idToString, zero)
+module Somesim.Flower exposing (Definition, Flower, FlowerColor, black, blendFlowerColors, decoder, definitionDecoder, find, flowerColorToHex, idToString, stringToId, zero)
 
 import Hex
 import Json.Decode as Decode
@@ -165,6 +165,11 @@ idToString id =
             str
 
 
+stringToId : String -> FlowerId
+stringToId str =
+    FlowerId str
+
+
 flowerIdDecoder : Decode.Decoder FlowerId
 flowerIdDecoder =
     Decode.string
@@ -250,3 +255,32 @@ type alias Definition =
 definitionDecoder : Decode.Decoder Definition
 definitionDecoder =
     Decode.list groupDecoder
+
+
+findInGroup : FlowerId -> Group -> Maybe Flower
+findInGroup id group =
+    case group.children of
+        [] ->
+            Nothing
+
+        flower :: flowers ->
+            if flower.id == id then
+                Just flower
+
+            else
+                findInGroup id { group | children = flowers }
+
+
+find : FlowerId -> Definition -> Maybe Flower
+find id def =
+    case def of
+        [] ->
+            Nothing
+
+        group :: groups ->
+            case findInGroup id group of
+                Just found ->
+                    Just found
+
+                Nothing ->
+                    find id groups

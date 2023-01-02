@@ -212,7 +212,17 @@ update msg model =
                     )
 
                 GotIndex (Ok index) ->
-                    ( Booted { okModel | index = Fetched index }, Cmd.none )
+                    let
+                        defaultSelected =
+                            okModel.url.query
+                                |> Maybe.map QueryStrings.fromString
+                                |> Maybe.andThen (QueryStrings.get "i")
+                                |> Maybe.map Index.stringToId
+                                |> Maybe.andThen (\id -> Index.find id index)
+                    in
+                    ( Booted { okModel | index = Fetched index, selectedItem = defaultSelected }
+                    , Cmd.none
+                    )
 
                 GotIndex (Err err) ->
                     ( Booted { okModel | index = FailedToFetch err }, Cmd.none )
@@ -234,7 +244,34 @@ update msg model =
                     )
 
                 GotFlowerDefinition (Ok defs) ->
-                    ( Booted { okModel | flowers = Fetched defs }, Cmd.none )
+                    let
+                        qs =
+                            okModel.url.query
+                                |> Maybe.map QueryStrings.fromString
+
+                        fromQuery : String -> Maybe Flower.Flower
+                        fromQuery key =
+                            qs
+                                |> Maybe.andThen (QueryStrings.get key)
+                                |> Maybe.map Flower.stringToId
+                                |> Maybe.andThen (\id -> Flower.find id defs)
+
+                        slots : FlowerSlots
+                        slots =
+                            { slot1 = fromQuery "s1"
+                            , slot2 = fromQuery "s2"
+                            , slot3 = fromQuery "s3"
+                            , slot4 = fromQuery "s4"
+                            }
+                    in
+                    ( Booted
+                        { okModel
+                            | flowers = Fetched defs
+                            , flowerSlots = slots
+                            , stain = blendFlowerSlots slots
+                        }
+                    , Cmd.none
+                    )
 
                 GotFlowerDefinition (Err err) ->
                     ( Booted { okModel | flowers = FailedToFetch err }, Cmd.none )
