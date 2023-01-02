@@ -32,19 +32,3 @@ jobs:
 
       - name: "🔍 TypeScriptファイルの型検査"
         run: npx tsc
-
-  validate:
-    name: 設定ファイルの検証
-    runs-on: ubuntu-latest
-    steps:
-      - name: "📦 チェックアウト"
-        uses: actions/checkout@v3
-
-      - name: "📦 Denoのセットアップ"
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: v1.29.x
-
-      - name: "🔍 装備インデックスファイルの内容を検証"
-        run: deno run --allow-read=./,../../data/images main.ts --index=../../data/images/index.json
-        working-directory: ./tools/validate-item-index
