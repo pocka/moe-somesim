@@ -2,7 +2,7 @@ module Somesim.App exposing (main)
 
 import Browser
 import Html exposing (..)
-import Html.Attributes exposing (attribute, class, property)
+import Html.Attributes exposing (attribute, class, property, selected)
 import Html.Events exposing (on, onClick)
 import Http
 import Json.Decode as Decode
@@ -510,9 +510,37 @@ bootedView model =
         ]
 
 
+title : Model -> String
+title model =
+    case model of
+        BadConfiguration _ ->
+            "起動エラー | そめしむ"
+
+        Booted { selectedItem, index } ->
+            case ( selectedItem, index ) of
+                ( Just item, Fetched i ) ->
+                    case Index.getAncestors item i of
+                        -- ルートインデックス名を表示しても邪魔なだけなので省く
+                        Just (_ :: path) ->
+                            let
+                                joined =
+                                    path
+                                        ++ [ item ]
+                                        |> List.map Index.name
+                                        |> String.join " > "
+                            in
+                            joined ++ " | そめしむ"
+
+                        _ ->
+                            Index.name item ++ " | そめしむ"
+
+                _ ->
+                    "そめしむ"
+
+
 view : Model -> Browser.Document Msg
 view model =
-    { title = "そめしむ"
+    { title = title model
     , body =
         case model of
             BadConfiguration _ ->

@@ -1,4 +1,4 @@
-module Somesim.Index exposing (Id, Index(..), IndexMeta, decoder, find, getAncestors, idToString, stringToId)
+module Somesim.Index exposing (Id, Index(..), IndexMeta, decoder, find, getAncestors, idToString, name, stringToId)
 
 import Json.Decode as Decode
 import Path
@@ -75,6 +75,18 @@ find id index =
 
             else
                 findList (find id) children
+
+
+{-| インデックスノードの表示名を取得する。
+-}
+name : Index -> String
+name i =
+    case i of
+        Group meta _ ->
+            meta.name
+
+        Item meta _ ->
+            meta.name
 
 
 {-| 指定されたインデックスノードの祖先ノードを全て取得する。
