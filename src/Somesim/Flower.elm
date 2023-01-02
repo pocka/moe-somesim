@@ -1,4 +1,4 @@
-module Somesim.Flower exposing (Definition, Flower, FlowerColor, black, blendFlowerColors, decoder, definitionDecoder, flowerColorToHex, zero)
+module Somesim.Flower exposing (Definition, Flower, FlowerColor, black, blendFlowerColors, decoder, definitionDecoder, flowerColorToHex, idToString, zero)
 
 import Hex
 import Json.Decode as Decode
@@ -156,6 +156,13 @@ colorPercentageDecoder =
 
 type FlowerId
     = FlowerId String
+
+
+idToString : FlowerId -> String
+idToString id =
+    case id of
+        FlowerId str ->
+            str
 
 
 flowerIdDecoder : Decode.Decoder FlowerId

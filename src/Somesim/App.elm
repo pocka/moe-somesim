@@ -1,6 +1,7 @@
 module Somesim.App exposing (main)
 
 import Browser
+import Browser.Navigation as Navigation
 import Html exposing (..)
 import Html.Attributes exposing (attribute, class, property, selected)
 import Html.Events exposing (on, onClick)
@@ -8,11 +9,10 @@ import Http
 import Json.Decode as Decode
 import Json.Encode as Encode
 import Path
-import Process
 import Somesim.Flower as Flower
 import Somesim.Index as Index
-import Task
 import Url
+import Url.Builder as Qs
 
 
 
@@ -21,11 +21,13 @@ import Url
 
 main : Program Decode.Value Model Msg
 main =
-    Browser.document
+    Browser.application
         { init = init
         , view = view
         , update = update
         , subscriptions = subscriptions
+        , onUrlChange = UrlChanged
+        , onUrlRequest = LinkClicked
         }
 
 
@@ -98,6 +100,10 @@ type alias BootedModel =
 
     -- 合成された染色液、これでプレビューの画像を染色する
     , stain : Maybe Flower.FlowerColor
+    , key : Navigation.Key
+
+    -- 現在のURL
+    , url : Url.Url
     }
 
 
@@ -112,8 +118,8 @@ chainUpdate msg ( model, a ) =
         |> Tuple.mapSecond (\b -> Cmd.batch [ a, b ])
 
 
-init : Decode.Value -> ( Model, Cmd Msg )
-init flags =
+init : Decode.Value -> Url.Url -> Navigation.Key -> ( Model, Cmd Msg )
+init flags url key =
     case Decode.decodeValue decodeFlags flags of
         Ok { baseUrl } ->
             Booted
@@ -124,6 +130,8 @@ init flags =
                 , flowerSlots = FlowerSlots Nothing Nothing Nothing Nothing
                 , focus = Slot1
                 , stain = Nothing
+                , url = url
+                , key = key
                 }
                 |> update FetchIndex
                 |> chainUpdate FetchFlowerDefinition
@@ -144,8 +152,10 @@ type Msg
     | GotFlowerDefinition (Result Http.Error Flower.Definition)
     | FocusFlowerSlot FlowerSlotFocus
     | SetFlowerToSlot Flower.Flower FlowerSlotFocus
-    | SleepThen Float Msg
     | RemoveFlowerFromSlot FlowerSlotFocus
+    | PersistSelectionToUrl
+    | LinkClicked Browser.UrlRequest
+    | UrlChanged Url.Url
 
 
 blendFlowerSlots : FlowerSlots -> Maybe Flower.FlowerColor
@@ -158,6 +168,15 @@ blendFlowerSlots slots =
         |> List.filterMap identity
         |> List.map .color
         |> Flower.blendFlowerColors
+
+
+chain : Msg -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+chain msg ( ma, ca ) =
+    let
+        ( mb, cb ) =
+            update msg ma
+    in
+    ( mb, Cmd.batch [ ca, cb ] )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -200,6 +219,7 @@ update msg model =
 
                 SelectIndex selected ->
                     ( Booted { okModel | selectedItem = Just selected }, Cmd.none )
+                        |> chain PersistSelectionToUrl
 
                 FetchFlowerDefinition ->
                     ( Booted { okModel | flowers = Fetching }
@@ -242,9 +262,7 @@ update msg model =
                                     { flowerSlots | slot4 = Just flower }
                     in
                     ( Booted { okModel | flowerSlots = newSlots, stain = blendFlowerSlots newSlots }, Cmd.none )
-
-                SleepThen ms next ->
-                    ( model, Task.perform (\_ -> next) (Process.sleep ms) )
+                        |> chain PersistSelectionToUrl
 
                 RemoveFlowerFromSlot slot ->
                     let
@@ -266,6 +284,52 @@ update msg model =
                                     { flowerSlots | slot4 = Nothing }
                     in
                     ( Booted { okModel | flowerSlots = newSlots, stain = blendFlowerSlots newSlots }, Cmd.none )
+                        |> chain PersistSelectionToUrl
+
+                PersistSelectionToUrl ->
+                    let
+                        itemQuery =
+                            case okModel.selectedItem of
+                                Just (Index.Item { id } _) ->
+                                    Just (Qs.string "i" (Index.idToString id))
+
+                                _ ->
+                                    Nothing
+
+                        colorQuery =
+                            [ okModel.flowerSlots.slot1 |> Maybe.map (\flower -> Qs.string "s1" (Flower.idToString flower.id))
+                            , okModel.flowerSlots.slot2 |> Maybe.map (\flower -> Qs.string "s2" (Flower.idToString flower.id))
+                            , okModel.flowerSlots.slot3 |> Maybe.map (\flower -> Qs.string "s3" (Flower.idToString flower.id))
+                            , okModel.flowerSlots.slot4 |> Maybe.map (\flower -> Qs.string "s4" (Flower.idToString flower.id))
+                            ]
+
+                        query =
+                            itemQuery
+                                :: colorQuery
+                                |> List.filterMap identity
+                                |> Qs.toQuery
+                                |> String.dropLeft 1
+
+                        currentUrl =
+                            okModel.url
+
+                        nextUrl =
+                            { currentUrl
+                                | query = Just query
+                            }
+                    in
+                    ( Booted { okModel | url = nextUrl }, Navigation.replaceUrl okModel.key (Url.toString nextUrl) )
+
+                LinkClicked req ->
+                    case req of
+                        Browser.External href ->
+                            ( Booted okModel, Navigation.load href )
+
+                        Browser.Internal url ->
+                            ( Booted okModel, Navigation.load (Url.toString url) )
+
+                UrlChanged url ->
+                    ( Booted { okModel | url = url }, Cmd.none )
 
 
 
