@@ -9,10 +9,10 @@ import Http
 import Json.Decode as Decode
 import Json.Encode as Encode
 import Path
+import QueryStrings
 import Somesim.Flower as Flower
 import Somesim.Index as Index
 import Url
-import Url.Builder as Qs
 
 
 
@@ -291,24 +291,25 @@ update msg model =
                         itemQuery =
                             case okModel.selectedItem of
                                 Just (Index.Item { id } _) ->
-                                    Just (Qs.string "i" (Index.idToString id))
+                                    Just ( "i", Just (Index.idToString id) )
 
                                 _ ->
                                     Nothing
 
                         colorQuery =
-                            [ okModel.flowerSlots.slot1 |> Maybe.map (\flower -> Qs.string "s1" (Flower.idToString flower.id))
-                            , okModel.flowerSlots.slot2 |> Maybe.map (\flower -> Qs.string "s2" (Flower.idToString flower.id))
-                            , okModel.flowerSlots.slot3 |> Maybe.map (\flower -> Qs.string "s3" (Flower.idToString flower.id))
-                            , okModel.flowerSlots.slot4 |> Maybe.map (\flower -> Qs.string "s4" (Flower.idToString flower.id))
+                            [ okModel.flowerSlots.slot1 |> Maybe.map (\flower -> ( "s1", Just (Flower.idToString flower.id) ))
+                            , okModel.flowerSlots.slot2 |> Maybe.map (\flower -> ( "s2", Just (Flower.idToString flower.id) ))
+                            , okModel.flowerSlots.slot3 |> Maybe.map (\flower -> ( "s3", Just (Flower.idToString flower.id) ))
+                            , okModel.flowerSlots.slot4 |> Maybe.map (\flower -> ( "s4", Just (Flower.idToString flower.id) ))
                             ]
 
                         query =
                             itemQuery
                                 :: colorQuery
                                 |> List.filterMap identity
-                                |> Qs.toQuery
-                                |> String.dropLeft 1
+                                |> List.reverse
+                                |> List.foldl (\( key, value ) -> QueryStrings.prepend key value) QueryStrings.empty
+                                |> QueryStrings.toString
 
                         currentUrl =
                             okModel.url
