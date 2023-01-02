@@ -79,3 +79,8 @@ npm run dev
 # ポートを指定する
 npm run dev -- --port 3000
 ```
+
+## フォークする場合
+
+フォークしたらまずは `src/index.html` 内の OGP タグのハードコーディングされた URL (`https://pocka.github.io/moe-somesim/`) を自分の環境の URL に書き換えてください。
+もしもホストするルートのパスが変わる場合は `.github/workflows/deploy.yml` 内でビルドコマンドに渡しているパスプリフィックスも変更してください。
