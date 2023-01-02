@@ -279,12 +279,12 @@
             {
               "id": "i_darkknight_nf",
               "name": "ニューター女",
-              "image": "gacha-1/DarkKnight_NF.png"
+              "image": "graphic-1/DarkKnight_NF.png"
             },
             {
               "id": "i_darkknight_nm",
               "name": "ニューター男",
-              "image": "gacha-1/DarkKnight_NM.png"
+              "image": "graphic-1/DarkKnight_NM.png"
             }
           ]
         }
@@ -301,12 +301,12 @@
             {
               "id": "i_ichcyon_nf",
               "name": "ニューター女",
-              "image": "gacha-2/Ichcyon_NF.png"
+              "image": "graphic-2/Ichcyon_NF.png"
             },
             {
               "id": "i_ichcyon_nm",
               "name": "ニューター男",
-              "image": "gacha-2/Ichcyon_NM.png"
+              "image": "graphic-2/Ichcyon_NM.png"
             }
           ]
         }
@@ -323,12 +323,12 @@
             {
               "id": "i_emuette_nf",
               "name": "ニューター女",
-              "image": "gacha-3/Emuette_NF.png"
+              "image": "graphic-3/Emuette_NF.png"
             },
             {
               "id": "i_emuette_nm",
               "name": "ニューター男",
-              "image": "gacha-3/Emuette_NM.png"
+              "image": "graphic-3/Emuette_NM.png"
             }
           ]
         },
@@ -339,12 +339,12 @@
             {
               "id": "i_noah_unit_nf",
               "name": "ニューター女",
-              "image": "gacha-3/NoahUnit_NF.png"
+              "image": "graphic-3/NoahUnit_NF.png"
             },
             {
               "id": "i_noah_unit_nm",
               "name": "ニューター男",
-              "image": "gacha-3/NoahUnit_NM.png"
+              "image": "graphic-3/NoahUnit_NM.png"
             }
           ]
         },
@@ -355,12 +355,12 @@
             {
               "id": "i_anima_b_nf",
               "name": "ニューター女",
-              "image": "gacha-3/AnimaB_NF.png"
+              "image": "graphic-3/AnimaB_NF.png"
             },
             {
               "id": "i_anima_b_nm",
               "name": "ニューター男",
-              "image": "gacha-3/AnimaB_NM.png"
+              "image": "graphic-3/AnimaB_NM.png"
             }
           ]
         },
@@ -371,12 +371,12 @@
             {
               "id": "i_parlour_maid_nf",
               "name": "ニューター女",
-              "image": "gacha-3/ParlourMaid_NF.png"
+              "image": "graphic-3/ParlourMaid_NF.png"
             },
             {
               "id": "i_parlour_maid_nm",
               "name": "ニューター男",
-              "image": "gacha-3/ParlourMaid_NM.png"
+              "image": "graphic-3/ParlourMaid_NM.png"
             }
           ]
         }
@@ -393,12 +393,12 @@
             {
               "id": "i_order_nf",
               "name": "ニューター女",
-              "image": "gacha-4/Order_NF.png"
+              "image": "graphic-4/Order_NF.png"
             },
             {
               "id": "i_order_nm",
               "name": "ニューター男",
-              "image": "gacha-4/Order_NM.png"
+              "image": "graphic-4/Order_NM.png"
             }
           ]
         },
@@ -409,12 +409,12 @@
             {
               "id": "i_halloweenparty_nf",
               "name": "ニューター女",
-              "image": "gacha-4/HalloweenParty_NF.png"
+              "image": "graphic-4/HalloweenParty_NF.png"
             },
             {
               "id": "i_halloweenparty_nm",
               "name": "ニューター男",
-              "image": "gacha-4/HalloweenParty_NM.png"
+              "image": "graphic-4/HalloweenParty_NM.png"
             }
           ]
         },
@@ -425,12 +425,12 @@
             {
               "id": "i_beasttamer_nf",
               "name": "ニューター女",
-              "image": "gacha-4/BeastTamer_NF.png"
+              "image": "graphic-4/BeastTamer_NF.png"
             },
             {
               "id": "i_beasttamer_nm",
               "name": "ニューター男",
-              "image": "gacha-4/BeastTamer_NM.png"
+              "image": "graphic-4/BeastTamer_NM.png"
             }
           ]
         }
@@ -447,12 +447,12 @@
             {
               "id": "i_hexefinyu_nf",
               "name": "ニューター女",
-              "image": "gacha-5/HexeFinyu_NF.png"
+              "image": "graphic-5/HexeFinyu_NF.png"
             },
             {
               "id": "i_hexefinyu_nm",
               "name": "ニューター男",
-              "image": "gacha-5/HexeFinyu_NM.png"
+              "image": "graphic-5/HexeFinyu_NM.png"
             }
           ]
         }
@@ -469,12 +469,12 @@
             {
               "id": "i_darkspider_nf",
               "name": "ニューター女",
-              "image": "gacha-6/DarkSpider_NF.png"
+              "image": "graphic-6/DarkSpider_NF.png"
             },
             {
               "id": "i_darkspider_nm",
               "name": "ニューター男",
-              "image": "gacha-6/DarkSpider_NM.png"
+              "image": "graphic-6/DarkSpider_NM.png"
             }
           ]
         },
@@ -485,17 +485,17 @@
             {
               "id": "i_beautyofnature_nf",
               "name": "ニューター女",
-              "image": "gacha-6/BeautyOfNature_NF.png"
+              "image": "graphic-6/BeautyOfNature_NF.png"
             },
             {
               "id": "i_beautyofnature_nm",
               "name": "ニューター男",
-              "image": "gacha-6/BeautyOfNature_NM.png"
+              "image": "graphic-6/BeautyOfNature_NM.png"
             },
             {
               "id": "i_beautyofnature_weapon",
               "name": "花鳥風月 扇子",
-              "image": "gacha-6/BeautyOfNature_Weapon.png"
+              "image": "graphic-6/BeautyOfNature_Weapon.png"
             }
           ]
         },
@@ -506,12 +506,12 @@
             {
               "id": "i_schwarzefuhrer_nf",
               "name": "ニューター女",
-              "image": "gacha-6/Schwarzefuhrer_NF.png"
+              "image": "graphic-6/Schwarzefuhrer_NF.png"
             },
             {
               "id": "i_schwarzefuhrer_nm",
               "name": "ニューター男",
-              "image": "gacha-6/Schwarzefuhrer_NM.png"
+              "image": "graphic-6/Schwarzefuhrer_NM.png"
             }
           ]
         }
@@ -528,17 +528,17 @@
             {
               "id": "i_wahr_glanz_nf",
               "name": "ニューター女",
-              "image": "gacha-7/WahrGlanz_NF.png"
+              "image": "graphic-7/WahrGlanz_NF.png"
             },
             {
               "id": "i_wahr_glanz_nm",
               "name": "ニューター男",
-              "image": "gacha-7/WahrGlanz_NM.png"
+              "image": "graphic-7/WahrGlanz_NM.png"
             },
             {
               "id": "i_wahr_glanz_nfnm_nomant",
               "name": "ニューター男女マントなし",
-              "image": "gacha-7/WahrGlanz_NFNM_nomant.png"
+              "image": "graphic-7/WahrGlanz_NFNM_nomant.png"
             }
           ]
         },
@@ -549,12 +549,12 @@
             {
               "id": "i_abysslinker_nf",
               "name": "ニューター女",
-              "image": "gacha-7/AbyssLinker_NF.png"
+              "image": "graphic-7/AbyssLinker_NF.png"
             },
             {
               "id": "i_abysslinker_nm",
               "name": "ニューター男",
-              "image": "gacha-7/AbyssLinker_NM.png"
+              "image": "graphic-7/AbyssLinker_NM.png"
             }
           ]
         },
@@ -565,12 +565,12 @@
             {
               "id": "i_knight_lilly_nf",
               "name": "ニューター女",
-              "image": "gacha-7/KnightLilly_NF.png"
+              "image": "graphic-7/KnightLilly_NF.png"
             },
             {
               "id": "i_knight_lilly_nm",
               "name": "ニューター男",
-              "image": "gacha-7/KnightLilly_NM.png"
+              "image": "graphic-7/KnightLilly_NM.png"
             }
           ]
         },
@@ -581,12 +581,12 @@
             {
               "id": "i_holyrequel_nf",
               "name": "ニューター女",
-              "image": "gacha-7/HolyRequel_NF.png"
+              "image": "graphic-7/HolyRequel_NF.png"
             },
             {
               "id": "i_holyrequel_nm",
               "name": "ニューター男",
-              "image": "gacha-7/HolyRequel_NM.png"
+              "image": "graphic-7/HolyRequel_NM.png"
             }
           ]
         }
@@ -603,12 +603,12 @@
             {
               "id": "i_abyssinian_nf",
               "name": "ニューター女",
-              "image": "gacha-8/Abyssinian_NF.png"
+              "image": "graphic-8/Abyssinian_NF.png"
             },
             {
               "id": "i_abyssinian_nm",
               "name": "ニューター男",
-              "image": "gacha-8/Abyssinian_NM.png"
+              "image": "graphic-8/Abyssinian_NM.png"
             }
           ]
         },
@@ -619,12 +619,12 @@
             {
               "id": "i_shadowstalker_nf",
               "name": "ニューター女",
-              "image": "gacha-8/ShadowStalker_NF.png"
+              "image": "graphic-8/ShadowStalker_NF.png"
             },
             {
               "id": "i_shadowstalker_nm",
               "name": "ニューター男",
-              "image": "gacha-8/ShadowStalker_NM.png"
+              "image": "graphic-8/ShadowStalker_NM.png"
             }
           ]
         },
@@ -635,12 +635,12 @@
             {
               "id": "i_wildviking_nf",
               "name": "ニューター女",
-              "image": "gacha-8/WildViking_NF.png"
+              "image": "graphic-8/WildViking_NF.png"
             },
             {
               "id": "i_wildviking_nm",
               "name": "ニューター男",
-              "image": "gacha-8/WildViking_NM.png"
+              "image": "graphic-8/WildViking_NM.png"
             }
           ]
         },
@@ -651,17 +651,17 @@
             {
               "id": "i_magister_nf",
               "name": "ニューター女",
-              "image": "gacha-8/Magister_NF.png"
+              "image": "graphic-8/Magister_NF.png"
             },
             {
               "id": "i_magister_nm",
               "name": "ニューター男",
-              "image": "gacha-8/Magister_NM.png"
+              "image": "graphic-8/Magister_NM.png"
             },
             {
               "id": "i_magister_weapon",
               "name": "マギステルスタッフ",
-              "image": "gacha-8/Magister_Weapon.png"
+              "image": "graphic-8/Magister_Weapon.png"
             }
           ]
         },
@@ -672,12 +672,12 @@
             {
               "id": "i_darkhero_nf",
               "name": "ニューター女",
-              "image": "gacha-8/DarkHero_NF.png"
+              "image": "graphic-8/DarkHero_NF.png"
             },
             {
               "id": "i_darkhero_nm",
               "name": "ニューター男",
-              "image": "gacha-8/DarkHero_NM.png"
+              "image": "graphic-8/DarkHero_NM.png"
             }
           ]
         },
@@ -688,17 +688,17 @@
             {
               "id": "i_skypriest_nf",
               "name": "ニューター女",
-              "image": "gacha-8/SkyPriest_NF.png"
+              "image": "graphic-8/SkyPriest_NF.png"
             },
             {
               "id": "i_skypriest_nm",
               "name": "ニューター男",
-              "image": "gacha-8/SkyPriest_NM.png"
+              "image": "graphic-8/SkyPriest_NM.png"
             },
             {
               "id": "i_skypriest_weapon",
               "name": "天空司祭ロッド",
-              "image": "gacha-8/SkyPriest_Weapon.png"
+              "image": "graphic-8/SkyPriest_Weapon.png"
             }
           ]
         },
@@ -709,12 +709,12 @@
             {
               "id": "i_masquerade_nf",
               "name": "ニューター女",
-              "image": "gacha-8/Masquerade_NF.png"
+              "image": "graphic-8/Masquerade_NF.png"
             },
             {
               "id": "i_masquerade_nm",
               "name": "ニューター男",
-              "image": "gacha-8/Masquerade_NM.png"
+              "image": "graphic-8/Masquerade_NM.png"
             }
           ]
         },
@@ -725,12 +725,12 @@
             {
               "id": "i_karan_nf",
               "name": "ニューター女",
-              "image": "gacha-8/Karan_NF.png"
+              "image": "graphic-8/Karan_NF.png"
             },
             {
               "id": "i_karan_nm",
               "name": "ニューター男",
-              "image": "gacha-8/Karan_NM.png"
+              "image": "graphic-8/Karan_NM.png"
             }
           ]
         },
@@ -741,12 +741,12 @@
             {
               "id": "i_fruhling_nf",
               "name": "ニューター女",
-              "image": "gacha-8/Fruhling_NF.png"
+              "image": "graphic-8/Fruhling_NF.png"
             },
             {
               "id": "i_fruhling_nm",
               "name": "ニューター男",
-              "image": "gacha-8/Fruhling_NM.png"
+              "image": "graphic-8/Fruhling_NM.png"
             }
           ]
         }
@@ -763,12 +763,12 @@
             {
               "id": "i_hellkaiser_nf",
               "name": "ニューター女",
-              "image": "gacha-9/HellKaiser_NF.png"
+              "image": "graphic-9/HellKaiser_NF.png"
             },
             {
               "id": "i_hellkaiser_nm",
               "name": "ニューター男",
-              "image": "gacha-9/HellKaiser_NM.png"
+              "image": "graphic-9/HellKaiser_NM.png"
             }
           ]
         },
@@ -779,17 +779,17 @@
             {
               "id": "i_fox-spirit_nf",
               "name": "ニューター女",
-              "image": "gacha-9/FoxSpirit_NF.png"
+              "image": "graphic-9/FoxSpirit_NF.png"
             },
             {
               "id": "i_fox-spirit_nm",
               "name": "ニューター男",
-              "image": "gacha-9/FoxSpirit_NM.png"
+              "image": "graphic-9/FoxSpirit_NM.png"
             },
             {
               "id": "i_fox-spirit_nfnm_notail",
               "name": "ニューター男女尻尾なし",
-              "image": "gacha-9/FoxSpirit_NFNM_notail.png"
+              "image": "graphic-9/FoxSpirit_NFNM_notail.png"
             }
           ]
         },
@@ -800,12 +800,12 @@
             {
               "id": "i_theoremseeker_nf",
               "name": "ニューター女",
-              "image": "gacha-9/TheoremSeeker_NF.png"
+              "image": "graphic-9/TheoremSeeker_NF.png"
             },
             {
               "id": "i_theoremseeker_nm",
               "name": "ニューター男",
-              "image": "gacha-9/TheoremSeeker_NM.png"
+              "image": "graphic-9/TheoremSeeker_NM.png"
             }
           ]
         },
@@ -816,12 +816,12 @@
             {
               "id": "i_dressmail_nf",
               "name": "ニューター女",
-              "image": "gacha-9/DressMail_NF.png"
+              "image": "graphic-9/DressMail_NF.png"
             },
             {
               "id": "i_dressmail_nm",
               "name": "ニューター男",
-              "image": "gacha-9/DressMail_NM.png"
+              "image": "graphic-9/DressMail_NM.png"
             }
           ]
         },
@@ -832,12 +832,12 @@
             {
               "id": "i_archangel_nf",
               "name": "ニューター女",
-              "image": "gacha-9/Archangel_NF.png"
+              "image": "graphic-9/Archangel_NF.png"
             },
             {
               "id": "i_archangel_nm",
               "name": "ニューター男",
-              "image": "gacha-9/Archangel_NM.png"
+              "image": "graphic-9/Archangel_NM.png"
             }
           ]
         },
@@ -848,12 +848,12 @@
             {
               "id": "i_futuristic_nf",
               "name": "ニューター女",
-              "image": "gacha-9/Futuristic_NF.png"
+              "image": "graphic-9/Futuristic_NF.png"
             },
             {
               "id": "i_futuristic_nm",
               "name": "ニューター男",
-              "image": "gacha-9/Futuristic_NM.png"
+              "image": "graphic-9/Futuristic_NM.png"
             }
           ]
         },
@@ -864,12 +864,12 @@
             {
               "id": "i_pirate_captain_nf",
               "name": "ニューター女",
-              "image": "gacha-9/PirateCaptain_NF.png"
+              "image": "graphic-9/PirateCaptain_NF.png"
             },
             {
               "id": "i_pirate_captain_nm",
               "name": "ニューター男",
-              "image": "gacha-9/PirateCaptain_NM.png"
+              "image": "graphic-9/PirateCaptain_NM.png"
             }
           ]
         },
@@ -880,12 +880,12 @@
             {
               "id": "i_haikara_nf",
               "name": "ニューター女",
-              "image": "gacha-9/Haikara_NF.png"
+              "image": "graphic-9/Haikara_NF.png"
             },
             {
               "id": "i_haikara_nm",
               "name": "ニューター男",
-              "image": "gacha-9/Haikara_NM.png"
+              "image": "graphic-9/Haikara_NM.png"
             }
           ]
         },
@@ -896,12 +896,12 @@
             {
               "id": "i_bastet_nf",
               "name": "ニューター女",
-              "image": "gacha-9/Bastet_NF.png"
+              "image": "graphic-9/Bastet_NF.png"
             },
             {
               "id": "i_bastet_nm",
               "name": "ニューター男",
-              "image": "gacha-9/Bastet_NM.png"
+              "image": "graphic-9/Bastet_NM.png"
             }
           ]
         },
@@ -912,12 +912,12 @@
             {
               "id": "i_kiran_nf",
               "name": "ニューター女",
-              "image": "gacha-9/Kiran_NF.png"
+              "image": "graphic-9/Kiran_NF.png"
             },
             {
               "id": "i_kiran_nm",
               "name": "ニューター男",
-              "image": "gacha-9/Kiran_NM.png"
+              "image": "graphic-9/Kiran_NM.png"
             }
           ]
         }
@@ -934,12 +934,12 @@
             {
               "id": "i_panther_nf",
               "name": "ニューター女",
-              "image": "gacha-other/Panther_NF.png"
+              "image": "graphic-other/Panther_NF.png"
             },
             {
               "id": "i_panther_nm",
               "name": "ニューター男",
-              "image": "gacha-other/Panther_NM.png"
+              "image": "graphic-other/Panther_NM.png"
             }
           ]
         },
@@ -950,12 +950,12 @@
             {
               "id": "i_noahforce_nf",
               "name": "ニューター女",
-              "image": "gacha-other/NoahForce_NF.png"
+              "image": "graphic-other/NoahForce_NF.png"
             },
             {
               "id": "i_noahforce_nm",
               "name": "ニューター男",
-              "image": "gacha-other/NoahForce_NM.png"
+              "image": "graphic-other/NoahForce_NM.png"
             }
           ]
         }
