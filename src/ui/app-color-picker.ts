@@ -52,21 +52,30 @@ function getAngleBetweenVectorsInDegrees(
   return (180 / Math.PI) * r;
 }
 
-function getLightnessFromXY(x: number, y: number): number {
-  return (1 - x * 0.5) * (1 - y);
+/**
+ * HSLからHSVに変換する
+ *
+ * Hは共通で変わりないためSL/SVの変換のみ行う。
+ * <https://en.wikipedia.org/wiki/HSL_and_HSV#HSL_to_HSV>
+ */
+function slToSV(s: number, l: number): [number, number] {
+  const v = l + s * Math.min(l, 1 - l);
+  const sv = v === 0 ? 0 : 2 * (1 - l / v);
+
+  return [sv, v];
 }
 
 /**
- * `getLightnessFromXY` を単純変形させてYを返すようにしただけ
+ * HSVからHSLに変換する
  *
- * ```
- * L = (1 - x * 0.5) * (1 - y)
- * (1 - y) = L / (1 - x * 0.5)
- * y = - ((L / (1 - x * 0.5)) - 1)
- * ```
+ * Hは共通で変わりないためSL/SVの変換のみ行う。
+ * <https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_HSL>
  */
-function getYFromLightnessAndX(lightness: number, x: number): number {
-  return -(lightness / (1 - x * 0.5) - 1);
+function svToSL(s: number, v: number): [number, number] {
+  const l = v * (1 - s / 2);
+  const sl = l === 0 || l === 1 ? 0 : (v - l) / Math.min(l, 1 - l);
+
+  return [sl, l];
 }
 
 export class AppColorPicker extends HTMLElement {
@@ -282,8 +291,10 @@ export class AppColorPicker extends HTMLElement {
       const ax = (ev.pageX - x) / width;
       const ay = (ev.pageY - y) / height;
 
-      this.#saturation = ax;
-      this.#lightness = getLightnessFromXY(ax, ay);
+      const [s, l] = svToSL(ax, 1 - ay);
+
+      this.#saturation = s;
+      this.#lightness = l;
       this.#applySLToElements();
       this.#emitInputEvent();
     });
@@ -362,8 +373,15 @@ export class AppColorPicker extends HTMLElement {
         const ax = Math.min(1, Math.max(0, (ev.pageX - x) / width));
         const ay = Math.min(1, Math.max(0, (ev.pageY - y) / height));
 
-        this.#saturation = ax;
-        this.#lightness = getLightnessFromXY(ax, ay);
+        // NOTE: HSVはV=0やV=1 (かつSが特定の値) の場合にHSLへ変換するとSが常に0になってしまう (0除算避け)。
+        //       それを防ぐために小数点を使ってギリギリ0除算が起きないような値にしている。
+        const [s, l] = svToSL(
+          ax,
+          Math.min(0.999999999, Math.max(0.00000001, 1 - ay))
+        );
+
+        this.#saturation = s;
+        this.#lightness = l;
         this.#applySLToElements();
         this.#emitInputEvent();
         return;
@@ -442,9 +460,11 @@ export class AppColorPicker extends HTMLElement {
     const s = this.#saturation;
     const l = this.#lightness;
 
-    const y = getYFromLightnessAndX(l, s);
+    const [sv, v] = slToSV(s, l);
 
-    this.#slControl.style.transform = `translate(${s * 100}%, ${y * 100}%)`;
+    this.#slControl.style.transform = `translate(${sv * 100}%, ${
+      (1 - v) * 100
+    }%)`;
     this.#slKnob.style.backgroundColor = `hsl(${h}, ${s * 100}%, ${l * 100}%)`;
   }
 
