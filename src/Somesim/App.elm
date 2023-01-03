@@ -406,8 +406,8 @@ update msg model =
                                 CustomTab ->
                                     [ Just ( "color", Just "custom" )
                                     , Just ( "h", Just (okModel.hsl.h |> String.fromInt) )
-                                    , Just ( "s", Just (okModel.hsl.s * 100 |> floor |> String.fromInt) )
-                                    , Just ( "l", Just (okModel.hsl.l * 100 |> floor |> String.fromInt) )
+                                    , Just ( "s", Just (okModel.hsl.s * 100 |> round |> String.fromInt) )
+                                    , Just ( "l", Just (okModel.hsl.l * 100 |> round |> String.fromInt) )
                                     ]
 
                         query =
