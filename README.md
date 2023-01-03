@@ -15,4 +15,5 @@ MoE ([Master of Epic](http://moepic.com), 日本の MMORPG) の染色システ�
 
 ## ドキュメント
 
+- [変更履歴](./CHANGELOG.md)
 - [コントリビュートに関する諸々](./CONTRIBUTING.md)
