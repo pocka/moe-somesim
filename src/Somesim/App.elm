@@ -10,7 +10,7 @@ import Http
 import Json.Decode as Decode
 import Json.Encode as Encode
 import Path
-import QueryStrings exposing (QueryStrings)
+import QueryStrings
 import Somesim.Flower as Flower
 import Somesim.Hsl as Hsl
 import Somesim.Index as Index
