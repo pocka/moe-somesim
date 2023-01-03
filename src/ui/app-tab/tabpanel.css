@@ -1,0 +1,13 @@
+:host {
+  height: 100%;
+}
+:host([data-state="hidden"]) {
+  display: none;
+}
+:host([data-state="visible"]) {
+  display: block;
+}
+:host(:focus-visible) {
+  outline: none;
+  box-shadow: inset 0 0 0 2px Highlight;
+}

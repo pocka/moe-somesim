@@ -1,0 +1,132 @@
+:host {
+  --_hue-width: var(--app-color-picker--hue-width, 1.6rem);
+  --_hue-knob-width: var(--app-color-picker--hue-knob-width, 1.6rem);
+  --_hue-knob-offset: var(--app-color-picker--hue-knob-offset, 0.4rem);
+  --_sl-knob-size: var(--app-color-picker--sl-knob-size, 1.6rem);
+  --_sl-knob-enlarge: var(--app-color-picker--sl-knob-enlarge, 1.2);
+
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: var(--_hue-knob-offset);
+
+  overflow: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.hue-bg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  background-image: conic-gradient(
+    from 0deg,
+    hsl(0, 100%, 50%),
+    hsl(30, 100%, 50%),
+    hsl(60, 100%, 50%),
+    hsl(90, 100%, 50%),
+    hsl(120, 100%, 50%),
+    hsl(150, 100%, 50%),
+    hsl(180, 100%, 50%),
+    hsl(210, 100%, 50%),
+    hsl(240, 100%, 50%),
+    hsl(270, 100%, 50%),
+    hsl(300, 100%, 50%),
+    hsl(330, 100%, 50%),
+    hsl(360, 100%, 50%)
+  );
+  border-radius: 50%;
+}
+
+.hue-control {
+  position: absolute;
+  top: var(--_hue-knob-offset);
+  left: var(--_hue-knob-offset);
+  width: calc(100% - var(--_hue-knob-offset) * 2);
+  height: calc(100% - var(--_hue-knob-offset) * 2);
+
+  border-radius: 50%;
+  cursor: crosshair;
+}
+
+.hue-knob {
+  position: absolute;
+  top: calc(-1 * var(--_hue-knob-offset));
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: var(--_hue-knob-width);
+  height: calc(var(--_hue-width) + var(--_hue-knob-offset));
+  border: 2px solid hsl(var(--app-color-foreground-normal));
+
+  border-radius: var(--app-radii-control);
+  box-shadow: var(--app-shadow-level1);
+  cursor: grab;
+}
+
+.hue-hole {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(100% - var(--_hue-width) * 2 - var(--_hue-knob-offset) * 2);
+  height: calc(100% - var(--_hue-width) * 2 - var(--_hue-knob-offset) * 2);
+  margin: auto;
+
+  background-color: hsl(var(--app-color-background-level1));
+  border-radius: 50%;
+}
+
+.sl-area {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 55%;
+  aspect-ratio: 1 / 1;
+
+  background-image: linear-gradient(
+      to top,
+      hsla(0, 0%, 0%, 1),
+      hsla(0, 0%, 0%, 0)
+    ),
+    linear-gradient(to right, hsla(0, 0%, 100%, 1), hsla(0, 0%, 100%, 0));
+  border-radius: var(--app-radii-control);
+  box-shadow: var(--app-shadow-level0);
+  cursor: crosshair;
+}
+
+.sl-control {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  pointer-events: none;
+}
+
+.sl-knob {
+  width: var(--_sl-knob-size);
+  height: var(--_sl-knob-size);
+
+  border-radius: 50%;
+  border: 2px solid hsl(var(--app-color-foreground-normal));
+  cursor: grab;
+  pointer-events: all;
+
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out;
+}
+.sl-knob[data-active="true"] {
+  transform: translate(-50%, -50%) scale(var(--_sl-knob-enlarge));
+}

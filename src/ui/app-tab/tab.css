@@ -1,0 +1,22 @@
+:host {
+  display: inline-block;
+  padding: 0.2rem 0.4rem;
+  border-bottom: 2px solid transparent;
+  border-top: 2px solid transparent;
+  font: var(--app-font-body);
+
+  color: hsl(var(--app-color-foreground-dimmed));
+  cursor: pointer;
+}
+:host([aria-selected="true"]) {
+  border-bottom-color: currentColor;
+  color: hsl(var(--app-color-foreground-normal));
+}
+:host([aria-selected="false"]:hover) {
+  background-color: hsl(var(--app-color-action-hover));
+  border-radius: var(--app-radii-control);
+}
+:host(:focus-visible) {
+  color: Highlight;
+  outline: none;
+}

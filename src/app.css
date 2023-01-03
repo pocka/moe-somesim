@@ -20,8 +20,17 @@ somesim-renderer {
   overflow: hidden;
 }
 
-.color-panel {
+.color-panel,
+.color-panel app-tabs {
   height: 100%;
+}
+
+.color-picker-container {
+  padding: 3.2rem;
+}
+
+app-color-picker {
+  max-width: 50vh;
 }
 
 .flower-pane {

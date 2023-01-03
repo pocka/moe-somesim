@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.tablist {
+  flex-grow: 0;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+
+.panel {
+  flex: 1;
+  padding-top: 0.8rem;
+
+  overflow-y: auto;
+}

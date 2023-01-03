@@ -10,8 +10,9 @@ import Http
 import Json.Decode as Decode
 import Json.Encode as Encode
 import Path
-import QueryStrings
+import QueryStrings exposing (QueryStrings)
 import Somesim.Flower as Flower
+import Somesim.Hsl as Hsl
 import Somesim.Index as Index
 import Url
 
@@ -91,6 +92,11 @@ type DraggableItem
     = Flower Flower.Flower
 
 
+type ColorTab
+    = FlowerTab
+    | CustomTab
+
+
 type alias BootedModel =
     { index : RemoteResource Http.Error Index.Index
     , baseUrl : Url.Url
@@ -110,6 +116,8 @@ type alias BootedModel =
     -- 現在のURL
     , url : Url.Url
     , dragging : Maybe DraggableItem
+    , hsl : Hsl.Hsl
+    , colorTab : ColorTab
     }
 
 
@@ -128,6 +136,43 @@ init : Decode.Value -> Url.Url -> Navigation.Key -> ( Model, Cmd Msg )
 init flags url key =
     case Decode.decodeValue decodeFlags flags of
         Ok { baseUrl } ->
+            let
+                query =
+                    url.query
+                        |> Maybe.map QueryStrings.fromString
+
+                colorTab =
+                    query
+                        |> Maybe.andThen (QueryStrings.get "color")
+                        |> Maybe.map Encode.string
+                        |> Maybe.map (Decode.decodeValue colorTabDecoder)
+                        |> Maybe.andThen Result.toMaybe
+                        |> Maybe.withDefault FlowerTab
+
+                hsl : Hsl.Hsl
+                hsl =
+                    { h =
+                        query
+                            |> Maybe.andThen (QueryStrings.get "h")
+                            |> Maybe.andThen String.toInt
+                            |> Maybe.withDefault 0
+                            |> clamp 0 360
+                    , s =
+                        query
+                            |> Maybe.andThen (QueryStrings.get "s")
+                            |> Maybe.andThen String.toFloat
+                            |> Maybe.map (\s -> s / 100)
+                            |> Maybe.withDefault 1.0
+                            |> clamp 0.0 1.0
+                    , l =
+                        query
+                            |> Maybe.andThen (QueryStrings.get "l")
+                            |> Maybe.andThen String.toFloat
+                            |> Maybe.map (\l -> l / 100)
+                            |> Maybe.withDefault 0.5
+                            |> clamp 0.0 1.0
+                    }
+            in
             Booted
                 { index = Idle
                 , baseUrl = baseUrl
@@ -139,6 +184,8 @@ init flags url key =
                 , url = url
                 , key = key
                 , dragging = Nothing
+                , hsl = hsl
+                , colorTab = colorTab
                 }
                 |> update FetchIndex
                 |> chainUpdate FetchFlowerDefinition
@@ -166,6 +213,8 @@ type Msg
     | DragStart DraggableItem
     | DragEnd
     | DropFlower FlowerSlotFocus
+    | UpdateHsl Hsl.Hsl
+    | ChangeColorTab ColorTab
     | NoOp
 
 
@@ -345,11 +394,21 @@ update msg model =
                                     Nothing
 
                         colorQuery =
-                            [ okModel.flowerSlots.slot1 |> Maybe.map (\flower -> ( "s1", Just (Flower.idToString flower.id) ))
-                            , okModel.flowerSlots.slot2 |> Maybe.map (\flower -> ( "s2", Just (Flower.idToString flower.id) ))
-                            , okModel.flowerSlots.slot3 |> Maybe.map (\flower -> ( "s3", Just (Flower.idToString flower.id) ))
-                            , okModel.flowerSlots.slot4 |> Maybe.map (\flower -> ( "s4", Just (Flower.idToString flower.id) ))
-                            ]
+                            case okModel.colorTab of
+                                FlowerTab ->
+                                    [ Just ( "color", Just "flower" )
+                                    , okModel.flowerSlots.slot1 |> Maybe.map (\flower -> ( "s1", Just (Flower.idToString flower.id) ))
+                                    , okModel.flowerSlots.slot2 |> Maybe.map (\flower -> ( "s2", Just (Flower.idToString flower.id) ))
+                                    , okModel.flowerSlots.slot3 |> Maybe.map (\flower -> ( "s3", Just (Flower.idToString flower.id) ))
+                                    , okModel.flowerSlots.slot4 |> Maybe.map (\flower -> ( "s4", Just (Flower.idToString flower.id) ))
+                                    ]
+
+                                CustomTab ->
+                                    [ Just ( "color", Just "custom" )
+                                    , Just ( "h", Just (okModel.hsl.h |> String.fromInt) )
+                                    , Just ( "s", Just (okModel.hsl.s * 100 |> floor |> String.fromInt) )
+                                    , Just ( "l", Just (okModel.hsl.l * 100 |> floor |> String.fromInt) )
+                                    ]
 
                         query =
                             itemQuery
@@ -420,6 +479,13 @@ update msg model =
                         _ ->
                             ( Booted { okModel | dragging = Nothing }, Cmd.none )
 
+                UpdateHsl hsl ->
+                    ( Booted { okModel | hsl = hsl }, Cmd.none )
+
+                ChangeColorTab tab ->
+                    ( Booted { okModel | colorTab = tab }, Cmd.none )
+                        |> chain PersistSelectionToUrl
+
                 NoOp ->
                     ( model, Cmd.none )
 
@@ -460,11 +526,16 @@ preview model =
                                 [ node
                                     "somesim-renderer"
                                     [ attribute "src" (Url.toString image)
-                                    , case model.stain of
-                                        Just color ->
+                                    , case ( model.colorTab, model.stain ) of
+                                        ( CustomTab, _ ) ->
+                                            attribute
+                                                "color"
+                                                (Hsl.toHex model.hsl)
+
+                                        ( FlowerTab, Just color ) ->
                                             attribute "color" (Flower.flowerColorToHex color)
 
-                                        Nothing ->
+                                        _ ->
                                             class ""
                                     ]
                                     []
@@ -658,10 +729,72 @@ flowersPane model =
         ]
 
 
-appMenu : BootedModel -> Html Msg
-appMenu _ =
-    div [ attribute "slot" "menu" ]
-        [ button [] [ text "装備" ]
+colorPickerEventDecoder : Decode.Decoder Hsl.Hsl
+colorPickerEventDecoder =
+    Decode.field "detail"
+        (Decode.map3
+            Hsl.Hsl
+            (Decode.field "hue" Decode.int)
+            (Decode.field "saturation" Decode.float)
+            (Decode.field "lightness" Decode.float)
+        )
+
+
+customColorPane : BootedModel -> Html Msg
+customColorPane model =
+    div [ class "color-picker-container" ]
+        [ node "app-color-picker"
+            [ attribute "hue" (String.fromInt model.hsl.h)
+            , attribute "saturation" (String.fromFloat model.hsl.s)
+            , attribute "lightness" (String.fromFloat model.hsl.l)
+            , on "app-color-input" (Decode.map UpdateHsl colorPickerEventDecoder)
+            , on "app-color-change" (Decode.succeed PersistSelectionToUrl)
+            ]
+            []
+        ]
+
+
+colorTabToString : ColorTab -> String
+colorTabToString t =
+    case t of
+        FlowerTab ->
+            "flower"
+
+        CustomTab ->
+            "custom"
+
+
+colorTabDecoder : Decode.Decoder ColorTab
+colorTabDecoder =
+    Decode.string
+        |> Decode.andThen
+            (\str ->
+                case str of
+                    "flower" ->
+                        Decode.succeed FlowerTab
+
+                    "custom" ->
+                        Decode.succeed CustomTab
+
+                    _ ->
+                        Decode.fail "サポートされていないタブ種別です"
+            )
+
+
+tabChangeEventDecoder : Decode.Decoder Msg
+tabChangeEventDecoder =
+    Decode.at [ "detail", "value" ] colorTabDecoder
+        |> Decode.map ChangeColorTab
+
+
+colorPanel : BootedModel -> Html Msg
+colorPanel model =
+    node "app-tabs"
+        [ attribute "value" (colorTabToString model.colorTab), on "app-tab-change" tabChangeEventDecoder ]
+        [ node "app-tab" [ attribute "slot" "tab", attribute "value" (colorTabToString FlowerTab) ] [ text "花びら" ]
+        , node "app-tab" [ attribute "slot" "tab", attribute "value" (colorTabToString CustomTab) ] [ text "カスタム" ]
+        , node "app-tab-panel" [ attribute "value" (colorTabToString FlowerTab) ] [ flowersPane model ]
+        , node "app-tab-panel" [ attribute "value" (colorTabToString CustomTab) ] [ customColorPane model ]
         ]
 
 
@@ -669,10 +802,9 @@ bootedView : BootedModel -> Html Msg
 bootedView model =
     node "app-layout"
         [ on "dragend" (Decode.succeed DragEnd) ]
-        [ appMenu model
-        , div [ attribute "slot" "item" ] [ indexPane model ]
+        [ div [ attribute "slot" "item" ] [ indexPane model ]
         , preview model
-        , div [ class "color-panel", attribute "slot" "color" ] [ flowersPane model ]
+        , div [ class "color-panel", attribute "slot" "color" ] [ colorPanel model ]
         , div
             [ class "dnd-overlay"
             , case model.dragging of
