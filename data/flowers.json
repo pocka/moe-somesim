@@ -576,5 +576,26 @@
         "color": [29, 38, 80]
       }
     ]
+  },
+  {
+    "id": "r_other",
+    "name": "その他",
+    "children": [
+      {
+        "id": "f_quest_1_1",
+        "name": "サンデューDrop (1)",
+        "color": [80, 41, 41]
+      },
+      {
+        "id": "f_quest_1_2",
+        "name": "サンデューDrop (2)",
+        "color": [51, 6, 3]
+      },
+      {
+        "id": "f_quest_1_3",
+        "name": "サンデューDrop (3)",
+        "color": [58, 6, 38]
+      }
+    ]
   }
 ]
