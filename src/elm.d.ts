@@ -1,3 +1,21 @@
 declare module "*.elm" {
-  export const Elm: any;
+  interface SomesimAppFlags {
+    baseUrl: string;
+  }
+
+  interface SomesimAppApp {}
+
+  export const Elm: {
+    Somesim: {
+      App: {
+        init(opts: { flags: SomesimAppFlags }): SomesimAppApp;
+      };
+    };
+
+    Helpers: {
+      ImageConcat: {
+        init(): any;
+      };
+    };
+  };
 }
