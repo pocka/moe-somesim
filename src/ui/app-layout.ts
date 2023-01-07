@@ -15,7 +15,7 @@ export class AppLayout extends HTMLElement {
 
     // 情報パネル
     const infoPanel = document.createElement("div");
-    infoPanel.classList.add("panel", "info-panel");
+    infoPanel.classList.add("info-panel");
     infoPanel.innerHTML = `<slot name="info"></slot>`;
 
     shadowRoot.appendChild(infoPanel);
@@ -25,41 +25,59 @@ export class AppLayout extends HTMLElement {
 
     shadowRoot.appendChild(mainSlot);
 
-    const isWideEnoughtToOpenBothPanel = window.matchMedia(
-      "(min-width: 1200px)"
-    );
-
     // 装備パネル
-    shadowRoot.appendChild(
-      createPanel({
-        slotName: "item",
-        additionalClassNames: ["item-panel"],
-        defaultOpened: true,
-        icon() {
-          const icon = document.createElement("app-icon-shirt");
+    const shirtIcon = document.createElement("app-icon-shirt");
+    shirtIcon.setAttribute("label", "装備");
 
-          icon.setAttribute("label", "装備");
+    const itemPanel = createPanel({
+      slotName: "item",
+      additionalClassNames: ["item-panel"],
+      defaultOpened: true,
+      icon() {
+        return shirtIcon;
+      },
+    });
 
-          return icon;
-        },
-      })
-    );
+    shadowRoot.appendChild(itemPanel);
 
     // 色パネル
-    shadowRoot.appendChild(
-      createPanel({
-        slotName: "color",
-        additionalClassNames: ["color-panel"],
-        defaultOpened: isWideEnoughtToOpenBothPanel.matches,
-        icon() {
-          const icon = document.createElement("app-icon-frasco");
+    const frascoIcon = document.createElement("app-icon-frasco");
+    frascoIcon.setAttribute("label", "染色液");
 
-          icon.setAttribute("label", "染色液");
+    const colorPanel = createPanel({
+      slotName: "color",
+      additionalClassNames: ["color-panel"],
+      defaultOpened: true,
+      icon() {
+        return frascoIcon;
+      },
+    });
 
-          return icon;
-        },
-      })
-    );
+    shadowRoot.appendChild(colorPanel);
+
+    // ポートレイト用タブ
+    const tabs = document.createElement("div");
+    tabs.classList.add("tab");
+
+    const itemTab = document.createElement("button");
+    itemTab.classList.add("tab--button", "tab--item");
+    itemTab.appendChild(shirtIcon.cloneNode());
+    itemTab.addEventListener("click", () => {
+      itemPanel.setAttribute("data-opened", "");
+      colorPanel.removeAttribute("data-opened");
+    });
+
+    const colorTab = document.createElement("button");
+    colorTab.classList.add("tab--button", "tab--color");
+    colorTab.appendChild(frascoIcon.cloneNode());
+    colorTab.addEventListener("click", () => {
+      itemPanel.removeAttribute("data-opened");
+      colorPanel.setAttribute("data-opened", "");
+    });
+
+    tabs.appendChild(itemTab);
+    tabs.appendChild(colorTab);
+    shadowRoot.appendChild(tabs);
   }
 }
 

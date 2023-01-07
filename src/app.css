@@ -27,10 +27,13 @@ somesim-renderer {
 
 .color-picker-container {
   padding: 3.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 app-color-picker {
-  max-width: 50vh;
+  max-width: min(max(30vh, 40vw), 30rem);
 }
 
 .color-picker-info {

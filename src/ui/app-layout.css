@@ -136,6 +136,7 @@
 }
 
 .info-panel {
+  position: absolute;
   display: inline-flex;
   top: 0;
   left: 50%;
@@ -144,10 +145,92 @@
   min-width: 0;
   width: auto;
   height: auto;
+  border: 1px solid hsl(var(--app-color-border-level0));
   border-top: none;
 
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  background-color: hsl(var(--app-color-background-level1));
+  box-shadow: var(--app-shadow-level0);
+  border-bottom-left-radius: var(--app-radii-panel);
+  border-bottom-right-radius: var(--app-radii-panel);
 
   transform: translateX(-50%);
+}
+
+.tab {
+  display: none;
+}
+
+@media (max-height: 600px) {
+  .panel {
+    max-height: calc(100vh - 3.2rem);
+  }
+}
+
+@media (max-width: 1000px) and (orientation: portrait) {
+  :host {
+    grid-template-rows: repeat(2, minmax(0, 1fr)) max-content;
+    grid-template-columns: 100%;
+    grid-template-areas: "top" "bottom" "tab";
+  }
+
+  .panel {
+    position: relative;
+    grid-area: bottom;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-top: 1px solid hsl(var(--app-color-border-level0));
+
+    border-radius: var(--app-radii-panel);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .panel--header {
+    display: none;
+  }
+
+  .panel--body {
+    width: 100%;
+  }
+
+  .color-panel {
+    transform: translateX(100%);
+  }
+
+  .item-panel {
+    transform: translateX(-100%);
+  }
+
+  .tab {
+    position: relative;
+    display: flex;
+    justify-self: stretch;
+    gap: 4px;
+    border-top: 1px solid hsl(var(--app-color-border-level0));
+
+    background-color: hsl(var(--app-color-background-level2));
+    box-shadow: var(--app-shadow-level1);
+  }
+
+  .tab--button {
+    appearance: none;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 8px;
+    font-size: 2.4rem;
+    border: none;
+
+    background-color: transparent;
+    color: hsl(var(--app-color-foreground-dimmed));
+    cursor: pointer;
+    outline: none;
+  }
+
+  .color-panel[data-opened] ~ .tab > .tab--color,
+  .item-panel[data-opened] ~ .tab > .tab--item {
+    color: hsl(var(--app-color-foreground-normal));
+  }
 }
