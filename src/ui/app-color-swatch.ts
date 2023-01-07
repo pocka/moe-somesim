@@ -119,6 +119,16 @@ export class AppColorSwatch extends HTMLElement {
 
       ev.dataTransfer.setDragImage(this.#dragGhost, 0, 0);
     });
+
+    // Android Chrome は draggable 要素で長押しタッチをすると、 `dragstart` イベントだけ
+    // 発火して `dragend` を発火しないというバグがずっとある。これを回避するためにはタッチ
+    // イベントを拾って Drag and Drop API を別に自前で準備する必要があるが、 CustomElement
+    // 内だけでは完結せず、 Elm でやるとかなりごちゃごちゃしてしまう。モバイルでの利用率や
+    // Drag and Drop の認知度等を考えると対応コストに見合わないため、タッチ入力を検知したら
+    // `draggable` を無理やり外すようにしている。
+    this.addEventListener("touchstart", () => {
+      this.draggable = false;
+    });
   }
 
   connectedCallback() {
