@@ -211,28 +211,18 @@ export class AppColorPicker extends HTMLElement {
 
     this.#hueKnob.classList.add("hue-knob");
 
-    this.#hueControl.classList.add("hue-control");
-    this.#hueControl.addEventListener("mousedown", (ev) => {
-      // 主ボタン以外の場合はドラッグを開始しない
-      if (ev.button !== 0) {
-        return;
-      }
-
-      document.documentElement.style.cursor = "grabbing";
-      this.#hueKnob.style.cursor = "none";
-
-      ev.preventDefault();
-      ev.stopPropagation();
-
-      const { x, y, width, height } = (
-        ev.currentTarget as HTMLDivElement
-      ).getBoundingClientRect();
+    const onHueControlDragStart = (
+      el: HTMLElement,
+      pageX: number,
+      pageY: number
+    ) => {
+      const { x, y, width, height } = el.getBoundingClientRect();
 
       const cx = x + width * 0.5;
       const cy = y + height * 0.5;
 
-      const ax = ev.pageX - cx;
-      const ay = ev.pageY - cy;
+      const ax = pageX - cx;
+      const ay = pageY - cy;
 
       this.#hue = getAngleBetweenVectorsInDegrees(0, -1, ax, ay);
 
@@ -247,6 +237,46 @@ export class AppColorPicker extends HTMLElement {
 
       this.#applyHueToElements();
       this.#emitInputEvent();
+    };
+
+    this.#hueControl.classList.add("hue-control");
+    this.#hueControl.addEventListener("mousedown", (ev) => {
+      // 主ボタン以外の場合はドラッグを開始しない
+      if (ev.button !== 0) {
+        return;
+      }
+
+      document.documentElement.style.cursor = "grabbing";
+      this.#hueKnob.style.cursor = "none";
+
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      onHueControlDragStart(
+        ev.currentTarget as HTMLDivElement,
+        ev.pageX,
+        ev.pageY
+      );
+    });
+    this.#hueControl.addEventListener("touchstart", (ev) => {
+      // シングルタッチのみハンドルする
+      if (ev.touches.length !== 1) {
+        return;
+      }
+
+      const touch = ev.touches.item(0);
+      if (!touch) {
+        return;
+      }
+
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      onHueControlDragStart(
+        ev.currentTarget as HTMLDivElement,
+        touch.pageX,
+        touch.pageY
+      );
     });
     this.#hueControl.appendChild(this.#hueKnob);
     shadow.appendChild(this.#hueControl);
@@ -263,20 +293,12 @@ export class AppColorPicker extends HTMLElement {
 
     this.#slKnob.classList.add("sl-knob");
 
-    this.#slArea.classList.add("sl-area");
-    this.#slArea.addEventListener("mousedown", (ev) => {
-      // 主ボタン以外の場合はドラッグを開始しない
-      if (ev.button !== 0) {
-        return;
-      }
-
-      document.documentElement.style.cursor = "grabbing";
-      this.#slKnob.style.cursor = "none";
-      this.#slKnob.dataset.active = "true";
-
-      const { x, y, width, height } = (
-        ev.currentTarget as HTMLDivElement
-      ).getBoundingClientRect();
+    const onSlAreaDragStart = (
+      el: HTMLElement,
+      pageX: number,
+      pageY: number
+    ) => {
+      const { x, y, width, height } = el.getBoundingClientRect();
 
       this.#dragState = {
         type: DragStateType.DraggingSL,
@@ -288,8 +310,8 @@ export class AppColorPicker extends HTMLElement {
         startLightness: this.lightness,
       };
 
-      const ax = (ev.pageX - x) / width;
-      const ay = (ev.pageY - y) / height;
+      const ax = (pageX - x) / width;
+      const ay = (pageY - y) / height;
 
       const [s, l] = svToSL(ax, 1 - ay);
 
@@ -297,6 +319,40 @@ export class AppColorPicker extends HTMLElement {
       this.#lightness = l;
       this.#applySLToElements();
       this.#emitInputEvent();
+    };
+
+    this.#slArea.classList.add("sl-area");
+    this.#slArea.addEventListener("mousedown", (ev) => {
+      // 主ボタン以外の場合はドラッグを開始しない
+      if (ev.button !== 0) {
+        return;
+      }
+
+      document.documentElement.style.cursor = "grabbing";
+      this.#slKnob.style.cursor = "none";
+      this.#slKnob.dataset.active = "true";
+
+      onSlAreaDragStart(ev.currentTarget as HTMLDivElement, ev.pageX, ev.pageY);
+    });
+    this.#slArea.addEventListener("touchstart", (ev) => {
+      // シングルタッチのみハンドルする
+      if (ev.touches.length !== 1) {
+        return;
+      }
+
+      const touch = ev.touches.item(0);
+      if (!touch) {
+        return;
+      }
+
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      onSlAreaDragStart(
+        ev.currentTarget as HTMLDivElement,
+        touch.pageX,
+        touch.pageY
+      );
     });
 
     this.#slControl.appendChild(this.#slKnob);
@@ -324,23 +380,29 @@ export class AppColorPicker extends HTMLElement {
     this.#applySLToElements();
 
     document.addEventListener("mousemove", this.#onDocumentPointerMove);
+    document.addEventListener("touchmove", this.#onDocumentPointerMove);
 
     document.addEventListener("mouseup", this.#onDocumentPointerEnd);
     document.addEventListener("mouseleave", this.#onDocumentPointerMove);
+    document.addEventListener("touchcancel", this.#onDocumentPointerEnd);
+    document.addEventListener("touchend", this.#onDocumentPointerEnd);
 
     document.addEventListener("keydown", this.#onDocumentKeydown);
   }
 
   disconnectedCallback() {
     document.removeEventListener("mousemove", this.#onDocumentPointerMove);
+    document.removeEventListener("touchmove", this.#onDocumentPointerMove);
 
     document.removeEventListener("mouseup", this.#onDocumentPointerEnd);
     document.removeEventListener("mouseleave", this.#onDocumentPointerMove);
+    document.removeEventListener("touchcancel", this.#onDocumentPointerEnd);
+    document.removeEventListener("touchend", this.#onDocumentPointerEnd);
 
     document.removeEventListener("keydown", this.#onDocumentKeydown);
   }
 
-  #onDocumentPointerMove = (ev: MouseEvent) => {
+  #onDocumentPointerMove = (ev: MouseEvent | TouchEvent) => {
     switch (this.#dragState.type) {
       case DragStateType.Idle:
         return;
@@ -348,11 +410,26 @@ export class AppColorPicker extends HTMLElement {
         ev.preventDefault();
         ev.stopPropagation();
 
+        let pageX: number;
+        let pageY: number;
+        if ("touches" in ev) {
+          const touch = ev.touches.item(0);
+          if (!touch) {
+            return;
+          }
+
+          pageX = touch.pageX;
+          pageY = touch.pageY;
+        } else {
+          pageX = ev.pageX;
+          pageY = ev.pageY;
+        }
+
         const { cx, cy, startX, startY, startHue } = this.#dragState;
 
         // 中心座標から現在のポインターの位置へのベクトル
-        const bx = ev.pageX - cx;
-        const by = ev.pageY - cy;
+        const bx = pageX - cx;
+        const by = pageY - cy;
 
         const degree = getAngleBetweenVectorsInDegrees(startX, startY, bx, by);
 
@@ -366,12 +443,27 @@ export class AppColorPicker extends HTMLElement {
         return;
       }
       case DragStateType.DraggingSL: {
+        let pageX: number;
+        let pageY: number;
+        if ("touches" in ev) {
+          const touch = ev.touches.item(0);
+          if (!touch) {
+            return;
+          }
+
+          pageX = touch.pageX;
+          pageY = touch.pageY;
+        } else {
+          pageX = ev.pageX;
+          pageY = ev.pageY;
+        }
+
         ev.preventDefault();
         ev.stopPropagation();
 
         const { x, y, width, height } = this.#dragState;
-        const ax = Math.min(1, Math.max(0, (ev.pageX - x) / width));
-        const ay = Math.min(1, Math.max(0, (ev.pageY - y) / height));
+        const ax = Math.min(1, Math.max(0, (pageX - x) / width));
+        const ay = Math.min(1, Math.max(0, (pageY - y) / height));
 
         // NOTE: HSVはV=0やV=1 (かつSが特定の値) の場合にHSLへ変換するとSが常に0になってしまう (0除算避け)。
         //       それを防ぐために小数点を使ってギリギリ0除算が起きないような値にしている。
