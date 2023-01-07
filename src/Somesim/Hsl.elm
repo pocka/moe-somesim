@@ -1,4 +1,4 @@
-module Somesim.Hsl exposing (Hsl, toHex)
+module Somesim.Hsl exposing (Hsl, toHex, toRgb)
 
 import Basics.Extra exposing (fractionalModBy)
 import Hex
@@ -35,7 +35,7 @@ toRgb hsl =
                 - a
                 * max -1 (min (min (k - 3) (9 - k)) 1)
                 |> (*) 255
-                |> floor
+                |> round
     in
     { r = f 0
     , g = f 8

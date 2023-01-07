@@ -742,15 +742,44 @@ colorPickerEventDecoder =
 
 customColorPane : BootedModel -> Html Msg
 customColorPane model =
-    div [ class "color-picker-container" ]
-        [ node "app-color-picker"
-            [ attribute "hue" (String.fromInt model.hsl.h)
-            , attribute "saturation" (String.fromFloat model.hsl.s)
-            , attribute "lightness" (String.fromFloat model.hsl.l)
-            , on "app-color-input" (Decode.map UpdateHsl colorPickerEventDecoder)
-            , on "app-color-change" (Decode.succeed PersistSelectionToUrl)
+    let
+        rgb =
+            Hsl.toRgb model.hsl
+    in
+    div []
+        [ div [ class "color-picker-container" ]
+            [ node "app-color-picker"
+                [ attribute "hue" (String.fromInt model.hsl.h)
+                , attribute "saturation" (String.fromFloat model.hsl.s)
+                , attribute "lightness" (String.fromFloat model.hsl.l)
+                , on "app-color-input" (Decode.map UpdateHsl colorPickerEventDecoder)
+                , on "app-color-change" (Decode.succeed PersistSelectionToUrl)
+                ]
+                []
             ]
-            []
+        , div [ class "color-picker-info" ]
+            [ div [ class "color-picker-info--group" ]
+                [ span [ class "color-picker-info--group--label" ] [ text "RGB (0~255)" ]
+                , span [ class "color-picker-info--group--value" ]
+                    [ text (String.fromInt rgb.r)
+                    , text ", "
+                    , text (String.fromInt rgb.g)
+                    , text ", "
+                    , text (String.fromInt rgb.b)
+                    ]
+                ]
+            , div [ class "color-picker-info--group" ]
+                [ span [ class "color-picker-info--group--label" ] [ text "HSL" ]
+                , span [ class "color-picker-info--group--value" ]
+                    [ text (String.fromInt model.hsl.h)
+                    , text ", "
+                    , text (String.fromInt (round (model.hsl.s * 100)))
+                    , text "%, "
+                    , text (String.fromInt (round (model.hsl.l * 100)))
+                    , text "%"
+                    ]
+                ]
+            ]
         ]
 
 
