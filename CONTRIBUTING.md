@@ -82,5 +82,14 @@ npm run dev -- --port 3000
 
 ## フォークする場合
 
+フォークして別にホスティングする場合の手順です。
+
 フォークしたらまずは `src/index.html` 内の OGP タグのハードコーディングされた URL (`https://pocka.github.io/moe-somesim/`) を自分の環境の URL に書き換えてください。
 もしもホストするルートのパスが変わる場合は `.github/workflows/deploy.yml` 内でビルドコマンドに渡しているパスプリフィックスも変更してください。
+
+次に `package.json` ファイルを開いて以下のプロパティを変更します:
+
+- `bugs.url` をクローンしたリポジトリのバグ報告 URL に変更
+- `repository.url` をクローンしたリポジトリの URL に変更
+- `contributors` に自分の情報を追加
+- `config.manual.url` をクローンしたリポジトリ内の `docs/MANUAL.md` への URL に変更

@@ -13,6 +13,13 @@ export class AppLayout extends HTMLElement {
 
     shadowRoot.appendChild(style);
 
+    // 情報パネル
+    const infoPanel = document.createElement("div");
+    infoPanel.classList.add("panel", "info-panel");
+    infoPanel.innerHTML = `<slot name="info"></slot>`;
+
+    shadowRoot.appendChild(infoPanel);
+
     // プレビュー
     const mainSlot = document.createElement("slot");
 

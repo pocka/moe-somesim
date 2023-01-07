@@ -1,4 +1,5 @@
-:root {
+:root,
+::backdrop {
   --app-color-background-level0: 0 0% 8%;
   --app-color-background-level1: 0 0% 12%;
   --app-color-background-level2: 0 0% 16%;

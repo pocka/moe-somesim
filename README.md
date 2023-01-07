@@ -1,6 +1,6 @@
 # MoE そめしむ
 
-![そめしむロゴ](./docs/logo.svg)
+![そめしむロゴ](./data/logo.svg)
 
 ## アプリケーション URL
 

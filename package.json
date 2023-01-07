@@ -3,6 +3,23 @@
   "name": "moe-somesim",
   "version": "5.0.0",
   "license": "Apache-2.0",
+  "author": {
+    "name": "Shota FUJI",
+    "url": "https://github.com/pocka"
+  },
+  "contributors": [],
+  "bugs": {
+    "url": "https://github.com/pocka/moe-somesim/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pocka/moe-somesim"
+  },
+  "config": {
+    "manual": {
+      "url": "https://github.com/pocka/moe-somesim/tree/master/docs/MANUAL.md"
+    }
+  },
   "devDependencies": {
     "elm-format": "^0.8.5",
     "elm-test": "^0.19.1-revision10",

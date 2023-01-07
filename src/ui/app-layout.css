@@ -134,3 +134,20 @@
 .color-panel[data-opened] > .panel--header app-icon-collapse {
   transform: rotate(180deg);
 }
+
+.info-panel {
+  display: inline-flex;
+  top: 0;
+  left: 50%;
+  bottom: auto;
+  margin: 0 auto;
+  min-width: 0;
+  width: auto;
+  height: auto;
+  border-top: none;
+
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  transform: translateX(-50%);
+}

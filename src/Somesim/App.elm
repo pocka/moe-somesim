@@ -1,10 +1,10 @@
-module Somesim.App exposing (main)
+port module Somesim.App exposing (main)
 
 import Browser
 import Browser.Navigation as Navigation
 import Helpers.ImageConcat exposing (Msg(..))
 import Html exposing (..)
-import Html.Attributes exposing (attribute, class, draggable, property, selected)
+import Html.Attributes exposing (attribute, class, draggable, href, property, selected, target)
 import Html.Events exposing (on, onClick, preventDefaultOn)
 import Http
 import Json.Decode as Decode
@@ -15,6 +15,45 @@ import Somesim.Flower as Flower
 import Somesim.Hsl as Hsl
 import Somesim.Index as Index
 import Url
+
+
+
+-- PORTS
+
+
+dialogKindToString : DialogKind -> String
+dialogKindToString kind =
+    case kind of
+        AboutDialog ->
+            "dialog__about"
+
+
+type OutgoingMsg
+    = SendDialogImperativeClose DialogKind
+    | SendDialogImperativeOpen DialogKind
+
+
+port elmToJsPort : Encode.Value -> Cmd msg
+
+
+send : OutgoingMsg -> Cmd msg
+send msg =
+    case msg of
+        SendDialogImperativeClose kind ->
+            elmToJsPort
+                (Encode.object
+                    [ ( "type", Encode.string "SendDialogImperativeClose" )
+                    , ( "id", Encode.string (dialogKindToString kind) )
+                    ]
+                )
+
+        SendDialogImperativeOpen kind ->
+            elmToJsPort
+                (Encode.object
+                    [ ( "type", Encode.string "SendDialogImperativeOpen" )
+                    , ( "id", Encode.string (dialogKindToString kind) )
+                    ]
+                )
 
 
 
@@ -37,25 +76,56 @@ main =
 -- FLAGS
 
 
+type alias Author =
+    { name : String
+    , email : Maybe String
+    , url : Maybe Url.Url
+    }
+
+
 type alias Flags =
-    { baseUrl : Url.Url }
+    { baseUrl : Url.Url
+    , bugReportingUrl : Url.Url
+    , repositoryUrl : Url.Url
+    , authors : ( Author, List Author )
+    , version : String
+    , manualUrl : Url.Url
+    }
+
+
+urlDecoder : Decode.Decoder Url.Url
+urlDecoder =
+    Decode.string
+        |> Decode.andThen
+            (\str ->
+                case Url.fromString str of
+                    Just url ->
+                        Decode.succeed url
+
+                    Nothing ->
+                        Decode.fail ("[" ++ str ++ "] は有効なURLではありません")
+            )
+
+
+authorDecoder : Decode.Decoder Author
+authorDecoder =
+    Decode.map3
+        Author
+        (Decode.field "name" Decode.string)
+        (Decode.field "email" (Decode.maybe Decode.string))
+        (Decode.field "url" (Decode.maybe urlDecoder))
 
 
 decodeFlags : Decode.Decoder Flags
 decodeFlags =
-    Decode.map
+    Decode.map6
         Flags
-        (Decode.field "baseUrl" Decode.string
-            |> Decode.andThen
-                (\str ->
-                    case Url.fromString str of
-                        Just url ->
-                            Decode.succeed url
-
-                        Nothing ->
-                            Decode.fail (str ++ "は有効なURLではありません")
-                )
-        )
+        (Decode.field "baseUrl" urlDecoder)
+        (Decode.field "bugReportingUrl" urlDecoder)
+        (Decode.field "repositoryUrl" urlDecoder)
+        (Decode.field "authors" (Decode.oneOrMore Tuple.pair authorDecoder))
+        (Decode.field "version" Decode.string)
+        (Decode.field "manualUrl" urlDecoder)
 
 
 
@@ -97,6 +167,10 @@ type ColorTab
     | CustomTab
 
 
+type DialogKind
+    = AboutDialog
+
+
 type alias BootedModel =
     { index : RemoteResource Http.Error Index.Index
     , baseUrl : Url.Url
@@ -118,6 +192,14 @@ type alias BootedModel =
     , dragging : Maybe DraggableItem
     , hsl : Hsl.Hsl
     , colorTab : ColorTab
+    , dialog : Maybe DialogKind
+
+    -- バグ報告用URL
+    , bugReportingUrl : Url.Url
+    , repositoryUrl : Url.Url
+    , manualUrl : Url.Url
+    , authors : ( Author, List Author )
+    , version : String
     }
 
 
@@ -135,7 +217,7 @@ chainUpdate msg ( model, a ) =
 init : Decode.Value -> Url.Url -> Navigation.Key -> ( Model, Cmd Msg )
 init flags url key =
     case Decode.decodeValue decodeFlags flags of
-        Ok { baseUrl } ->
+        Ok { baseUrl, bugReportingUrl, repositoryUrl, authors, version, manualUrl } ->
             let
                 query =
                     url.query
@@ -186,6 +268,12 @@ init flags url key =
                 , dragging = Nothing
                 , hsl = hsl
                 , colorTab = colorTab
+                , dialog = Nothing
+                , bugReportingUrl = bugReportingUrl
+                , repositoryUrl = repositoryUrl
+                , manualUrl = manualUrl
+                , authors = authors
+                , version = version
                 }
                 |> update FetchIndex
                 |> chainUpdate FetchFlowerDefinition
@@ -215,6 +303,8 @@ type Msg
     | DropFlower FlowerSlotFocus
     | UpdateHsl Hsl.Hsl
     | ChangeColorTab ColorTab
+    | OpenDialog DialogKind
+    | CloseDialog
     | NoOp
 
 
@@ -485,6 +575,33 @@ update msg model =
                 ChangeColorTab tab ->
                     ( Booted { okModel | colorTab = tab }, Cmd.none )
                         |> chain PersistSelectionToUrl
+
+                OpenDialog kind ->
+                    ( Booted { okModel | dialog = Just kind }
+                    , case okModel.dialog of
+                        Just prev ->
+                            if kind == prev then
+                                Cmd.none
+
+                            else
+                                Cmd.batch
+                                    [ send (SendDialogImperativeClose prev)
+                                    , send (SendDialogImperativeOpen kind)
+                                    ]
+
+                        _ ->
+                            send (SendDialogImperativeOpen kind)
+                    )
+
+                CloseDialog ->
+                    ( Booted { okModel | dialog = Nothing }
+                    , case okModel.dialog of
+                        Just kind ->
+                            send (SendDialogImperativeClose kind)
+
+                        _ ->
+                            Cmd.none
+                    )
 
                 NoOp ->
                     ( model, Cmd.none )
@@ -827,13 +944,92 @@ colorPanel model =
         ]
 
 
+aboutDialog : BootedModel -> Html Msg
+aboutDialog model =
+    node
+        "dialog"
+        [ Html.Attributes.id (dialogKindToString AboutDialog)
+        , on "cancel" (Decode.succeed CloseDialog)
+        ]
+        [ header
+            []
+            [ text "そめしむについて" ]
+        , node "main"
+            []
+            [ img
+                [ class "about-logo"
+                , Html.Attributes.alt "そめしむのロゴ"
+                , Html.Attributes.src
+                    (Path.toString
+                        (Path.resolve
+                            (Path.fromString model.baseUrl.path)
+                            (Path.fromString "logo.svg")
+                        )
+                    )
+                ]
+                []
+            , dl
+                [ class "about-list" ]
+                [ dt [ class "about-list--label" ] [ text "バージョン" ]
+                , dd [ class "about-list--value" ] [ text model.version ]
+                , dt [ class "about-list--label" ] [ text "使い方" ]
+                , Url.toString model.manualUrl
+                    |> (\url -> dd [ class "about-list--value" ] [ a [ href url, target "_blank" ] [ text url ] ])
+                , dt [ class "about-list--label" ] [ text "ソースコード" ]
+                , Url.toString model.repositoryUrl
+                    |> (\url -> dd [ class "about-list--value" ] [ a [ href url, target "_blank" ] [ text url ] ])
+                , dt [ class "about-list--label" ] [ text "不具合報告" ]
+                , Url.toString model.bugReportingUrl
+                    |> (\url -> dd [ class "about-list--value" ] [ a [ href url, target "_blank" ] [ text url ] ])
+                , dt [ class "about-list--label" ] [ text "作者" ]
+                , dd [ class "about-list--value" ]
+                    [ ul []
+                        (Tuple.first model.authors
+                            :: Tuple.second model.authors
+                            |> List.map
+                                (\author ->
+                                    case ( author.url, author.email ) of
+                                        ( Just url, _ ) ->
+                                            li [] [ a [ href (Url.toString url), target "_blank" ] [ text author.name ] ]
+
+                                        ( _, Just email ) ->
+                                            li [] [ a [ href email ] [ text author.name ] ]
+
+                                        _ ->
+                                            li [] [ text author.name ]
+                                )
+                        )
+                    ]
+                ]
+            ]
+        , footer
+            []
+            [ button [ class "button", onClick CloseDialog ] [ text "閉じる" ] ]
+        ]
+
+
+infoPanel : Html Msg
+infoPanel =
+    div [ class "info-panel" ]
+        [ button
+            [ class "icon-button"
+            , Html.Attributes.title "そめしむについて"
+            , attribute "aria-controls" (dialogKindToString AboutDialog)
+            , onClick (OpenDialog AboutDialog)
+            ]
+            [ node "app-icon-question" [] [] ]
+        ]
+
+
 bootedView : BootedModel -> Html Msg
 bootedView model =
     node "app-layout"
         [ on "dragend" (Decode.succeed DragEnd) ]
-        [ div [ attribute "slot" "item" ] [ indexPane model ]
+        [ div [ attribute "slot" "info" ] [ infoPanel ]
+        , div [ attribute "slot" "item" ] [ indexPane model ]
         , preview model
         , div [ class "color-panel", attribute "slot" "color" ] [ colorPanel model ]
+        , aboutDialog model
         , div
             [ class "dnd-overlay"
             , case model.dragging of
