@@ -1,8 +1,8 @@
 :host {
-  --_hue-width: var(--app-color-picker--hue-width, 1.6rem);
-  --_hue-knob-width: var(--app-color-picker--hue-knob-width, 1.6rem);
+  --_hue-width: var(--app-color-picker--hue-width, 2.4rem);
+  --_hue-knob-width: var(--app-color-picker--hue-knob-width, 2.4rem);
   --_hue-knob-offset: var(--app-color-picker--hue-knob-offset, 0.4rem);
-  --_sl-knob-size: var(--app-color-picker--sl-knob-size, 1.6rem);
+  --_sl-knob-size: var(--app-color-picker--sl-knob-size, 2.4rem);
   --_sl-knob-enlarge: var(--app-color-picker--sl-knob-enlarge, 1.2);
 
   position: relative;
@@ -12,6 +12,14 @@
   padding: var(--_hue-knob-offset);
 
   overflow: hidden;
+}
+
+@media (pointer: fine) {
+  :host {
+    --_hue-width: var(--app-color-picker--hue-width, 1.6rem);
+    --_hue-knob-width: var(--app-color-picker--hue-knob-width, 1.6rem);
+    --_sl-knob-size: var(--app-color-picker--sl-knob-size, 1.6rem);
+  }
 }
 
 *,
