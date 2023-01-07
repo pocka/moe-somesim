@@ -27,6 +27,9 @@ dialogKindToString kind =
         AboutDialog ->
             "dialog__about"
 
+        InfoDialog ->
+            "dialog__info"
+
 
 type OutgoingMsg
     = SendDialogImperativeClose DialogKind
@@ -169,6 +172,7 @@ type ColorTab
 
 type DialogKind
     = AboutDialog
+    | InfoDialog
 
 
 type alias BootedModel =
@@ -969,20 +973,20 @@ aboutDialog model =
                 ]
                 []
             , dl
-                [ class "about-list" ]
-                [ dt [ class "about-list--label" ] [ text "バージョン" ]
-                , dd [ class "about-list--value" ] [ text model.version ]
-                , dt [ class "about-list--label" ] [ text "使い方" ]
+                [ class "def-list" ]
+                [ dt [ class "def-list--label" ] [ text "バージョン" ]
+                , dd [ class "def-list--value" ] [ text model.version ]
+                , dt [ class "def-list--label" ] [ text "使い方" ]
                 , Url.toString model.manualUrl
-                    |> (\url -> dd [ class "about-list--value" ] [ a [ href url, target "_blank" ] [ text url ] ])
-                , dt [ class "about-list--label" ] [ text "ソースコード" ]
+                    |> (\url -> dd [ class "def-list--value" ] [ a [ href url, target "_blank" ] [ text url ] ])
+                , dt [ class "def-list--label" ] [ text "ソースコード" ]
                 , Url.toString model.repositoryUrl
-                    |> (\url -> dd [ class "about-list--value" ] [ a [ href url, target "_blank" ] [ text url ] ])
-                , dt [ class "about-list--label" ] [ text "不具合報告" ]
+                    |> (\url -> dd [ class "def-list--value" ] [ a [ href url, target "_blank" ] [ text url ] ])
+                , dt [ class "def-list--label" ] [ text "不具合報告" ]
                 , Url.toString model.bugReportingUrl
-                    |> (\url -> dd [ class "about-list--value" ] [ a [ href url, target "_blank" ] [ text url ] ])
-                , dt [ class "about-list--label" ] [ text "作者" ]
-                , dd [ class "about-list--value" ]
+                    |> (\url -> dd [ class "def-list--value" ] [ a [ href url, target "_blank" ] [ text url ] ])
+                , dt [ class "def-list--label" ] [ text "作者" ]
+                , dd [ class "def-list--value" ]
                     [ ul []
                         (Tuple.first model.authors
                             :: Tuple.second model.authors
@@ -1008,10 +1012,110 @@ aboutDialog model =
         ]
 
 
+infoDialog : BootedModel -> Html Msg
+infoDialog model =
+    node
+        "dialog"
+        [ Html.Attributes.id (dialogKindToString InfoDialog)
+        , on "cancel" (Decode.succeed CloseDialog)
+        ]
+        [ header
+            []
+            [ text "現在の情報" ]
+        , node "main"
+            []
+            [ dl
+                [ class "def-list" ]
+                ([ dt [ class "def-list--label" ] [ text "装備" ]
+                 , case ( model.selectedItem, model.index ) of
+                    ( Just item, Fetched root ) ->
+                        case Index.getAncestors item root of
+                            Just path ->
+                                dd [ class "def-list--value" ]
+                                    (path
+                                        ++ [ item ]
+                                        |> List.map (\i -> span [] [ text (Index.name i) ])
+                                        |> List.intersperse
+                                            (span
+                                                [ class "path-separator" ]
+                                                [ text ">" ]
+                                            )
+                                    )
+
+                            Nothing ->
+                                dd [ class "def-list--value" ] [ text (Index.name item) ]
+
+                    _ ->
+                        dd [ class "def-list--value" ] [ text "未選択" ]
+                 ]
+                    ++ (case model.colorTab of
+                            FlowerTab ->
+                                [ dt [ class "def-list--label" ] [ text "花びら1" ]
+                                , dd
+                                    [ class "def-list--value" ]
+                                    [ text
+                                        (model.flowerSlots.slot1
+                                            |> Maybe.map .name
+                                            |> Maybe.withDefault "空"
+                                        )
+                                    ]
+                                , dt [ class "def-list--label" ] [ text "花びら2" ]
+                                , dd
+                                    [ class "def-list--value" ]
+                                    [ text
+                                        (model.flowerSlots.slot2
+                                            |> Maybe.map .name
+                                            |> Maybe.withDefault "空"
+                                        )
+                                    ]
+                                , dt [ class "def-list--label" ] [ text "花びら3" ]
+                                , dd
+                                    [ class "def-list--value" ]
+                                    [ text
+                                        (model.flowerSlots.slot3
+                                            |> Maybe.map .name
+                                            |> Maybe.withDefault "空"
+                                        )
+                                    ]
+                                , dt [ class "def-list--label" ] [ text "花びら4" ]
+                                , dd
+                                    [ class "def-list--value" ]
+                                    [ text
+                                        (model.flowerSlots.slot4
+                                            |> Maybe.map .name
+                                            |> Maybe.withDefault "空"
+                                        )
+                                    ]
+                                ]
+
+                            CustomTab ->
+                                [ dt [ class "def-list--label" ] [ text "色相 (H)" ]
+                                , dd [ class "def-list--value" ] [ text (String.fromInt model.hsl.h ++ "deg") ]
+                                , dt [ class "def-list--label" ] [ text "彩度 (S)" ]
+                                , dd [ class "def-list--value" ] [ text (String.fromInt (round (model.hsl.s * 100)) ++ "%") ]
+                                , dt [ class "def-list--label" ] [ text "輝度 (L)" ]
+                                , dd [ class "def-list--value" ] [ text (String.fromInt (round (model.hsl.l * 100)) ++ "%") ]
+                                ]
+                       )
+                )
+            ]
+        , footer
+            []
+            [ button [ class "button", onClick CloseDialog ] [ text "閉じる" ] ]
+        ]
+
+
 infoPanel : Html Msg
 infoPanel =
     div [ class "info-panel" ]
         [ button
+            [ class "icon-button"
+            , Html.Attributes.title "現在の情報"
+            , attribute "aria-controls" (dialogKindToString InfoDialog)
+            , onClick (OpenDialog InfoDialog)
+            ]
+            [ node "app-icon-info" [] [] ]
+        , button
             [ class "icon-button"
             , Html.Attributes.title "そめしむについて"
             , attribute "aria-controls" (dialogKindToString AboutDialog)
@@ -1030,6 +1134,7 @@ bootedView model =
         , preview model
         , div [ class "color-panel", attribute "slot" "color" ] [ colorPanel model ]
         , aboutDialog model
+        , infoDialog model
         , div
             [ class "dnd-overlay"
             , case model.dragging of

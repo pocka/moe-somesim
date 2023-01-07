@@ -4,6 +4,7 @@ import { AppFlowerGroup } from "./ui/app-flower-group";
 import {
   AppIconCollapse,
   AppIconFrasco,
+  AppIconInfo,
   AppIconQuestion,
   AppIconShirt,
 } from "./ui/app-icon";
@@ -23,6 +24,7 @@ const components: Record<string, typeof HTMLElement> = {
   "app-flower-group": AppFlowerGroup,
   "app-icon-collapse": AppIconCollapse,
   "app-icon-frasco": AppIconFrasco,
+  "app-icon-info": AppIconInfo,
   "app-icon-question": AppIconQuestion,
   "app-icon-shirt": AppIconShirt,
   "app-layout": AppLayout,

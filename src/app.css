@@ -275,7 +275,7 @@ dialog > main {
   margin-bottom: 0.8rem;
 }
 
-.about-list {
+.def-list {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -284,33 +284,38 @@ dialog > main {
   margin: 0;
 }
 
-.about-list a {
+.def-list a {
   font: var(--app-font-body);
 
   color: hsl(var(--app-color-foreground-normal));
   text-decoration: underline;
   text-decoration-color: hsl(var(--app-color-foreground-dimmed));
 }
-.about-list a:hover {
+.def-list a:hover {
   text-decoration-color: hsl(var(--app-color-foreground-normal));
 }
 
-.about-list--label {
+.def-list--label {
   font: var(--app-font-small);
   margin-bottom: 0.4rem;
   margin-top: 1.6rem;
 
   color: hsl(var(--app-color-foreground-dimmed));
 }
-.about-list--label:first-child {
+.def-list--label:first-child {
   margin-top: 0;
 }
 
-.about-list--value {
+.def-list--value {
   margin: 0;
 }
-.about-list--value ul {
+.def-list--value ul {
   margin: 0;
   padding: 0;
   padding-left: 1.6rem;
+}
+
+.path-separator {
+  margin: 0 0.5em;
+  color: hsl(var(--app-color-foreground-dimmed));
 }
