@@ -34,6 +34,8 @@ dialogKindToString kind =
 type OutgoingMsg
     = SendDialogImperativeClose DialogKind
     | SendDialogImperativeOpen DialogKind
+    | SendPreviewZoomReset
+    | SendPreviewZoom Float
 
 
 port elmToJsPort : Encode.Value -> Cmd msg
@@ -57,6 +59,18 @@ send msg =
                     , ( "id", Encode.string (dialogKindToString kind) )
                     ]
                 )
+
+        SendPreviewZoom zoom ->
+            elmToJsPort
+                (Encode.object
+                    [ ("type", Encode.string "SendPreviewZoom" )
+                    , ( "zoom", Encode.float zoom )
+                    ]
+                )
+
+        SendPreviewZoomReset ->
+            elmToJsPort
+                (Encode.object [("type", Encode.string "SendPreviewZoomReset")])
 
 
 
@@ -175,6 +189,22 @@ type DialogKind
     | InfoDialog
 
 
+type alias ViewportTransform =
+    { x : Float
+    , y : Float
+    , scale : Float
+    }
+
+
+viewportTransformDecoder : Decode.Decoder ViewportTransform
+viewportTransformDecoder =
+    Decode.map3
+        ViewportTransform
+        (Decode.field "x" Decode.float)
+        (Decode.field "y" Decode.float)
+        (Decode.field "scale" Decode.float)
+
+
 type alias BootedModel =
     { index : RemoteResource Http.Error Index.Index
     , baseUrl : Url.Url
@@ -204,6 +234,9 @@ type alias BootedModel =
     , manualUrl : Url.Url
     , authors : ( Author, List Author )
     , version : String
+
+    -- ビューポートの変形
+    , viewportTransform : ViewportTransform
     }
 
 
@@ -278,6 +311,11 @@ init flags url key =
                 , manualUrl = manualUrl
                 , authors = authors
                 , version = version
+                , viewportTransform =
+                    { x = 0
+                    , y = 0
+                    , scale = 1.0
+                    }
                 }
                 |> update FetchIndex
                 |> chainUpdate FetchFlowerDefinition
@@ -309,6 +347,8 @@ type Msg
     | ChangeColorTab ColorTab
     | OpenDialog DialogKind
     | CloseDialog
+    | UpdateViewportTransform ViewportTransform
+    | RunCmd (Cmd Msg)
     | NoOp
 
 
@@ -607,6 +647,12 @@ update msg model =
                             Cmd.none
                     )
 
+                UpdateViewportTransform m ->
+                    ( Booted { okModel | viewportTransform = m }, Cmd.none )
+
+                RunCmd cmd ->
+                    ( model, cmd )
+
                 NoOp ->
                     ( model, Cmd.none )
 
@@ -634,41 +680,55 @@ httpErrorToHtml err =
             text ("レスポンス異常: " ++ reason)
 
 
+cssTransform : ViewportTransform -> String
+cssTransform { x, y, scale } =
+    "translate("
+        ++ String.fromFloat x
+        ++ "px, "
+        ++ String.fromFloat y
+        ++ "px) scale("
+        ++ String.fromFloat scale
+        ++ ")"
+
+
 preview : BootedModel -> Html Msg
 preview model =
-    node "app-preview"
-        []
-        ((case model.selectedItem of
-            Just selectedItem ->
-                case selectedItem of
-                    Index.Item _ image ->
-                        Just
-                            [ node
-                                "somesim-renderer"
-                                [ attribute "src" (Url.toString image)
-                                , case ( model.colorTab, model.stain ) of
-                                    ( CustomTab, _ ) ->
-                                        attribute
-                                            "color"
-                                            (Hsl.toHex model.hsl)
+    node "app-viewport-control"
+        [ on "viewport-input" (Decode.map UpdateViewportTransform (Decode.field "detail" viewportTransformDecoder)) ]
+        [ node "app-preview"
+            [ Html.Attributes.style "transform" (cssTransform model.viewportTransform) ]
+            ((case model.selectedItem of
+                Just selectedItem ->
+                    case selectedItem of
+                        Index.Item _ image ->
+                            Just
+                                [ node
+                                    "somesim-renderer"
+                                    [ attribute "src" (Url.toString image)
+                                    , case ( model.colorTab, model.stain ) of
+                                        ( CustomTab, _ ) ->
+                                            attribute
+                                                "color"
+                                                (Hsl.toHex model.hsl)
 
-                                    ( FlowerTab, Just color ) ->
-                                        attribute "color" (Flower.flowerColorToHex color)
+                                        ( FlowerTab, Just color ) ->
+                                            attribute "color" (Flower.flowerColorToHex color)
 
-                                    _ ->
-                                        class ""
+                                        _ ->
+                                            class ""
+                                    ]
+                                    []
                                 ]
-                                []
-                            ]
 
-                    _ ->
-                        Nothing
+                        _ ->
+                            Nothing
 
-            _ ->
-                Nothing
-         )
-            |> Maybe.withDefault [ span [] [ text "装備を選んでください" ] ]
-        )
+                _ ->
+                    Nothing
+             )
+                |> Maybe.withDefault [ span [] [ text "装備を選んでください" ] ]
+            )
+        ]
 
 
 indexTree : Maybe Index.Index -> Index.Index -> Html Msg
@@ -1107,6 +1167,24 @@ infoPanel : Html Msg
 infoPanel =
     div [ class "info-panel" ]
         [ button
+            [ class "icon-button"
+            , Html.Attributes.title "ズームアウト"
+            , onClick (RunCmd (send (SendPreviewZoom -0.5)))
+            ]
+            [ node "app-icon-zoom-out" [] [] ]
+        , button
+            [ class "icon-button"
+            , Html.Attributes.title "ズームをリセット"
+            , onClick (RunCmd (send SendPreviewZoomReset))
+            ]
+            [ node "app-icon-zoom-reset" [] [] ]
+        , button
+            [ class "icon-button"
+            , Html.Attributes.title "ズームイン"
+            , onClick (RunCmd (send (SendPreviewZoom 0.5)))
+            ]
+            [ node "app-icon-zoom-in" [] [] ]
+        , button
             [ class "icon-button"
             , Html.Attributes.title "現在の情報"
             , attribute "aria-controls" (dialogKindToString InfoDialog)

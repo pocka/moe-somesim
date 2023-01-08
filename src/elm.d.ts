@@ -10,7 +10,9 @@ declare module "*.elm" {
 
   type SomesimAppElmToJsMsg =
     | { type: "SendDialogImperativeClose"; id: string }
-    | { type: "SendDialogImperativeOpen"; id: string };
+    | { type: "SendDialogImperativeOpen"; id: string }
+    | { type: "SendPreviewZoom"; zoom: number }
+    | { type: "SendPreviewZoomReset" };
 
   interface SomesimAppApp {
     ports: {

@@ -152,6 +152,7 @@
   box-shadow: var(--app-shadow-level0);
   border-bottom-left-radius: var(--app-radii-panel);
   border-bottom-right-radius: var(--app-radii-panel);
+  z-index: 5;
 
   transform: translateX(-50%);
 }

@@ -83,3 +83,59 @@ export const AppIconInfo = factory(
   `,
   "情報"
 );
+
+export const AppIconZoomOut = factory(
+  `
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_110_1761)">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M13 23C18.5228 23 23 18.5228 23 13C23 7.47715 18.5228 3 13 3C7.47715 3 3 7.47715 3 13C3 18.5228 7.47715 23 13 23ZM13 26C20.1797 26 26 20.1797 26 13C26 5.8203 20.1797 0 13 0C5.8203 0 0 5.8203 0 13C0 20.1797 5.8203 26 13 26Z" fill="currentColor"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M29.7511 32L19.6318 22.3653L21.7005 20.1926L31.8198 29.8273L29.7511 32Z" fill="currentColor"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M19.6318 14.6508H6.63184V11.6508H19.6318V14.6508Z" fill="currentColor"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_110_1761">
+        <rect width="32" height="32" fill="white"/>
+      </clipPath>
+    </defs>
+  </svg>
+  `,
+  "ズームアウト"
+);
+
+export const AppIconZoomIn = factory(
+  `
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_110_1760)">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M13 23C18.5228 23 23 18.5228 23 13C23 7.47715 18.5228 3 13 3C7.47715 3 3 7.47715 3 13C3 18.5228 7.47715 23 13 23ZM13 26C20.1797 26 26 20.1797 26 13C26 5.8203 20.1797 0 13 0C5.8203 0 0 5.8203 0 13C0 20.1797 5.8203 26 13 26Z" fill="currentColor"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M29.7511 32L19.6318 22.3653L21.7005 20.1926L31.8198 29.8273L29.7511 32Z" fill="currentColor"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M19.6318 14.6508H6.63184V11.6508H19.6318V14.6508Z" fill="currentColor"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M14.6305 6.5V19.5H11.6305V6.5H14.6305Z" fill="currentColor"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_110_1760">
+        <rect width="32" height="32" fill="white"/>
+      </clipPath>
+    </defs>
+  </svg>
+  `,
+  "ズームアウト"
+);
+
+export const AppIconZoomReset = factory(
+  `
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_110_1781)">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M4.19437 17.1861C5.10004 19.0912 6.59915 20.6512 8.46672 21.632C10.3343 22.6128 12.4696 22.9615 14.5521 22.6257C16.6347 22.2899 18.5521 21.2877 20.0168 19.7696C21.4814 18.2515 22.4142 16.2994 22.6751 14.2061C22.9361 12.1129 22.5111 9.99146 21.464 8.16025C20.4169 6.32904 18.8041 4.8868 16.8678 4.04999C14.9314 3.21319 12.7759 3.02694 10.7247 3.51921C8.67349 4.01148 6.83726 5.15571 5.49158 6.78019L2.98878 4.70691C3.63715 3.92421 4.37093 3.22513 5.17278 2.62047C6.58989 1.55184 8.21962 0.778124 9.96625 0.358947C12.7012 -0.297413 15.5752 -0.0490878 18.157 1.06666C20.7389 2.1824 22.8892 4.10538 24.2853 6.547C25.6815 8.98861 26.2481 11.8172 25.9001 14.6082C25.5522 17.3991 24.3085 20.002 22.3557 22.0262C20.4028 24.0503 17.8462 25.3865 15.0695 25.8342C12.2928 26.282 9.44572 25.8171 6.95563 24.5094C5.36536 23.6742 3.97547 22.5241 2.86408 21.1402C2.23522 20.3572 1.69552 19.4994 1.25916 18.5815L4.19437 17.1861Z" fill="currentColor"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M29.7511 32L19.6318 22.3653L21.7005 20.1926L31.8198 29.8273L29.7511 32Z" fill="currentColor"/>
+      <path d="M1.67586 8.90607L1.99454 2.16504L8.25915 7.42168L1.67586 8.90607Z" fill="currentColor"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_110_1781">
+        <rect width="32" height="32" fill="white"/>
+      </clipPath>
+    </defs>
+  </svg>
+
+  `,
+  "ズームリセット"
+);

@@ -7,12 +7,16 @@ import {
   AppIconInfo,
   AppIconQuestion,
   AppIconShirt,
+  AppIconZoomIn,
+  AppIconZoomOut,
+  AppIconZoomReset,
 } from "./ui/app-icon";
 import { AppLayout } from "./ui/app-layout";
 import { AppPreview } from "./ui/app-preview";
 import { AppTab, AppTabPanel, AppTabs } from "./ui/app-tab/mod";
 import { AppTree, AppTreeGroup, AppTreeItem } from "./ui/app-tree";
 import { AppStain } from "./ui/app-stain";
+import { AppViewportControl } from "./ui/app-viewport-control";
 import { SomesimRenderer } from "./somesim-renderer";
 import { Elm } from "./Somesim/App.elm";
 
@@ -27,6 +31,9 @@ const components: Record<string, typeof HTMLElement> = {
   "app-icon-info": AppIconInfo,
   "app-icon-question": AppIconQuestion,
   "app-icon-shirt": AppIconShirt,
+  "app-icon-zoom-in": AppIconZoomIn,
+  "app-icon-zoom-out": AppIconZoomOut,
+  "app-icon-zoom-reset": AppIconZoomReset,
   "app-layout": AppLayout,
   "app-preview": AppPreview,
   "app-tab": AppTab,
@@ -36,6 +43,7 @@ const components: Record<string, typeof HTMLElement> = {
   "app-tree-group": AppTreeGroup,
   "app-tree-item": AppTreeItem,
   "app-stain": AppStain,
+  "app-viewport-control": AppViewportControl,
   "somesim-renderer": SomesimRenderer,
 };
 
@@ -90,6 +98,31 @@ app.ports.elmToJsPort.subscribe((msg) => {
 
       el.addEventListener("click", onDialogClick);
       el.showModal();
+
+      return;
+    }
+    case "SendPreviewZoom": {
+      const el = document.querySelector<AppViewportControl>(
+        "app-viewport-control"
+      );
+      if (!el) {
+        return;
+      }
+
+      el.scale += msg.zoom;
+      el.resetMovement();
+
+      return;
+    }
+    case "SendPreviewZoomReset": {
+      const el = document.querySelector<AppViewportControl>(
+        "app-viewport-control"
+      );
+      if (!el) {
+        return;
+      }
+
+      el.reset();
 
       return;
     }
