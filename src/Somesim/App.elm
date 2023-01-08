@@ -643,24 +643,22 @@ preview model =
                 case selectedItem of
                     Index.Item _ image ->
                         Just
-                            [ div []
-                                [ node
-                                    "somesim-renderer"
-                                    [ attribute "src" (Url.toString image)
-                                    , case ( model.colorTab, model.stain ) of
-                                        ( CustomTab, _ ) ->
-                                            attribute
-                                                "color"
-                                                (Hsl.toHex model.hsl)
+                            [ node
+                                "somesim-renderer"
+                                [ attribute "src" (Url.toString image)
+                                , case ( model.colorTab, model.stain ) of
+                                    ( CustomTab, _ ) ->
+                                        attribute
+                                            "color"
+                                            (Hsl.toHex model.hsl)
 
-                                        ( FlowerTab, Just color ) ->
-                                            attribute "color" (Flower.flowerColorToHex color)
+                                    ( FlowerTab, Just color ) ->
+                                        attribute "color" (Flower.flowerColorToHex color)
 
-                                        _ ->
-                                            class ""
-                                    ]
-                                    []
+                                    _ ->
+                                        class ""
                                 ]
+                                []
                             ]
 
                     _ ->
