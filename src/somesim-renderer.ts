@@ -123,6 +123,11 @@ export class SomesimRenderer extends HTMLElement {
       :host {
         display: block;
       }
+
+      canvas {
+        width: 100%;
+        height: 100%;
+      }
     `;
 
     shadowRoot.appendChild(style);
@@ -267,6 +272,8 @@ export class SomesimRenderer extends HTMLElement {
 
         this.#canvas.width = img.width;
         this.#canvas.height = img.height;
+
+        this.style.aspectRatio = `${img.width} / ${img.height}`;
 
         gl.viewport(0, 0, img.width, img.height);
 
