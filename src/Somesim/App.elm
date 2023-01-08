@@ -63,14 +63,14 @@ send msg =
         SendPreviewZoom zoom ->
             elmToJsPort
                 (Encode.object
-                    [ ("type", Encode.string "SendPreviewZoom" )
+                    [ ( "type", Encode.string "SendPreviewZoom" )
                     , ( "zoom", Encode.float zoom )
                     ]
                 )
 
         SendPreviewZoomReset ->
             elmToJsPort
-                (Encode.object [("type", Encode.string "SendPreviewZoomReset")])
+                (Encode.object [ ( "type", Encode.string "SendPreviewZoomReset" ) ])
 
 
 
