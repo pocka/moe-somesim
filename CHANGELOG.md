@@ -192,7 +192,8 @@
 
 - β 版公開。
 
-[まだバージョン付けされていないもの]: https://github.com/pocka/moe-somesim/compare/v4.0.7...HEAD
+[まだバージョン付けされていないもの]: https://github.com/pocka/moe-somesim/compare/v5.0.0...HEAD
+[5.0.0]: https://github.com/pocka/moe-somesim/compare/v4.0.7...v5.0.0
 [4.0.7]: https://github.com/pocka/moe-somesim/compare/v4.0.6...v4.0.7
 [4.0.6]: https://github.com/pocka/moe-somesim/compare/v4.0.5...v4.0.6
 [4.0.5]: https://github.com/pocka/moe-somesim/compare/v4.0.4...v4.0.5
