@@ -22,6 +22,13 @@ export default defineConfig({
   publicDir: new URL("./data", import.meta.url).pathname,
   build: {
     outDir: new URL("./dist", import.meta.url).pathname,
+    rollupOptions: {
+      input: {
+        main: new URL("./src/index.html", import.meta.url).pathname,
+        imageConcat: new URL("./src/image-concat/index.html", import.meta.url)
+          .pathname,
+      },
+    },
   },
   server: {
     port: 3000,
