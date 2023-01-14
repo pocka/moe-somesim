@@ -1,4 +1,24 @@
-module Somesim.Flower exposing (Definition, Flower, FlowerColor, black, blendFlowerColors, decoder, definitionDecoder, find, flowerColorToHex, idToString, stringToId, zero)
+module Somesim.Flower exposing
+    ( Definition
+    , Flower
+    , FlowerColor
+    , PercentageColor
+    , black
+    , blendFlowerColors
+    , blue
+    , decoder
+    , definitionDecoder
+    , find
+    , findValueByIndex
+    , flowerColorToHex
+    , green
+    , idToString
+    , predefinedValues
+    , red
+    , stringToId
+    , white
+    , zero
+    )
 
 import Hex
 import Json.Decode as Decode
@@ -16,6 +36,11 @@ type alias PercentageColor =
 zero : PercentageColor
 zero =
     PercentageColor 0 0 0
+
+
+maxed : PercentageColor
+maxed =
+    PercentageColor 31 100 255
 
 
 predefinedValues : List PercentageColor
@@ -62,6 +87,26 @@ type alias FlowerColor =
 black : FlowerColor
 black =
     FlowerColor zero zero zero
+
+
+red : FlowerColor
+red =
+    FlowerColor maxed zero zero
+
+
+green : FlowerColor
+green =
+    FlowerColor zero maxed zero
+
+
+blue : FlowerColor
+blue =
+    FlowerColor zero zero maxed
+
+
+white : FlowerColor
+white =
+    FlowerColor maxed maxed maxed
 
 
 findValueByIndex : Int -> List PercentageColor -> Maybe PercentageColor

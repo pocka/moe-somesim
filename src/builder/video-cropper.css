@@ -1,0 +1,66 @@
+:host {
+  --_handle-size: var(--video-cropper--handle-size, 1.6rem);
+
+  display: flex;
+  position: relative;
+  max-width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+video {
+  max-width: 100%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  backdrop-filter: brightness(50%);
+}
+
+.region {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: 1px dashed hsl(0 0% 100%);
+
+  backdrop-filter: brightness(200%);
+  cursor: grab;
+}
+
+.handle {
+  position: absolute;
+  display: block;
+  width: var(--_handle-size);
+  height: var(--_handle-size);
+
+  background-color: hsl(0 0% 100%);
+  border-radius: 50%;
+  cursor: grab;
+}
+.handle[data-position~="top"] {
+  top: calc(var(--_handle-size) * -0.5);
+}
+.handle[data-position~="middle"] {
+  top: calc(50% - var(--_handle-size) * 0.5);
+}
+.handle[data-position~="bottom"] {
+  bottom: calc(var(--_handle-size) * -0.5);
+}
+.handle[data-position~="left"] {
+  left: calc(var(--_handle-size) * -0.5);
+}
+.handle[data-position~="center"] {
+  left: calc(50% - var(--_handle-size) * 0.5);
+}
+.handle[data-position~="right"] {
+  right: calc(var(--_handle-size) * -0.5);
+}

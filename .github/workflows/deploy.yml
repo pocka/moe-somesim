@@ -35,6 +35,11 @@ jobs:
         with:
           node-version: "18.6.0"
 
+      - name: "📦 Denoのセットアップ"
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.29.x
+
       - name: "📦 npmパッケージのインストール"
         run: npm ci
 

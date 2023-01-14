@@ -1,0 +1,117 @@
+.layout {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.steps {
+  flex-shrink: 0;
+  display: flex;
+  gap: 1.6rem;
+  padding: 0.8rem 1.6rem;
+  margin: 0;
+
+  background-color: hsl(var(--app-color-background-level1));
+  box-shadow: var(--app-shadow-level0);
+  overflow-x: auto;
+}
+
+.steps--step {
+  display: inline-block;
+  padding: 0;
+
+  color: hsl(var(--app-color-foreground-disabled));
+  white-space: nowrap;
+}
+.steps--step::before {
+  content: "";
+  display: inline-block;
+  width: 2ch;
+}
+.steps--step:not(:last-child)::after {
+  content: ">";
+  margin-left: 1.6rem;
+
+  color: hsl(var(--app-color-foreground-dimmed));
+}
+.steps--step[data-done]::before {
+  content: "✓";
+}
+.steps--step[data-done] {
+  color: hsl(var(--app-color-foreground-dimmed));
+}
+.steps--step[aria-current="step"] {
+  color: hsl(var(--app-color-foreground-normal));
+}
+
+.page {
+  padding: 0.8rem;
+  width: 100%;
+  max-width: 100rem;
+  margin: 0 auto;
+}
+
+.page-body {
+  margin-top: 1.6rem;
+}
+
+.page-description {
+  color: hsl(var(--app-color-foreground-dimmed));
+}
+
+.page-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.video-preview {
+  max-width: 100%;
+}
+
+.selected-file {
+  margin: 3.2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0.4rem;
+}
+.selected-file--label {
+  font: var(--app-font-small);
+
+  color: hsl(var(--app-color-foreground-dimmed));
+}
+
+.stain--label {
+  --app-color-swatch--size: 1.6rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 2.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.output-stains {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 2.4rem);
+  grid-template-rows: repeat(auto-fill, 2.4rem);
+  gap: 8px;
+}
+
+.output-images {
+  margin-top: 24px;
+  display: flex;
+}
+.output-images > * {
+  max-height: 60vh;
+}

@@ -17,16 +17,20 @@ function normalizePackageJsonPerson(
   };
 }
 
+function resolve(path: string): string {
+  return new URL(path, import.meta.url).pathname;
+}
+
 export default defineConfig({
-  root: new URL("./src", import.meta.url).pathname,
-  publicDir: new URL("./data", import.meta.url).pathname,
+  root: resolve("./src"),
+  publicDir: resolve("./data"),
   build: {
-    outDir: new URL("./dist", import.meta.url).pathname,
+    outDir: resolve("./dist"),
     rollupOptions: {
       input: {
-        main: new URL("./src/index.html", import.meta.url).pathname,
-        imageConcat: new URL("./src/image-concat/index.html", import.meta.url)
-          .pathname,
+        main: resolve("./src/index.html"),
+        imageConcat: resolve("./src/image-concat/index.html"),
+        builder: resolve("./src/builder/index.html"),
       },
     },
   },

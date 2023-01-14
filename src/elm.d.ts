@@ -1,4 +1,12 @@
 declare module "*.elm" {
+  type ElmToJsPort<Msg> = {
+    subscribe(cb: (msg: Msg) => void): () => void;
+  };
+
+  type JsToElmPort<Msg> = {
+    send(msg: Msg): void;
+  };
+
   interface SomesimAppFlags {
     baseUrl: string;
     bugReportingUrl: string;
@@ -16,9 +24,18 @@ declare module "*.elm" {
 
   interface SomesimAppApp {
     ports: {
-      elmToJsPort: {
-        subscribe(cb: (msg: SomesimAppElmToJsMsg) => void): () => void;
-      };
+      elmToJsPort: ElmToJsPort<SomesimAppElmToJsMsg>;
+    };
+  }
+
+  interface HelpersBuilderApp {
+    ports: {
+      createObjectUrl: ElmToJsPort<File>;
+      revokeObjectUrl: ElmToJsPort<string>;
+      receiveObjectUrl: JsToElmPort<{
+        url: string;
+        file: File;
+      }>;
     };
   }
 
@@ -32,6 +49,10 @@ declare module "*.elm" {
     Helpers: {
       ImageConcat: {
         init(): any;
+      };
+
+      Builder: {
+        init(): HelpersBuilderApp;
       };
     };
   };

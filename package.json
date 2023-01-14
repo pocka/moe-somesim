@@ -31,7 +31,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "elm-test"
+    "test": "elm-test",
+    "prepare": "deno bundle --no-npm 'https://deno.land/x/pngs@0.1.1/mod.ts' src/builder/pngs.bundle.js"
   },
   "dependencies": {
     "@fontsource/inter": "^4.5.14",
