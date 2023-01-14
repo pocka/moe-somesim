@@ -9,3 +9,6 @@ elm-stuff
 
 # Elmがコマンドを叩く時に自動で整形するため
 elm.json
+
+# 自動生成ファイル
+src/**/*.bundle.js
