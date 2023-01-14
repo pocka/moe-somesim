@@ -272,7 +272,10 @@ export class SomesimGenerator extends HTMLElement {
       imgA.data[i + 2] = imgA.data[i + 2]! - ab * m;
 
       // 透明度に係数を保存する
-      imgA.data[i + 3] = m * 255;
+      // * 画像を見た時にどの装備のものかわかりやすいように、非染色部分を不透明にしている (1 - m)
+      // * ブラウザやプラットフォームがPNGを圧縮する際に透明ピクセルの色成分が無視されることが
+      //   多いため、完全に透明にならないようにしている
+      imgA.data[i + 3] = (1 - m) * 254 + 1;
     }
 
     this.#ctx.putImageData(imgA, 0, 0);

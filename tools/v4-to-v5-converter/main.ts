@@ -42,7 +42,9 @@ function transferMaskToAlpha(
 
     // ベース画像のRGBをそのまま使い、Aにはマスク画像のRを使う。
     // マスク画像は彩度0のためRだけを参照して問題ない。
-    dest[i + 3] = maskR;
+    // 判別のしやすさのために係数は反転、さらに圧縮対策として
+    // 透明度が0にならないように1~255の範囲に変換する。
+    dest[i + 3] = ((255 - maskR) / 255) * 254 + 1;
   }
 
   return encode(dest, basePng.width, basePng.height);

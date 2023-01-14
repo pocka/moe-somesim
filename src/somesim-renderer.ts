@@ -23,7 +23,7 @@ const fragmentShader = `
 
     vec4 tex = texture2D(uSampler, coord);
 
-    vec3 blended = tex.xyz + (uStain * tex.w);
+    vec3 blended = tex.xyz + (uStain * (1.0 - (((tex.w * 255.0) - 1.0) / 254.0)));
 
     gl_FragColor = vec4(blended, 1);
   }
