@@ -76,6 +76,32 @@ send msg =
                 (Encode.object [ ( "type", Encode.string "SendPreviewZoomReset" ) ])
 
 
+type IncomingMsg
+    = ReceivePastedImage String
+
+
+port jsToElmPort : (Decode.Value -> msg) -> Sub msg
+
+
+receive : (Result Decode.Error IncomingMsg -> msg) -> Sub msg
+receive f =
+    let
+        decoder : Decode.Decoder IncomingMsg
+        decoder =
+            Decode.field "type" Decode.string
+                |> Decode.andThen
+                    (\t ->
+                        case t of
+                            "ReceivePastedImage" ->
+                                Decode.map ReceivePastedImage (Decode.field "url" Decode.string)
+
+                            _ ->
+                                Decode.fail ("不正なメッセージです: type=" ++ t)
+                    )
+    in
+    jsToElmPort (\v -> Decode.decodeValue decoder v |> f)
+
+
 
 -- MAIN
 
@@ -1343,5 +1369,18 @@ view model =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Sub.none
+subscriptions model =
+    case model of
+        Booted _ ->
+            receive
+                (\result ->
+                    case result of
+                        Ok (ReceivePastedImage url) ->
+                            SetUserUploadFile url
+
+                        _ ->
+                            NoOp
+                )
+
+        _ ->
+            Sub.none

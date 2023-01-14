@@ -22,9 +22,12 @@ declare module "*.elm" {
     | { type: "SendPreviewZoom"; zoom: number }
     | { type: "SendPreviewZoomReset" };
 
+  type SomesimAppJsToElmMsg = { type: "ReceivePastedImage"; url: string };
+
   interface SomesimAppApp {
     ports: {
       elmToJsPort: ElmToJsPort<SomesimAppElmToJsMsg>;
+      jsToElmPort: JsToElmPort<SomesimAppJsToElmMsg>;
     };
   }
 

@@ -131,6 +131,37 @@ app.ports.elmToJsPort.subscribe((msg) => {
   }
 });
 
+let pastedFileObjectUrl: string | null = null;
+
+document.addEventListener("paste", (ev) => {
+  ev.preventDefault();
+
+  const png = Array.from(ev.clipboardData?.items || []).find((item) => {
+    return item.type === "image/png";
+  });
+  if (!png) {
+    return;
+  }
+
+  const file = png.getAsFile();
+  if (!file) {
+    return;
+  }
+
+  const url = URL.createObjectURL(file);
+
+  if (pastedFileObjectUrl) {
+    URL.revokeObjectURL(pastedFileObjectUrl);
+  }
+
+  pastedFileObjectUrl = url;
+
+  app.ports.jsToElmPort.send({
+    type: "ReceivePastedImage",
+    url,
+  });
+});
+
 window.addEventListener("dragover", (ev) => {
   ev.preventDefault();
 });
