@@ -25,6 +25,7 @@ export default defineConfig({
   root: resolve("./src"),
   publicDir: resolve("./data"),
   build: {
+    target: "es2022",
     outDir: resolve("./dist"),
     rollupOptions: {
       input: {
