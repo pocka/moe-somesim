@@ -2,6 +2,8 @@ port module Somesim.App exposing (main)
 
 import Browser
 import Browser.Navigation as Navigation
+import File
+import File.Select
 import Helpers.ImageConcat exposing (Msg(..))
 import Html exposing (..)
 import Html.Attributes exposing (attribute, class, draggable, href, property, selected, target)
@@ -14,6 +16,7 @@ import QueryStrings
 import Somesim.Flower as Flower
 import Somesim.Hsl as Hsl
 import Somesim.Index as Index
+import Task
 import Url
 
 
@@ -196,6 +199,12 @@ type alias ViewportTransform =
     }
 
 
+type ItemSelection
+    = NothingSelected
+    | LoadedItem Index.Index
+    | UserUploadFile String
+
+
 viewportTransformDecoder : Decode.Decoder ViewportTransform
 viewportTransformDecoder =
     Decode.map3
@@ -208,7 +217,7 @@ viewportTransformDecoder =
 type alias BootedModel =
     { index : RemoteResource Http.Error Index.Index
     , baseUrl : Url.Url
-    , selectedItem : Maybe Index.Index
+    , selectedItem : ItemSelection
     , flowers : RemoteResource Http.Error Flower.Definition
 
     -- 染色液の合成に利用する花びらスロット
@@ -295,7 +304,7 @@ init flags url key =
             Booted
                 { index = Idle
                 , baseUrl = baseUrl
-                , selectedItem = Nothing
+                , selectedItem = NothingSelected
                 , flowers = Idle
                 , flowerSlots = FlowerSlots Nothing Nothing Nothing Nothing
                 , focus = Slot1
@@ -343,6 +352,9 @@ type Msg
     | DragStart DraggableItem
     | DragEnd
     | DropFlower FlowerSlotFocus
+    | FileDropped File.File
+    | SetUserUploadFile String
+    | OpenFileUploadDialog
     | UpdateHsl Hsl.Hsl
     | ChangeColorTab ColorTab
     | OpenDialog DialogKind
@@ -413,6 +425,8 @@ update msg model =
                                 |> Maybe.andThen (QueryStrings.get "i")
                                 |> Maybe.map Index.stringToId
                                 |> Maybe.andThen (\id -> Index.find id index)
+                                |> Maybe.map LoadedItem
+                                |> Maybe.withDefault NothingSelected
                     in
                     ( Booted { okModel | index = Fetched index, selectedItem = defaultSelected }
                     , Cmd.none
@@ -422,7 +436,7 @@ update msg model =
                     ( Booted { okModel | index = FailedToFetch err }, Cmd.none )
 
                 SelectIndex selected ->
-                    ( Booted { okModel | selectedItem = Just selected }, Cmd.none )
+                    ( Booted { okModel | selectedItem = LoadedItem selected }, Cmd.none )
                         |> chain PersistSelectionToUrl
 
                 FetchFlowerDefinition ->
@@ -521,7 +535,7 @@ update msg model =
                     let
                         itemQuery =
                             case okModel.selectedItem of
-                                Just (Index.Item { id } _) ->
+                                LoadedItem (Index.Item { id } _) ->
                                     Just ( "i", Just (Index.idToString id) )
 
                                 _ ->
@@ -647,6 +661,28 @@ update msg model =
                             Cmd.none
                     )
 
+                FileDropped file ->
+                    ( model
+                    , File.toUrl file
+                        |> Task.attempt
+                            (\r ->
+                                case r of
+                                    Ok url ->
+                                        SetUserUploadFile url
+
+                                    _ ->
+                                        NoOp
+                            )
+                    )
+
+                OpenFileUploadDialog ->
+                    ( model
+                    , File.Select.file [ "image/png" ] FileDropped
+                    )
+
+                SetUserUploadFile url ->
+                    ( Booted { okModel | selectedItem = UserUploadFile url }, Cmd.none )
+
                 UpdateViewportTransform m ->
                     ( Booted { okModel | viewportTransform = m }, Cmd.none )
 
@@ -693,40 +729,44 @@ cssTransform { x, y, scale } =
 
 preview : BootedModel -> Html Msg
 preview model =
+    let
+        maybeUrl =
+            case model.selectedItem of
+                LoadedItem (Index.Item _ image) ->
+                    Just (Url.toString image)
+
+                UserUploadFile url ->
+                    Just url
+
+                _ ->
+                    Nothing
+    in
     node "app-viewport-control"
         [ on "viewport-input" (Decode.map UpdateViewportTransform (Decode.field "detail" viewportTransformDecoder)) ]
         [ node "app-preview"
             [ Html.Attributes.style "transform" (cssTransform model.viewportTransform) ]
-            ((case model.selectedItem of
-                Just selectedItem ->
-                    case selectedItem of
-                        Index.Item _ image ->
-                            Just
-                                [ node
-                                    "somesim-renderer"
-                                    [ attribute "src" (Url.toString image)
-                                    , case ( model.colorTab, model.stain ) of
-                                        ( CustomTab, _ ) ->
-                                            attribute
-                                                "color"
-                                                (Hsl.toHex model.hsl)
+            (case maybeUrl of
+                Just url ->
+                    [ node
+                        "somesim-renderer"
+                        [ attribute "src" url
+                        , case ( model.colorTab, model.stain ) of
+                            ( CustomTab, _ ) ->
+                                attribute
+                                    "color"
+                                    (Hsl.toHex model.hsl)
 
-                                        ( FlowerTab, Just color ) ->
-                                            attribute "color" (Flower.flowerColorToHex color)
+                            ( FlowerTab, Just color ) ->
+                                attribute "color" (Flower.flowerColorToHex color)
 
-                                        _ ->
-                                            class ""
-                                    ]
-                                    []
-                                ]
-
-                        _ ->
-                            Nothing
+                            _ ->
+                                class ""
+                        ]
+                        []
+                    ]
 
                 _ ->
-                    Nothing
-             )
-                |> Maybe.withDefault [ span [] [ text "装備を選んでください" ] ]
+                    [ span [] [ text "装備を選んでください" ] ]
             )
         ]
 
@@ -767,7 +807,16 @@ indexPane model =
         Fetched index ->
             node "app-tree"
                 [ attribute "label" "染色装備" ]
-                [ indexTree model.selectedItem index ]
+                [ indexTree
+                    (case model.selectedItem of
+                        LoadedItem item ->
+                            Just item
+
+                        _ ->
+                            Nothing
+                    )
+                    index
+                ]
 
         FailedToFetch err ->
             httpErrorToHtml err
@@ -1086,7 +1135,7 @@ infoDialog model =
                 [ class "def-list" ]
                 ([ dt [ class "def-list--label" ] [ text "装備" ]
                  , case ( model.selectedItem, model.index ) of
-                    ( Just item, Fetched root ) ->
+                    ( LoadedItem item, Fetched root ) ->
                         case Index.getAncestors item root of
                             Just path ->
                                 dd [ class "def-list--value" ]
@@ -1102,6 +1151,9 @@ infoDialog model =
 
                             Nothing ->
                                 dd [ class "def-list--value" ] [ text (Index.name item) ]
+
+                    ( UserUploadFile _, _ ) ->
+                        dd [ class "def-list--value" ] [ text "ユーザ指定ファイル" ]
 
                     _ ->
                         dd [ class "def-list--value" ] [ text "未選択" ]
@@ -1186,6 +1238,12 @@ infoPanel =
             [ node "app-icon-zoom-in" [] [] ]
         , button
             [ class "icon-button"
+            , Html.Attributes.title "コンピュータにある画像を読み込む"
+            , onClick OpenFileUploadDialog
+            ]
+            [ node "app-icon-folder" [] [] ]
+        , button
+            [ class "icon-button"
             , Html.Attributes.title "現在の情報"
             , attribute "aria-controls" (dialogKindToString InfoDialog)
             , onClick (OpenDialog InfoDialog)
@@ -1201,10 +1259,24 @@ infoPanel =
         ]
 
 
+onDropFile : (File.File -> msg) -> Attribute msg
+onDropFile msg =
+    Html.Events.custom "drop"
+        (Decode.at [ "dataTransfer", "files", "0" ] File.decoder
+            |> Decode.map msg
+            |> Decode.map
+                (\m ->
+                    { message = m, preventDefault = True, stopPropagation = True }
+                )
+        )
+
+
 bootedView : BootedModel -> Html Msg
 bootedView model =
     node "app-layout"
-        [ on "dragend" (Decode.succeed DragEnd) ]
+        [ on "dragend" (Decode.succeed DragEnd)
+        , onDropFile FileDropped
+        ]
         [ div [ attribute "slot" "info" ] [ infoPanel ]
         , div [ attribute "slot" "item" ] [ indexPane model ]
         , preview model
@@ -1233,7 +1305,7 @@ title model =
 
         Booted { selectedItem, index } ->
             case ( selectedItem, index ) of
-                ( Just item, Fetched i ) ->
+                ( LoadedItem item, Fetched i ) ->
                     case Index.getAncestors item i of
                         -- ルートインデックス名を表示しても邪魔なだけなので省く
                         Just (_ :: path) ->

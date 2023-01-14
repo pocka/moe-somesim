@@ -3,6 +3,7 @@ import { AppColorSwatch } from "./ui/app-color-swatch";
 import { AppFlowerGroup } from "./ui/app-flower-group";
 import {
   AppIconCollapse,
+  AppIconFolder,
   AppIconFrasco,
   AppIconInfo,
   AppIconQuestion,
@@ -27,6 +28,7 @@ const components: Record<string, typeof HTMLElement> = {
   "app-color-swatch": AppColorSwatch,
   "app-flower-group": AppFlowerGroup,
   "app-icon-collapse": AppIconCollapse,
+  "app-icon-folder": AppIconFolder,
   "app-icon-frasco": AppIconFrasco,
   "app-icon-info": AppIconInfo,
   "app-icon-question": AppIconQuestion,
@@ -127,4 +129,8 @@ app.ports.elmToJsPort.subscribe((msg) => {
       return;
     }
   }
+});
+
+window.addEventListener("dragover", (ev) => {
+  ev.preventDefault();
 });
