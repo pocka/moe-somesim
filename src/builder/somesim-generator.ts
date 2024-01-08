@@ -109,7 +109,7 @@ export class SomesimGenerator extends HTMLElement {
   }
 
   attributeChangedCallback(
-    name: typeof SomesimGenerator.observedAttributes[number],
+    name: (typeof SomesimGenerator.observedAttributes)[number],
     oldValue: string | null,
     newValue: string | null
   ) {

@@ -387,7 +387,7 @@ export class AppTreeItem extends AppTreeNode {
   }
 
   attributeChangedCallback(
-    name: typeof AppTreeItem.observedAttributes[number],
+    name: (typeof AppTreeItem.observedAttributes)[number],
     oldValue: string | null,
     newValue: string | null
   ) {

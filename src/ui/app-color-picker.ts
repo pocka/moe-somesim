@@ -84,7 +84,7 @@ export class AppColorPicker extends HTMLElement {
   }
 
   attributeChangedCallback(
-    name: typeof AppColorPicker.observedAttributes[number],
+    name: (typeof AppColorPicker.observedAttributes)[number],
     oldValue: string | null,
     newValue: string | null
   ) {

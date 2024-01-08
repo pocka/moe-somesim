@@ -6,7 +6,7 @@ export class AppColorSwatch extends HTMLElement {
   }
 
   attributeChangedCallback(
-    name: typeof AppColorSwatch.observedAttributes[number],
+    name: (typeof AppColorSwatch.observedAttributes)[number],
     oldValue: string | null,
     newValue: string | null
   ) {

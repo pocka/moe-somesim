@@ -49,7 +49,7 @@ export class VideoCropper extends HTMLElement {
   }
 
   attributeChangedCallback(
-    name: typeof VideoCropper.observedAttributes[number],
+    name: (typeof VideoCropper.observedAttributes)[number],
     oldValue: string | null,
     newValue: string | null
   ) {

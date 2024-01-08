@@ -8,7 +8,7 @@ export class AppTab extends HTMLElement {
   }
 
   attributeChangedCallback(
-    name: typeof AppTab.observedAttributes[number],
+    name: (typeof AppTab.observedAttributes)[number],
     oldValue: string | null,
     newValue: string | null
   ) {

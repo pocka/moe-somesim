@@ -133,7 +133,7 @@ export class MatchFrameSeeker extends HTMLElement {
   }
 
   attributeChangedCallback(
-    name: typeof MatchFrameSeeker.observedAttributes[number],
+    name: (typeof MatchFrameSeeker.observedAttributes)[number],
     oldValue: string | null,
     newValue: string | null
   ) {
