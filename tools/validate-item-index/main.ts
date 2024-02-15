@@ -68,7 +68,7 @@ async function main() {
 
   if (args.help) {
     console.log(outdent`
-    そめしむ画像フォーマット移行ツール
+    そめしむ装備インデックスファイル検査ツール
 
     [引数]
     -?, --help    ... このメッセージを表示する
