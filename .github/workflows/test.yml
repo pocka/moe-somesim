@@ -13,7 +13,7 @@ jobs:
       - name: "📦 Node.jsのセットアップ"
         uses: actions/setup-node@v3
         with:
-          node-version: "18.6.0"
+          node-version: "22.9.0"
 
       - name: "📦 Denoのセットアップ"
         uses: denoland/setup-deno@v1
